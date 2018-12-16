@@ -1,7 +1,4 @@
-//
-// Created by oded on 12/16/18.
-//
-//ooooooooooooooooooo
+
 #include "Minus.h"
 
 Minus::Minus(Expression* left, Expression* right){
