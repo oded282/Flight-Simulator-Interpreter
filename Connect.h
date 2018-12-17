@@ -9,10 +9,10 @@ using namespace std;
 class Connect : public Commands {
 
     int port;
-    string ip;
+    char * ip;
 
 public:
-    Connect(int , string);
+    Connect(int , char*);
 
     virtual int execute();
 
