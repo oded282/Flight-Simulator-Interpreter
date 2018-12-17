@@ -1,14 +1,10 @@
-
-
 #include "Connect.h"
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <netdb.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <netinet/in.h>
-
 #include <string>
 #include <strings.h>
 #include <cstring>
