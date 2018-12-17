@@ -3,17 +3,17 @@
 
 #include <string>
 #include "Commands.h"
-#include <arpa/inet.h>
 
 using namespace std;
 
 class Connect : public Commands {
 
     int port;
-    char* ip;
+    string ip;
 
 public:
-    Connect(int port, char* ip);
+    Connect(int , string);
+
     virtual int execute();
 
 };
