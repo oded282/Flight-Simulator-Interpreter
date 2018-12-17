@@ -13,7 +13,7 @@ class Connect : public Commands {
 
 public:
     Connect(int , char*);
-    //xssx
+
 
     virtual int execute();
 
