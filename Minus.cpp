@@ -1,4 +1,3 @@
-
 #include "Minus.h"
 
 Minus::Minus(Expression* left, Expression* right){

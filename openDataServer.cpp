@@ -1,5 +1,22 @@
-//
-// Created by oded on 12/17/18.
-//
-
 #include "openDataServer.h"
+
+
+void openDataServer::openServer() {
+
+
+
+
+
+}
+
+
+
+int openDataServer::execute() {
+
+    // open therade
+
+
+
+
+
+}
