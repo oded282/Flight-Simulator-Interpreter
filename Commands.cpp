@@ -61,15 +61,6 @@ Expression Commands::shuntingYard(string infx) {
         while (tempStack.isEmpty()){
             stack.push(tempStack.pop());
         }
-
-
-
-
-
-
-
-
-
     }
 
 
