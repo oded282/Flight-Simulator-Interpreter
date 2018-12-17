@@ -12,7 +12,8 @@ class Connect : public Commands {
     string ip;
 
 public:
-    Connect(int port, string ip);
+    Connect(int , string);
+
     virtual int execute();
 
 };
