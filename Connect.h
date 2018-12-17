@@ -1,9 +1,10 @@
 #ifndef FLIGHT_SIMULATOR_CONNECT_H
 #define FLIGHT_SIMULATOR_CONNECT_H
 
-#include <cstring>
+#include <string>
 #include "Commands.h"
 
+using namespace std;
 
 class Connect : public Commands {
 
@@ -11,9 +12,8 @@ class Connect : public Commands {
     string ip;
 
 public:
-    Connect(int , string);
+    Connect(int port, string ip);
     virtual int execute();
-    void openServer();
 
 };
 
