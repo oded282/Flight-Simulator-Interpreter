@@ -7,13 +7,10 @@
 
 class openDataServer : public Commands {
 
-    int port;
-    double pace;
 
 public:
-    openDataServer(int port, double pace);
+    openDataServer();
     virtual int execute();
-    void openServer();
 
 };
 
