@@ -1,12 +1,16 @@
-#include <cstdio>
-#include <netinet/in.h>
-#include "openDataServer.h"
-#include <cstdlib>
-#include <unistd.h>
-#include <cstring>
 
-#define EXIT_FAILURE 1
-#define MAX_CLIENT 5
+#include "openDataServer.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <netdb.h>
+#include <unistd.h>
+#include <netinet/in.h>
+
+#include <string.h>
+
+#include <sys/socket.h>
+
 
 void openDataServer::openServer() {
 
@@ -21,50 +25,68 @@ openDataServer::openDataServer(int port, double pace) {
 
 int openDataServer::execute() {
 
-    // open thread
-    int server_fd, new_socket, valread;
-    struct sockaddr_in address;
-    int opt = 1;
-    int addrlen = sizeof(address);
-    char buffer[1024] = {0};
-    char *hello = "Hello from server";
 
-    // Creating socket file descriptor
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
-    {
-        perror("socket failed");
-        exit(EXIT_FAILURE);
-    }
+        int sockfd, newsockfd, portno, clilen;
+        char buffer[256];
+        struct sockaddr_in serv_addr, cli_addr;
+        ssize_t n;
+
+        /* First call to socket() function */
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+
+        if (sockfd < 0) {
+            perror("ERROR opening socket");
+            exit(1);
+        }
+
+        /* Initialize socket structure */
+        bzero((char *) &serv_addr, sizeof(serv_addr));
+        portno = port;
+
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_addr.s_addr = INADDR_ANY;
+        serv_addr.sin_port = htons(portno);
+
+        /* Now bind the host address using bind() call.*/
+        if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+            perror("ERROR on binding");
+            exit(1);
+        }
+
+        /* Now start listening for the clients, here process will
+           * go in sleep mode and will wait for the incoming connection
+        */
+
+        listen(sockfd,5);
+        clilen = sizeof(cli_addr);
+
+        /* Accept actual connection from the client */
+        newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+
+        if (newsockfd < 0) {
+            perror("ERROR on accept");
+            exit(1);
+        }
+
+        /* If connection is established then start communicating */
+        while (true) {
+            bzero(buffer, 256);
+            n = read(newsockfd, buffer, 255);
+
+            if (n < 0) {
+                perror("ERROR reading from socket");
+                break;
+            }
+            sleep(1000/(unsigned)pace);
+        }
 
 
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt)))
-    {
-        perror("socket failed");
-        exit(EXIT_FAILURE);
-    }
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(port);
-
-    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0)
-    {
-        perror("bind failed");
-        exit(EXIT_FAILURE);
-    }
-
-    if (listen(server_fd, MAX_CLIENT) < 0)
-    {
-        perror("listen");
-        exit(EXIT_FAILURE);
-    }
-    if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
-                             (socklen_t*)&addrlen))<0)
-    {
-        perror("accept");
-        exit(EXIT_FAILURE);
-    }
-    valread = read( new_socket , buffer, 1024);
-    printf("%s\n",buffer );
-    send(new_socket , hello , strlen(hello) , 0 );
-    printf("Hello message sent\n");
+        /* Write a response to the client */
+        /*
+        n = write(newsockfd,"I got your message",18);
+        if (n < 0) {
+            perror("ERROR writing to socket");
+            exit(1);
+        }
+        */
 }
