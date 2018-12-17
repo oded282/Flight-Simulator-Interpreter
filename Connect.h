@@ -9,7 +9,7 @@ using namespace std;
 class Connect : public Commands {
 
     int port;
-    char * ip;
+    char* ip;
 
 public:
     Connect(int , char*);

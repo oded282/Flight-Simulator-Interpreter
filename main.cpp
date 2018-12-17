@@ -1,19 +1,12 @@
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <iterator>
-#include <sstream>
 
+#include <sstream>
+#include <stack>
 using namespace std;
 
 
 
 /*
 int main(int argc, char* argv[]) {
-
-
-
 
     return 0;
 
