@@ -21,7 +21,7 @@ class Commands {
 
     void cleanWhiteSpaces(string &sentence);
 
-
+//wewd
 
 };
 
