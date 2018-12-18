@@ -66,6 +66,7 @@ bool Commands:: checkForValidation(string str){
     if (countParenthesis != 0){
         return false;
     }
+    return true;
 }
 
 
@@ -100,9 +101,8 @@ void readString(string::iterator &itr ,stack<char>& stack , string infx){
         str.push_back(*itr);
         itr++;
     }
-    if (*itr == '(') {
-        stack.push('(');
-        itr++;
+    if (!str.empty()) {
+        stack.push(*itr);
     }
 }
 
@@ -158,7 +158,6 @@ void pointOnOperator(string::iterator& itr , stack<char>& stack){
 Expression* Commands::shuntingYard(string infx) {
     queue<string> queue;
     stack<char> stack;
-    string str;
     string::iterator itr;
 
     if (!checkForValidation(infx)){
