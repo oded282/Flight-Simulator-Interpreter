@@ -1,10 +1,5 @@
-//
-// Created by oded on 12/18/18.
-//
-
 #ifndef FLIGHT_SIMULATOR_SYMBOLTABLE_H
 #define FLIGHT_SIMULATOR_SYMBOLTABLE_H
-
 
 #include "Var.h"
 

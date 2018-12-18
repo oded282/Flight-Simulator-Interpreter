@@ -1,13 +1,11 @@
-//
-// Created by oded on 12/18/18.
-//
-
 #include "mapCommand.h"
+#include "Commands.h"
+
 
 /*
  * This func add command to the map.
  */
-void mapCommand::addCommand(string symbol,Commands command){
+void mapCommand::addCommand(string symbol,Commands& command){
     commandMap[symbol] = command;
 }
 

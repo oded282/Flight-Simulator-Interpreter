@@ -4,25 +4,29 @@
 #include <string>
 #include <map>
 #include "Expression.h"
-#include "mapCommand.h"
 
 using namespace std;
+
+class mapCommand;
+class symbolMap;
 
 
 class Commands {
 
-    mapCommand commandMap;
-    symbolMap symbolTable;
+    mapCommand* commandMap;
+    symbolMap* symbolTable;
 
 public:
-    string charToString(char c);
+    Commands(){};
+
+//string charToString(char c);
     bool checkForValidation(string);
-    virtual int execute() = 0;
+    virtual int execute(){};
     void cleanWhiteSpaces(string &sentence);
     Expression* shuntingYard(string);
     bool isdigit(char);
     bool isCharacter(char);
-    int isOperator(char c);
+//    int isOperator(char c);
 
 
 
