@@ -8,13 +8,14 @@
 using namespace std;
 
 class mapCommand;
-class symbolMap;
+class symbolTable;
 
 
 class Commands {
 
+protected:
     mapCommand* commandMap;
-    symbolMap* symbolTable;
+    symbolTable* table; // לשבנות אצל אלמוג את השם לtable
 
 public:
     Commands(){};

@@ -8,6 +8,7 @@
 class Plus : public binaryExpression
 {
 public:
+    Plus(Expression* left, Expression* right) : binaryExpression(left , right){};
     virtual double calculate();
 
 };

@@ -1,7 +1,6 @@
 
+#include "Commands.h"
 #include "symbolTable.h"
-
-
 
 /*
  * This func add new command to the map.
@@ -28,4 +27,3 @@ Var* symbolTable::getSymbol(string symbol){
 const map<string, Var> &symbolTable::getSymbolMap() const {
     return symbolMap;
 }
-

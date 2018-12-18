@@ -11,6 +11,7 @@ class Minus : public binaryExpression{
 
 
 public:
+    Minus(Expression* left, Expression* right) : binaryExpression(left , right){};
     virtual double calculate();
 };
 

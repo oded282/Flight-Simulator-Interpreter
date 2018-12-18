@@ -1,7 +1,3 @@
-//
-// Created by oded on 12/18/18.
-//
-
 #ifndef FLIGHT_SIMULATOR_VAR_H
 #define FLIGHT_SIMULATOR_VAR_H
 
@@ -14,6 +10,7 @@ class Var : Commands{
 public:
     virtual int execute();
     Var(){};
+    Var(string sentence, double value);
 
     const string &getSentence() const;
     void setSentence(const string &sentence);

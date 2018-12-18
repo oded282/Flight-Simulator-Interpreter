@@ -1,6 +1,3 @@
-//
-// Created by oded on 12/18/18.
-//
 
 #include "binaryExpression.h"
 

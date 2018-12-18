@@ -1,6 +1,4 @@
-//
-// Created by oded on 12/18/18.
-//
+
 
 #ifndef FLIGHT_SIMULATOR_BINARYEXPRESSION_H
 #define FLIGHT_SIMULATOR_BINARYEXPRESSION_H
@@ -8,7 +6,7 @@
 
 #include "Expression.h"
 
-class binaryExpression : Expression {
+class binaryExpression : public Expression {
 
 protected:
     Expression* left;

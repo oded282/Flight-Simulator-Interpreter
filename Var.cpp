@@ -1,12 +1,14 @@
-//
-// Created by oded on 12/18/18.
-//
 
 #include "Var.h"
 
 
 int Var::execute(){
 
+}
+
+Var:: Var(string sentence, double value){
+    Var::sentence = sentence;
+    Var::value = value;
 }
 
 const string &Var::getSentence() const {

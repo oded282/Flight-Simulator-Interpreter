@@ -7,6 +7,7 @@ class symbolTable {
     map<string,Var> symbolMap;
 
 public:
+
     const map<string, Var> &getSymbolMap() const;
 
     void addSymbol(string symbol,Var var);

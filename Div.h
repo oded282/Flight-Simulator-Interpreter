@@ -10,6 +10,7 @@ class Div : public binaryExpression{
 
 public:
     virtual double calculate();
+    Div(Expression* left, Expression* right) : binaryExpression(left , right){};
 
 };
 
