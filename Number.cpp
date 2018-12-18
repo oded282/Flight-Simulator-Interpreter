@@ -12,3 +12,4 @@ Number:: Number(double number){
 double Number:: calculate(){
     return number;
 }
+

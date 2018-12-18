@@ -5,14 +5,12 @@
 
 
 #include "Expression.h"
+#include "binaryExpression.h"
 
-class Minus : public Expression{
+class Minus : public binaryExpression{
 
-    Expression* left;
-    Expression* right;
 
 public:
-    Minus(Expression* left, Expression* right);
     virtual double calculate();
 };
 

@@ -3,14 +3,12 @@
 
 
 #include "Expression.h"
+#include "binaryExpression.h"
 
-class Mult : Expression
+class Mult : binaryExpression
 {
-    Expression* left;
-    Expression* right;
 
 public:
-    Mult(Expression* ,Expression*);
     virtual double calculate();
 };
 

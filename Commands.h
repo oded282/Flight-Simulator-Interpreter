@@ -4,14 +4,16 @@
 #include <string>
 #include <map>
 #include "Expression.h"
+#include "mapCommand.h"
 
 using namespace std;
 
 
 class Commands {
 
-    //map<string, Commands> commandMap;
-    //map<string, Var> symbolTable;
+    mapCommand commandMap;
+    symbolMap symbolTable;
+
 public:
     string charToString(char c);
     bool checkForValidation(string);

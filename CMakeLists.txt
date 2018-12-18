@@ -3,4 +3,4 @@ project(flight_simulator)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(flight_simulator main.cpp Expression.h Minus.cpp Minus.h Number.cpp Number.h Plus.h Plus.cpp Mult.h Mult.cpp Div.h Div.cpp openDataServer.cpp openDataServer.h Commands.h Connect.cpp Connect.h dataReaderServer.cpp dataReaderServer.h Lexer.cpp Lexer.h Commands.cpp Parser.cpp Parser.h)
+add_executable(flight_simulator main.cpp Expression.h Minus.cpp Minus.h Number.cpp Number.h Plus.h Plus.cpp Mult.h Mult.cpp Div.h Div.cpp openDataServer.cpp openDataServer.h Commands.h Connect.cpp Connect.h dataReaderServer.cpp dataReaderServer.h Lexer.cpp Lexer.h Commands.cpp Parser.cpp Parser.h Var.cpp Var.h binaryExpression.cpp binaryExpression.h mapCommand.cpp mapCommand.h symbolTable.cpp symbolTable.h)

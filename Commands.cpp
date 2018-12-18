@@ -164,6 +164,7 @@ Expression* Commands::shuntingYard(string infx) {
 
     return nullptr;
 }
+
 int main(){
     string string1 = "5*(10+3)/4";
     string string2 = "(5-6)*(10+3)/4";
