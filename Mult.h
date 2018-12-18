@@ -2,7 +2,7 @@
 #define FILGHT_SIMULATOR_MULT_H
 #include "binaryExpression.h"
 
-class Mult : binaryExpression
+class Mult : public binaryExpression
 {
 
 public:

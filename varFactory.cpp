@@ -68,7 +68,7 @@ int varFactory::execute(string sentence) {
     var->setSentence(vector[0]);
     table->addSymbol(vector[0],*var);
 }
-
+/*
 int main(){
     varFactory factory;
     vector<string> vector;
@@ -76,3 +76,4 @@ int main(){
     factory.getVariables(s,vector);
 
 }
+*/

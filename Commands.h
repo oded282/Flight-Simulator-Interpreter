@@ -3,6 +3,7 @@
 #include <stack>
 #include <string>
 #include <map>
+#include <queue>
 #include "Expression.h"
 
 using namespace std;
@@ -14,7 +15,7 @@ class symbolTable;
 class Commands {
 protected:
     mapCommand* commandMap;
-    symbolTable* symbolTable;
+    symbolTable* table;
 
 public:
     Commands(){};
@@ -25,7 +26,7 @@ public:
     void cleanWhiteSpaces(string &sentence);
     Expression* shuntingYard(string);
     queue<string> putInQueue(string&);
-    Expression* fromStringToExpresion(string);
+    Expression* fromStringToExpresion(string,stack<Expression*>&);
     bool isdigit(char);
     bool isCharacter(char);
 //    int isOperator(char c);
