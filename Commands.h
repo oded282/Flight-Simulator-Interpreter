@@ -12,10 +12,9 @@ class symbolTable;
 
 
 class Commands {
-
 protected:
     mapCommand* commandMap;
-    symbolTable* table; // לשבנות אצל אלמוג את השם לtable
+    symbolTable* symbolTable;
 
 public:
     Commands(){};
@@ -25,6 +24,8 @@ public:
     virtual int execute(){};
     void cleanWhiteSpaces(string &sentence);
     Expression* shuntingYard(string);
+    queue<string> putInQueue(string&);
+    Expression* fromStringToExpresion(string);
     bool isdigit(char);
     bool isCharacter(char);
 //    int isOperator(char c);

@@ -4,6 +4,8 @@
 //#include "mapCommand.h"
 //#include "symbolTable.h"
 #include "Commands.h"
+#include "Number.h"
+#include "Mult.h"
 
 using namespace std;
 
@@ -95,14 +97,14 @@ void Commands::cleanWhiteSpaces(string &sentence) {
 //
 //}
 
-void readString(string::iterator &itr ,stack<char>& stack , string infx){
+void readString(string::iterator &itr ,queue<string>& queue , string& infx){
     string str;
     while (itr != infx.end() && isOperator(*itr) == 0) {
         str.push_back(*itr);
         itr++;
     }
     if (!str.empty()) {
-        stack.push(*itr);
+        queue.push(str);
     }
 }
 
@@ -155,7 +157,7 @@ void pointOnOperator(string::iterator& itr , stack<char>& stack){
 
 }
 
-Expression* Commands::shuntingYard(string infx) {
+queue<string> Commands:: putInQueue(string& infx ){
     queue<string> queue;
     stack<char> stack;
     string::iterator itr;
@@ -169,7 +171,7 @@ Expression* Commands::shuntingYard(string infx) {
         openParenthesis(itr , stack);
 
         // check if itr point on number or var.
-        readString(itr ,stack ,  infx);
+        readString(itr ,queue ,  infx);
 
         // check if itr point on ')'.
         closeParenthesis(itr , stack , queue);
@@ -184,6 +186,49 @@ Expression* Commands::shuntingYard(string infx) {
         stack.pop();
     }
 
+}
+
+Expression* Commands::fromStringToExpresion(string s , stack<Expression*>& stack){
+
+    if (isdigit(s[0])){
+        stack.push(new Number(stoi(s)));
+        return stack.top();
+    }
+    if (isCharacter(s[0])){
+        stack.push(this->symbolTable->getSymbol(s))
+        return stack.top();
+    }
+
+    switch (s){
+        case "*":
+            Expression* e1 = stack.top();
+            stack.pop();
+            Expression* e2 = stack.top();
+            stack.pop();
+
+            return new Mult(e1 , e2);
+
+
+
+    }
+
+
+
+}
+
+
+Expression* Commands::shuntingYard(string infx) {
+
+    queue<string> queue = putInQueue(infx);
+
+    while (!queue.empty()) {
+
+        string str;
+
+        str = queue.front();
+
+        if ()
+    }
     return nullptr;
 }
 
