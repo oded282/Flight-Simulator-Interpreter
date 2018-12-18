@@ -6,24 +6,76 @@
 
 using namespace std;
 
-bool Commands::isNumber(char c) {
+
+bool Commands:: checkForValidation(string str){
+    int countParenthesis = 0;
+    string::iterator itr;
+    for (itr = str.begin() ; itr != str.end() ; itr++) {
+        // check if the is to operators in a row.
+        if (isOperator(*itr) > 1 && isOperator(*(itr + 1)) > 1) {
+            return false;
+        }
+        // check if the is "x(..." x is number or var.
+        if (isOperator(*itr) == 0 && *(itr + 1) == '(') {
+            return false;
+        }
+        if (*itr == '(') {
+            countParenthesis++;
+        }
+        // check of there is ')' with '(' before.
+        if (*itr == ')'){
+            if (countParenthesis > 0) {
+                countParenthesis--;
+            } else {
+                return false;
+            }
+        }
+        if (itr)
+
+
+
+
+
+
+
+    }
+
+    if (countParenthesis != 0){
+        return false;
+    }
+
+
+
+}
+
+
+string Commands:: charToString(char c){
+    string s(1, c);
+    return s;
+}
+
+bool Commands:: isCharacter(char c){
+    return (c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A');
+}
+
+bool Commands::isdigit(char c) {
     return c <= '9' && c >= '0';
 }
 
 int Commands::isOperator(char c) {
     switch (c) {
         case '+':
-            return 1;
+            return 2;
         case '-':
-            return 1;
+            return 2;
         case '/':
-            return 2;
+            return 3;
         case '*':
-            return 2;
+            return 3;
         case ')':
-            return -1;
+            return 1;
         case '(':
-            return -1;
+            return 1;
         default:
             return 0;
     }
@@ -46,44 +98,70 @@ Expression* Commands::shuntingYard(string infx) {
     vector<char> temp;
     string str;
     string::iterator itr;
-    for (itr = infx.begin(); itr != infx.end(); itr++) {
+
+    for (itr = infx.begin(); itr != (infx.end() + 1); itr++) {
+        // check if itr point on '('.
         if (*itr == '(') {
             stack.push('(');
             itr++;
         }
-        while (isOperator(*itr) == 0) {
+        // check if itr point on number or var.
+        str = "";
+        while (itr != infx.end() && isOperator(*itr) == 0) {
             str.push_back(*itr);
             itr++;
         }
-        //TODO
-        queue.push(str);
-        str = "";
+
+        //TODO check if the var is exists
+
+        if (!str.empty()) {
+            // push the number or var to the queue.
+            queue.push(str);
+        }
+        // check if itr point on ')'.
         if (*itr == ')') {
             while (true) {
+                // push all the operator in the top of the stack to the queue,
+                // until there is '(' on the top of the stack.
                 if (stack.top() != '(') {
-                    queue.push(stack.top());
+                    queue.push(charToString(stack.top()));
                     stack.pop();
                 } else {
                     stack.pop();
+                    itr++;
                     break;
                 }
             }
         }
+        // if itr point on operator.
+        if (isOperator(*itr) != 0) {
+            while (true) {
 
-        while (true) {
-            if (stack.empty() || isOperator(*itr) > isOperator(stack.top())) {
-                stack.push(*itr);
-                break;
+                if (stack.empty() || isOperator(*itr) >= isOperator(stack.top())) {
+                    //the stack is empty or the operator in the itr is with higher priority.
+                    //push to the stack.
+                    stack.push(*itr);
+                    break;
+                }
+                //else save the top operator on the stack and pop the operator.
+                temp.push_back(stack.top());
+                stack.pop();
+                itr++;
             }
-            temp.push_back(stack.top());
-            stack.pop();
         }
+        // return all the operator to the stack.
         while (!temp.empty()) {
             stack.push(temp[temp.size() - 1]);
             temp.pop_back();
         }
 
     }
+    // put all in the queue.
+    while (!stack.empty()){
+        queue.push(charToString(stack.top()));
+        stack.pop();
+    }
+
     return nullptr;
 }
 int main(){

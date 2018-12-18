@@ -13,10 +13,13 @@ class Commands {
     //map<string, Commands> commandMap;
     //map<string, Var> symbolTable;
 public:
+    string charToString(char c);
+    bool checkForValidation(string);
     virtual int execute() = 0;
     void cleanWhiteSpaces(string &sentence);
     Expression* shuntingYard(string);
-    bool isNumber(char);
+    bool isdigit(char);
+    bool isCharacter(char);
     int isOperator(char c);
 
 
