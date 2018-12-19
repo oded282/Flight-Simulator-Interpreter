@@ -1,17 +1,20 @@
 #include <sstream>
 #include <algorithm>
 #include <iostream>
-//#include "mapCommand.h"
-//#include "symbolTable.h"
+
 #include "Commands.h"
 #include "Number.h"
-#include "Mult.h"
-#include "Div.h"
-#include "Plus.h"
-#include "Minus.h"
+#include "binaryExpression.h"
+
+
+#define MULT_OR_DIV 3
+#define OPERATOR 1
+#define NOT_OPERATOR 0
 
 using namespace std;
 
+//check if the char is operator
+//return 0 if not ,1 if '(' or ')' ,2 if '+' or '-' else 3 its '*' or '/'.
 int isOperator(char c) {
     switch (c) {
         case '+':
@@ -32,25 +35,29 @@ int isOperator(char c) {
 
 }
 
+//check if the string is ligal.
 bool Commands::checkForValidation(string str) {
     int countParenthesis = 0;
     string::iterator itr;
+    //run over the string char by char.
     for (itr = str.begin(); itr != str.end(); itr++) {
-        if (itr == str.begin() && isOperator(*itr) == 3){
+        // check if the first char is operator '*' or '/'.
+        if (itr == str.begin() && isOperator(*itr) == MULT_OR_DIV){
             return false;
         }
         // check if the is to operators in a row.
-        if (isOperator(*itr) > 1 && isOperator(*(itr + 1)) > 1) {
+        if (isOperator(*itr) > OPERATOR && isOperator(*(itr + 1)) > OPERATOR) {
             return false;
         }
         // check if the is "x(..." x is number or var.
-        if (isOperator(*itr) == 0 && *(itr + 1) == '(') {
+        if (isOperator(*itr) == NOT_OPERATOR && *(itr + 1) == '(') {
             return false;
         }
+        //count the open parenthesis.
         if (*itr == '(') {
             countParenthesis++;
         }
-        // check of there is ')' with '(' before.
+        // check if there is ')' with '(' before.
         if (*itr == ')') {
             if (countParenthesis > 0) {
                 countParenthesis--;
@@ -59,48 +66,44 @@ bool Commands::checkForValidation(string str) {
             }
         }
 
-
         //TODO check if the var is exists
         // check valid var
 //       string var;
 //       while (isCharacter(*itr)){
-
-
 //            itr++;
 //       }
-
     }
-
-    if (countParenthesis != 0) {
-        return false;
-    }
-    return true;
+    return countParenthesis == 0;
 }
 
-
-string charToString(char c) {
-    string s(1, c);
-    return s;
-}
-
-bool Commands::isCharacter(char c) {
-    return (c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A');
-}
-
-bool Commands::isdigit(char c) {
-    return c <= '9' && c >= '0';
-}
-
-
-void Commands::cleanWhiteSpaces(string &sentence) {
-    sentence.erase(remove(sentence.begin(), sentence.end(), ' '), sentence.end());
-}
-
+//TODO is var exist.
 //bool isVarExist(string expression){
 //    return symbolTable.find(expression) != symbolTable.end();
 //
 //}
 
+// get char return string.
+string charToString(char c) {
+    string s(1, c);
+    return s;
+}
+
+// check if the char is character.
+bool Commands::isCharacter(char c) {
+    return (c <= 'z' && c >= 'a') || (c <= 'Z' && c >= 'A');
+}
+
+// check if the char is digit.
+bool Commands::isdigit(char c) {
+    return c <= '9' && c >= '0';
+}
+
+//clean the white spaces from the string.
+void Commands::cleanWhiteSpaces(string &sentence) {
+    sentence.erase(remove(sentence.begin(), sentence.end(), ' '), sentence.end());
+}
+
+//read the number or var from the string, and push to the queue.
 void readString(string::iterator &itr, queue<string> &queue, string &infx) {
     string str;
     while (itr != infx.end() && isOperator(*itr) == 0) {
@@ -112,12 +115,14 @@ void readString(string::iterator &itr, queue<string> &queue, string &infx) {
     }
 }
 
+//push '(' to the stack.
 void openParenthesis(string::iterator &itr, stack<char> &stack) {
     if (*itr == '(') {
         stack.push('(');
         itr++;
     }
 }
+
 
 void closeParenthesis(string::iterator &itr, stack<char> &stack, queue<string> &queue) {
     if (*itr == ')') {
@@ -136,6 +141,7 @@ void closeParenthesis(string::iterator &itr, stack<char> &stack, queue<string> &
     }
 }
 
+// push operator to the stack.
 void pointOnOperator(string::iterator &itr, stack<char> &stack) {
     vector<char> temp;
     if (isOperator(*itr) != 0) {
@@ -161,6 +167,7 @@ void pointOnOperator(string::iterator &itr, stack<char> &stack) {
 
 }
 
+// put the string in queue by order.
 queue<string> Commands::putInQueue(string &infx) {
     queue<string> queue;
     stack<char> stack;
@@ -171,6 +178,7 @@ queue<string> Commands::putInQueue(string &infx) {
     }
 
     for (itr = infx.begin(); itr != (infx.end() + 1); itr++) {
+        //if the first char is '-' or '+', push 0 to the queue.
         if (itr == infx.begin() && isOperator(*itr) == 2){
             queue.push("0");
         }
@@ -194,15 +202,17 @@ queue<string> Commands::putInQueue(string &infx) {
         stack.pop();
     }
     return queue;
-
 }
 
+//get string of expression and return expression.
 Expression *Commands::fromStringToExpresion(string s, stack<Expression *> &stack) {
 
     if (isdigit(s[0])) {
         Expression* e = new Number(stoi(s));
         return e;
     }
+
+    //TODO push the var to the stack.
 //    if (isCharacter(s[0])) {
 //        stack.push((Expression)table->getSymbol(s))
 //        return stack.top();
@@ -244,7 +254,7 @@ Expression *Commands::fromStringToExpresion(string s, stack<Expression *> &stack
     return nullptr;
 }
 
-
+// the main func of shunting yard algorithm.
 Expression *Commands::shuntingYard(string infx) {
 
     queue<string> queue = putInQueue(infx);
@@ -260,7 +270,7 @@ Expression *Commands::shuntingYard(string infx) {
     return stack.top();
 }
 
-
+//test.
 int main() {
     string string1 = "-5*(10+3)/4";
     string string2 = "(5-6)*(10+3)/4";
