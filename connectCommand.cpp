@@ -1,4 +1,4 @@
-#include "Connect.h"
+#include "connectCommand.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <netdb.h>
@@ -12,12 +12,12 @@
 
 using namespace std;
 
-Connect::Connect(int port, char* ip) {
-    Connect::port = port;
-    Connect::ip = ip;
+connectCommand::connectCommand(int port, char* ip) {
+    connectCommand::port = port;
+    connectCommand::ip = ip;
 }
 
-int Connect::execute() {
+int connectCommand::execute() {
 
 
         int sockfd, portno, n;

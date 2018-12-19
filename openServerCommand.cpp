@@ -1,5 +1,5 @@
 #include <algorithm>
-#include "openDataServer.h"
+#include "openServerCommand.h"
 
 
 
@@ -16,7 +16,7 @@ bool legalExpression2(char c1 , char c2 , char c3){
 }
 
 
-bool openDataServer::checkLegality(string par) {
+bool openServerCommand::checkLegality(string par) {
     string parameter1 , parameter2;
     bool flag = false;
     // delete the name of the commend.
@@ -46,7 +46,7 @@ bool openDataServer::checkLegality(string par) {
 
 }
 //int main(){
-//    openDataServer* openDataServer1;
+//    openServerCommand* openDataServer1;
 //    string string1("bined 5 * 3  2");
 //    string string2(" bined 5 * 3, - 2");
 //    string string3("  bined 5 * 3 ,- 2   ");

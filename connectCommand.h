@@ -6,13 +6,13 @@
 
 using namespace std;
 
-class Connect : public Commands {
+class connectCommand : public Commands {
 
     int port;
     char* ip;
 
 public:
-    Connect(int , char*);
+    connectCommand(int , char*);
 
 
     virtual int execute();

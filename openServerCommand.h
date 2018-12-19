@@ -6,10 +6,10 @@
 #include "Expression.h"
 #include "Commands.h"
 
-class openDataServer : public Commands {
+class openServerCommand : public Commands {
 
 public:
-    openDataServer(){};
+    openServerCommand(){};
     bool checkLegality(string);
     int execute(string){
         return 1;
