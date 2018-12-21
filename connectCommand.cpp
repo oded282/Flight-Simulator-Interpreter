@@ -1,5 +1,6 @@
 #include "connectCommand.h"
 #include "openClient.h"
+#include "ShuntingYard.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <netdb.h>
@@ -33,7 +34,7 @@ int connectCommand::execute(string str) {
 
     char * c = stringToCharPointer(result[1]);
     string expression = ShuntingYard::fromVectorToString(result , 2 , result.size());
-    int x = (int)shuntingYard(expression)->calculate();
+    int x = (int)ShuntingYard::shuntingYard(expression)->calculate();
 
     openClient client(c, x);
 

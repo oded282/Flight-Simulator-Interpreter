@@ -220,7 +220,7 @@ queue<string> ShuntingYard::putInQueue(string &infx) {
         closeParenthesis(itr, stack, queue);
 
         // if itr point on operator.
-        pointOnOperator(itr, stack);
+        pointOnOperator(itr, stack , queue);
 
     }
     // put all in the queue.
@@ -260,14 +260,14 @@ string ShuntingYard::fromVectorToString(vector<string> &result, int i, int k) {
 }
 
 //test.
-int main() {
-    string string1 = "-5* 10+3 /4";
-    string string2 = "(5-6)*(10+3)/4";
-    Commands *c;
-    Expression *e = ShuntingYard::shuntingYard(string1);
-    double d = e->calculate();
-    e = ShuntingYard::shuntingYard(string2);
-    d = e->calculate();
+//nt main() {
+//   string string1 = "-5* 10+3 /4";
+//   string string2 = "(5-6)*(10+3)/4";
+//   Commands *c;
+//   Expression *e = ShuntingYard::shuntingYard(string1);
+//   double d = e->calculate();
+//   e = ShuntingYard::shuntingYard(string2);
+//   d = e->calculate();
 
-    cout << " " << endl;
-}
+//   cout << " " << endl;
+//
