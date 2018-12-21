@@ -1,6 +1,16 @@
 #include <algorithm>
 #include "openServerCommand.h"
+#include "dataReaderServer.h"
 
+int openServerCommand::execute(string str){
+
+    vector<string> par = getParameters(str);
+
+    dataReaderServer readerServer((int)shuntingYard(par[0])->calculate(),
+            (int)shuntingYard(par[1])->calculate());
+
+    readerServer.openServer();
+}
 
 
 

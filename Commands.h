@@ -18,7 +18,7 @@ protected:
 
 public:
     Commands(mapCommand* commandTable, symbolTable* varTable){};
-
+    vector<string>cleanSpace(string);
     bool checkForValidation(string);
     virtual int execute(){};
     void cleanWhiteSpaces(string &sentence);

@@ -11,8 +11,7 @@ class openServerCommand : public Commands {
 public:
     openServerCommand(mapCommand* commandMap , symbolTable* varTable) : Commands(commandMap,varTable) {}
     bool checkLegality(string);
-    int execute(string){
-    };
+    int execute(string);
 
 
 };

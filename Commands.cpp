@@ -301,11 +301,16 @@ void splitVectorToTwoParameters(vector<string> &result, int i) {
 
 }
 
-vector<string> Commands::getParameters(string &str) {
-    string parameter1, parameter2;
+vector<string>Commands:: cleanSpace(string str){
     istringstream iss(str);
     vector<std::string> result(istream_iterator<std::string>{iss},
                                istream_iterator<std::string>());
+    return result;
+}
+
+vector<string> Commands::getParameters(string &str) {
+    string parameter1, parameter2;
+    vector<string> result = cleanSpace(str);
 
     for (int i = 1; i < result.size(); i++) {
         if (legalExpression1(result[i][0]) || legalExpression2(result, i)) {
