@@ -32,14 +32,15 @@ int connectCommand::execute(string str) {
 
     vector<string> result = getParameters(str);
 
-    char * c = stringToCharPointer(result[1]);
-    string expression = ShuntingYard::fromVectorToString(result , 2 , result.size());
-    int x = (int)ShuntingYard::shuntingYard(expression)->calculate();
+    char * ip = stringToCharPointer(result[1]);
+    string expression = ShuntingYard::fromVectorToString(result , 2 , (unsigned)result.size());
+    int port = (int)ShuntingYard::shuntingYard(expression)->calculate();
 
-    openClient client(c, x);
+    openClient client(ip, port);
 
     client.openSocketClient();
 
+    return 1;
 }
 
 int main(){

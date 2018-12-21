@@ -206,7 +206,8 @@ queue<string> ShuntingYard::putInQueue(string &infx) {
         //if the first char is '-' or '+', push 0 to the queue.
         if (itr == infx.begin() && isOperator(*itr) == 2) {
             queue.push("0");
-            queue.push((charToString(*(++itr))));
+            itr++;
+            readString(itr , queue , infx);
             queue.push("-");
         }
 
