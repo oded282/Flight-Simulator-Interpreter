@@ -24,10 +24,10 @@ public:
         left = nullptr;
         right = nullptr;
     }
+    bool isCondition(string str);
+    void setExpressions(string& data);
 
-    void setExpressions(string data);
-
-    virtual int execute();
+    virtual int execute(string str);
 
 };
 

@@ -20,7 +20,7 @@ public:
     Commands(mapCommand* commandTable, symbolTable* varTable){};
     vector<string>cleanSpace(string);
     bool checkForValidation(string);
-    virtual int execute(){};
+    virtual int execute(string str){};
     void cleanWhiteSpaces(string &sentence);
     Expression* shuntingYard(string);
     queue<string> putInQueue(string&);

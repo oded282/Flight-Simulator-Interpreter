@@ -2,7 +2,10 @@
 #include <algorithm>
 #include <regex>
 #include "ConditionParser.h"
-int ConditionParser:: execute(){
+#include "ShuntingYard.h"
+
+int ConditionParser:: execute(string str){
+    setExpressions(str);
     if(condition == ">"){
         return left->calculate() > right->calculate();
     }else if(condition == "<"){
@@ -18,11 +21,26 @@ int ConditionParser:: execute(){
     }
 }
 
-void ConditionParser::setExpressions(string data){ // I treat that string as "__firstExp__Opt__secExp__" for example.
-  //  string ::iterator it;
-//    data.erase(remove(data.begin(), data.end(), " "), data.end());
-    //vector<string> expressions = getExprs();
+bool ConditionParser::isCondition(string str){
+    if(str == ">" || str == "<" || str == "!="
+       || str == "==" || str == ">=" || str == "<="){
+        return true;
+    }
+}
 
+void ConditionParser::setExpressions(string& data){ // I treat that string as "__firstExp__Opt__secExp__" for example.
+    vector<string> dataVector;
+    dataVector = cleanSpace(data);
+    for(int i = 0; i < dataVector.size(); i++){
+        if(isCondition(dataVector[i])) {
+            if(!isCondition(dataVector[i + 1])){
+                string left = ShuntingYard::fromVectorToString(dataVector, 0, i - 1);
+                string right = ShuntingYard::fromVectorToString(dataVector, i + 1, dataVector.size());
+            }
+
+        }
+
+    }
 
 }
 
