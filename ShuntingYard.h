@@ -1,7 +1,3 @@
-//
-// Created by oded on 12/21/18.
-//
-
 #ifndef FLIGHT_SIMULATOR_SHUNTINGYARD_H
 #define FLIGHT_SIMULATOR_SHUNTINGYARD_H
 

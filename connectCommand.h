@@ -12,8 +12,9 @@ class connectCommand : public Commands {
     char* ip;
 
 public:
+    connectCommand(mapCommand* commandMap , symbolTable* varTable) : Commands(commandMap,varTable) {}
     connectCommand(int , char*);
-    virtual int execute();
+    virtual int execute(string);
 
 };
 

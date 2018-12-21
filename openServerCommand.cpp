@@ -1,14 +1,13 @@
 #include <algorithm>
 #include "openServerCommand.h"
 #include "dataReaderServer.h"
-#include "ShuntingYard.h"
 
 int openServerCommand::execute(string str){
 
     vector<string> par = getParameters(str);
 
-    dataReaderServer readerServer((int)ShuntingYard::shuntingYard(par[0])->calculate(),
-            (int)ShuntingYard::shuntingYard(par[1])->calculate());
+    dataReaderServer readerServer((int)shuntingYard(par[0])->calculate(),
+            (int)shuntingYard(par[1])->calculate());
 
     readerServer.openServer();
 }
@@ -22,20 +21,5 @@ int openServerCommand::execute(string str){
    // string string3("  bined 5 * 3 ,- 2   ");
    // string string4("bined 5 * (3 -2) , 3 + -1");
    // string string5("bined (5 + 3) - 2");
-   // if(openDataServer1->checkLegality(string1)){
-   //     printf("bad1\n");
-   // }
-   // if(openDataServer1->checkLegality(string2)){
-   //     printf("good1\n");
-   // }
-   // if(openDataServer1->checkLegality(string3)){
-   //     printf("good2\n");
-   // }    if(openDataServer1->checkLegality(string4)){
-   //     printf("good3\n");
-   // }
-   // if(openDataServer1->checkLegality(string5)){
-   //     printf("bad2\n");
-   // }
-
 
 //}
