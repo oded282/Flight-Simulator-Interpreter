@@ -9,10 +9,9 @@
 class openServerCommand : public Commands {
 
 public:
-    openServerCommand(){};
+    openServerCommand(mapCommand* commandMap , symbolTable* varTable) : Commands(commandMap,varTable) {}
     bool checkLegality(string);
     int execute(string){
-        return 1;
     };
 
 
@@ -20,3 +19,4 @@ public:
 
 
 #endif //FLIGHT_SIMULATOR_OPENDATASERVER_H
+

@@ -44,6 +44,7 @@ bool openServerCommand::checkLegality(string par) {
 
     // call to polish.
 
+
 }
 //int main(){
 //    openServerCommand* openDataServer1;
