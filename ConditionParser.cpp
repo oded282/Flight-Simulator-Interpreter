@@ -19,9 +19,9 @@ int ConditionParser:: execute(){
 }
 
 void ConditionParser::setExpressions(string data){ // I treat that string as "__firstExp__Opt__secExp__" for example.
-    string ::iterator it;
-    data.erase(remove(data.begin(), data.end(), " "), data.end());
-    vector<string> expressions = getExprs();
+  //  string ::iterator it;
+//    data.erase(remove(data.begin(), data.end(), " "), data.end());
+    //vector<string> expressions = getExprs();
 
 
 }

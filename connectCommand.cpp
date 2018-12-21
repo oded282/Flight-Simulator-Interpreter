@@ -12,7 +12,7 @@
 
 using namespace std;
 
-connectCommand::connectCommand(int port, char* ip) {
+connectCommand::connectCommand(int port, char* ip) : Commands(commandTable, varTable) {
     connectCommand::port = port;
     connectCommand::ip = ip;
 }
@@ -78,4 +78,4 @@ int connectCommand::execute() {
             exit(EXIT_FAILURE);
         }
 
-    }
+}

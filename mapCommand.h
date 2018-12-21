@@ -8,14 +8,14 @@ class Commands;
 using namespace std;
 
 class mapCommand {
-    map<string,Commands> commandMap;
+    map<string,Commands*> commandMap;
 
 
 public:
     mapCommand(){};
-    const map<string, Commands> &getCommandMap() const;
+    map<string, Commands*> &getCommandMap() ;
 
-    void addCommand(string symbol,Commands& commands);
+    void addCommand(string symbol,Commands* commands);
     Commands* getCommand(string symbol) ;
 };
 

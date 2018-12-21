@@ -13,16 +13,20 @@ class ConditionParser : public Commands {
 
 protected:
     vector<Commands> commands;
-    Parser* parser;
-    Expression* left;
-    Expression* right;
+    Parser *parser;
+    Expression *left;
+    Expression *right;
     string condition;
 
 public:
-    ConditionParser(Parser* parser, mapCommand* mapTable , symbolTable* varTable) : Commands(mapTable,varTable) {
+    ConditionParser(Parser *parser, mapCommand *mapTable, symbolTable *varTable) : Commands(mapTable, varTable) {
         ConditionParser::parser = parser;
+        left = nullptr;
+        right = nullptr;
     }
+
     void setExpressions(string data);
+
     virtual int execute();
 
 };

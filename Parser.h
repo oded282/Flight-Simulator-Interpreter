@@ -8,10 +8,12 @@ using namespace std;
 
 class Parser
 {
-    vector<string>  parser;
+    vector<string> parser;
     int index;
 
 public:
+    Parser(){};
+
     Parser(const vector<string> &parser, int index);
 
     const vector<string> &getParser() const;

@@ -1,16 +1,16 @@
 #ifndef FLIGHT_SIMULATOR_SYMBOLTABLE_H
 #define FLIGHT_SIMULATOR_SYMBOLTABLE_H
 
+#include <map>
 #include "Var.h"
 
 class symbolTable {
-    map<string,Var> symbolMap;
+    map<string,double> symbolMap;
 
 public:
-
-    const map<string, Var> &getSymbolMap() const;
-    void addSymbol(string symbol,Var var);
-    Var* getSymbol(string symbol);
+    map<string, double> &getSymbolMap();
+    void addVar(string symbol,double value);
+    double getVarValue(string symbol);
 };
 
 

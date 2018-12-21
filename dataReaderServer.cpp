@@ -18,6 +18,7 @@ dataReaderServer::dataReaderServer(int port, double pace) {
 }
 
 void dataReaderServer:: openServer(){
+
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;

@@ -3,17 +3,22 @@
 
 #include "Commands.h"
 
-class Var : Commands{
-    string sentence;
+
+
+class Var : public Commands{
+    string name;
+    string path;
     double value;
 
 public:
     virtual int execute();
-    Var(){};
-    Var(string sentence, double value);
+
+    Var(string& name , string& path ,mapCommand* commandTable, symbolTable* varTable);
 
     const string &getSentence() const;
     void setSentence(const string &sentence);
+
+    double getValue() const;
 
     void setValue(double value);
 };

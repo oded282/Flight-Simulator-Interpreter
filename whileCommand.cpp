@@ -5,7 +5,5 @@
 
 int whileCommand:: execute(string){
     vector<Commands> ::iterator it = commands.begin();
-    while(condition){
-        (*it).execute();
-    }
+    
 }

@@ -13,8 +13,6 @@ class connectCommand : public Commands {
 
 public:
     connectCommand(int , char*);
-
-
     virtual int execute();
 
 };

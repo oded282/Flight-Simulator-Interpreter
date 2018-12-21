@@ -11,6 +11,7 @@ class varFactory : public Commands {
 
 
 public:
+    varFactory(mapCommand* commandTable, symbolTable* varTable);
     virtual int execute(string sentence);
     string getName(string::iterator it);
     string getSentence(string::iterator it);

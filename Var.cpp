@@ -6,19 +6,24 @@ int Var::execute(){
 
 }
 
-Var:: Var(string sentence, double value){
-    Var::sentence = sentence;
-    Var::value = value;
+Var::Var(string& name , string& path,mapCommand* commandTable, symbolTable* varTable) : Commands(commandTable, varTable){
+    Var::name = name;
+    Var::path = path;
+    Var::value = 0;
 }
 
 const string &Var::getSentence() const {
-    return sentence;
+    return path;
 }
 
 void Var::setSentence(const string &sentence) {
-    Var::sentence = sentence;
+    Var::path = sentence;
 }
 
 void Var::setValue(double value) {
     Var::value = value;
+}
+
+double Var::getValue() const {
+    return value;
 }

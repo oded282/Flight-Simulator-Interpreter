@@ -5,7 +5,7 @@
 /*
  * This func add command to the map.
  */
-void mapCommand::addCommand(string symbol,Commands& command){
+void mapCommand::addCommand(string symbol,Commands* command){
     commandMap[symbol] = command;
 }
 
@@ -15,7 +15,7 @@ void mapCommand::addCommand(string symbol,Commands& command){
 Commands* mapCommand::getCommand(string symbol){
     map<string,Commands>:: iterator it;
     if(commandMap.find(symbol) != commandMap.end()){
-        return &commandMap[symbol];
+        return commandMap[symbol];
     }
     return nullptr;
 
@@ -24,6 +24,6 @@ Commands* mapCommand::getCommand(string symbol){
 /*
  * This func return's the all map.
  */
-const map<string, Commands> &mapCommand::getCommandMap() const {
+map<string, Commands*> &mapCommand::getCommandMap() {
     return commandMap;
 }

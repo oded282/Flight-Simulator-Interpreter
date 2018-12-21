@@ -2,7 +2,6 @@
 #define FLIGHT_SIMULATOR_COMMANDS_H
 #include <stack>
 #include <string>
-#include <map>
 #include <queue>
 #include "Expression.h"
 
@@ -14,13 +13,12 @@ class symbolTable;
 
 class Commands {
 protected:
-    mapCommand* commandMap;
-    symbolTable* table;
+    mapCommand* commandTable;
+    symbolTable* varTable;
 
 public:
-    Commands(){};
+    Commands(mapCommand* commandTable, symbolTable* varTable){};
 
-//string charToString(char c);
     bool checkForValidation(string);
     virtual int execute(){};
     void cleanWhiteSpaces(string &sentence);
@@ -29,7 +27,7 @@ public:
     Expression* fromStringToExpresion(string,stack<Expression*>&);
     bool isdigit(char);
     bool isCharacter(char);
-//    int isOperator(char c);
+    vector<string> getParameters(string&);
 
 
 

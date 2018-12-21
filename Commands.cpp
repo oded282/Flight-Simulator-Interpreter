@@ -1,6 +1,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 
 #include "Commands.h"
 #include "Number.h"
@@ -42,7 +43,7 @@ bool Commands::checkForValidation(string str) {
     //run over the string char by char.
     for (itr = str.begin(); itr != str.end(); itr++) {
         // check if the first char is operator '*' or '/'.
-        if (itr == str.begin() && isOperator(*itr) == MULT_OR_DIV){
+        if (itr == str.begin() && isOperator(*itr) == MULT_OR_DIV) {
             return false;
         }
         // check if the is to operators in a row.
@@ -179,7 +180,7 @@ queue<string> Commands::putInQueue(string &infx) {
 
     for (itr = infx.begin(); itr != (infx.end() + 1); itr++) {
         //if the first char is '-' or '+', push 0 to the queue.
-        if (itr == infx.begin() && isOperator(*itr) == 2){
+        if (itr == infx.begin() && isOperator(*itr) == 2) {
             queue.push("0");
         }
 
@@ -208,7 +209,7 @@ queue<string> Commands::putInQueue(string &infx) {
 Expression *Commands::fromStringToExpresion(string s, stack<Expression *> &stack) {
 
     if (isdigit(s[0])) {
-        Expression* e = new Number(stoi(s));
+        Expression *e = new Number(stoi(s));
         return e;
     }
 
@@ -258,27 +259,72 @@ Expression *Commands::fromStringToExpresion(string s, stack<Expression *> &stack
 Expression *Commands::shuntingYard(string infx) {
 
     queue<string> queue = putInQueue(infx);
-    stack<Expression*> stack;
+    stack<Expression *> stack;
     while (!queue.empty()) {
 
         string str;
         str = queue.front();
         queue.pop();
-        Expression* e = fromStringToExpresion(str , stack);
+        Expression *e = fromStringToExpresion(str, stack);
         stack.push(e);
     }
     return stack.top();
 }
 
-//test.
-int main() {
-    string string1 = "-5*(10+3)/4";
-    string string2 = "(5-6)*(10+3)/4";
-    Commands *c;
-    Expression* e = c->shuntingYard(string1);
-    double d = e->calculate();
-    e = c->shuntingYard(string2);
-    d = e->calculate();
-
-    cout << " " << endl ;
+bool legalExpression1(char c) {
+    return c == ',';
 }
+
+bool legalExpression2(vector<string> &v, int i) {
+    // check if there is digit after digit (x x).
+    return isdigit(v[i - 1][v[i - 1].size() - 1]) && isdigit(v[i][0]);
+}
+
+void splitVectorToTwoParameters(vector<string> &result, int i) {
+    string parameter1, parameter2;
+    int j = 1;
+    //copy to parameter 1 and parameter 2.
+    while (j < result.size()) {
+        if (j < i) {
+            parameter1 += result[j];
+        } else {
+            parameter2 += result[j];
+        }
+        j++;
+    }
+    if (result[i] == ",") {
+        parameter2.erase(0, 1);
+    }
+    result.clear();
+    result.push_back(parameter1);
+    result.push_back(parameter2);
+
+}
+
+vector<string> Commands::getParameters(string &str) {
+    string parameter1, parameter2;
+    istringstream iss(str);
+    vector<std::string> result(istream_iterator<std::string>{iss},
+                               istream_iterator<std::string>());
+
+    for (int i = 1; i < result.size(); i++) {
+        if (legalExpression1(result[i][0]) || legalExpression2(result, i)) {
+            splitVectorToTwoParameters(result , i);
+        }
+    }
+    return result;
+}
+
+
+///test.
+//nt main() {
+//   string string1 = "-5*(10+3)/4";
+//   string string2 = "(5-6)*(10+3)/4";
+//   Commands *c;
+//   Expression* e = c->shuntingYard(string1);
+//   double d = e->calculate();
+//   e = c->shuntingYard(string2);
+//   d = e->calculate();
+
+//   cout << " " << endl ;
+//

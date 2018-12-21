@@ -4,6 +4,7 @@
 #include "varFactory.h"
 
 
+varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable) : Commands(commandTable , varTable){}
 
 string::iterator varFactory::jumpSpace(string::iterator it) {
     while (*it == ' ') {
@@ -64,9 +65,8 @@ string varFactory::getVariables(string sentence,vector<string>& vector) {
 int varFactory::execute(string sentence) {
     vector<string> vector;
     getVariables(sentence,vector);
-    Var* var = new Var();
-    var->setSentence(vector[0]);
-    table->addSymbol(vector[0],*var);
+    Var* var = new Var(vector[0] , vector[1] , commandTable,varTable);
+    varTable->addVar(vector[0],0); //TODO initial the var value to zero, need to check if it's fine.
 }
 /*
 int main(){
