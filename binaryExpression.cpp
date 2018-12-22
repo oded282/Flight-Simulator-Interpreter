@@ -24,5 +24,3 @@ double Plus::calculate() {
 double Minus:: calculate(){
     return left->calculate() - right->calculate();
 }
-
-

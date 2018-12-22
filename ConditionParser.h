@@ -1,6 +1,3 @@
-//
-// Created by oded on 12/20/18.
-//
 
 #ifndef FLIGHT_SIMULATOR_CONDITIONPARSER_H
 #define FLIGHT_SIMULATOR_CONDITIONPARSER_H
@@ -19,14 +16,17 @@ protected:
     string condition;
 
 public:
+    ConditionParser() : Commands(nullptr, nullptr) {};
     ConditionParser(Parser *parser, mapCommand *mapTable, symbolTable *varTable) : Commands(mapTable, varTable) {
         ConditionParser::parser = parser;
         left = nullptr;
         right = nullptr;
     }
-    bool isCondition(string str);
+    bool isSecConditionValid(string str);
+    bool isCondition(string::iterator &it);
     void setExpressions(string& data);
-
+    string getFirstParameter(string :: iterator itBegin , string :: iterator itEnd );
+    string bindString(string ::iterator it1, string ::iterator it2);
     virtual int execute(string str);
 
 };

@@ -43,13 +43,9 @@ int connectCommand::execute(string str) {
     return 1;
 }
 
-int main(){
-
-    string str = "connect 10.13.15.9 -50 + 9 * 6 -8/16 ";
-    connectCommand command(nullptr , nullptr);
-    command.execute(str);
-
-
-
-
-}
+//int main(){
+//
+//    string str = "connect 10.13.15.9 -50 + 9 * 6 -8/16 ";
+//    connectCommand command(nullptr , nullptr);
+//    command.execute(str);
+//}
