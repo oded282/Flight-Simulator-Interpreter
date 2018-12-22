@@ -98,10 +98,10 @@ void ConditionParser::setExpressions(string &data) { // I treat that string as "
 
 }
 
-int main() {
-    ConditionParser cond;
-    string s = "var <= 1000";
-    cond.setExpressions(s);
+//nt main() {
+//   ConditionParser cond;
+//   string s = "var <= 1000";
+//   cond.setExpressions(s);
 
 
-}
+//

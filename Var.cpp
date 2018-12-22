@@ -2,8 +2,8 @@
 #include "Var.h"
 
 
-int Var::execute(){
-
+int Var::execute(string  str){
+    return (int)value;
 }
 
 Var::Var(string& name , string& path,mapCommand* commandTable, symbolTable* varTable) : Commands(commandTable, varTable){

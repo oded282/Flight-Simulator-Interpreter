@@ -11,7 +11,7 @@ class Var : public Commands{
     double value;
 
 public:
-    virtual int execute();
+    int execute(string);
 
     Var(string& name , string& path ,mapCommand* commandTable, symbolTable* varTable);
 

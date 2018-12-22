@@ -9,6 +9,7 @@
 #include <string.h>
 
 #include <sys/socket.h>
+#include <iostream>
 #include "dataReaderServer.h"
 
 
@@ -16,6 +17,7 @@ dataReaderServer::dataReaderServer(int port, double pace) {
     dataReaderServer::port = port;
     dataReaderServer::pace = pace;
 }
+
 
 void dataReaderServer:: openServer(){
 
@@ -50,7 +52,7 @@ void dataReaderServer:: openServer(){
        * go in sleep mode and will wait for the incoming connection
     */
 
-    listen(sockfd,5);
+    listen(sockfd,1);
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
@@ -70,16 +72,8 @@ void dataReaderServer:: openServer(){
             perror("ERROR reading from socket");
             break;
         }
-        sleep(1000/(unsigned)pace);
-    }
+        cout << n <<endl;
+        //sleep(1000/(unsigned)pace);
 
-
-    /* Write a response to the client */
-    /*
-    n = write(newsockfd,"I got your message",18);
-    if (n < 0) {
-        perror("ERROR writing to socket");
-        exit(1);
     }
-    */
 }
