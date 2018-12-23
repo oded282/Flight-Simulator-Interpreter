@@ -8,7 +8,8 @@ class sleepCommand : public Commands {
     int time;
 public:
 
-    sleepCommand(mapCommand* commandMap , symbolTable* varTable ) : Commands(commandMap,varTable) {
+    sleepCommand(mapCommand* commandMap , symbolTable* varTable, ShuntingYard* shuntingYard) :
+    Commands(commandMap,varTable, shuntingYard) {
         sleepCommand::time = 0;
     }
     int execute();

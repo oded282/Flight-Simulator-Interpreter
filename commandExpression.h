@@ -11,9 +11,10 @@ class commandExpression : public Expression {
     Commands* command;
 
 public:
-    commandExpression(Commands* command){ this->command = command;}
+    commandExpression(Commands* command);
     double calculate();
 
+    Commands* getCommand();
 };
 
 

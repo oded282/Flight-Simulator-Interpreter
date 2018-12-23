@@ -70,14 +70,14 @@ bool ShuntingYard::checkForValidation(string str) {
                 return false;
             }
         }
-        //TODO check if the var is exists
-        // check valid var
        string var;
        while (isCharacter(*itr)){
             var += *itr;
             itr++;
        }
-       if (find(varMap->begin() , varMap->end() , var) == varMap->end()){
+        map<string,commandExpression*>::iterator it;
+        it = varMap->find(var);
+       if (it == varMap->end()){
            return false;
        }
     }

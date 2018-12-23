@@ -88,7 +88,7 @@ void varFactory::setCommand(string &sentence) {
         varTable->addVar(vector[0], newVar);
     } else if (sentence.find(var) && !sentence.find(bind)) {
         getVariables(sentence, vector, false);
-        //Var *newVar = new Var(vector[0], commandTable->getCommand(vector[1]), varTable->getVarValue(vector[1])->getSentence(), commandTable,varTable);
+        //Var *newVar = new Var(vector[0], commandTable->getCommandExpression(vector[1]), varTable->getVarValue(vector[1])->getSentence(), commandTable,varTable);
         varTable->addVar(vector[0], varTable->getVarValue(vector[1]));
     }
 }

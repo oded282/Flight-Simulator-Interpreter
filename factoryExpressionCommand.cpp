@@ -16,15 +16,15 @@ Expression* factoryExpressionCommand::creatExpressionCommand(string str) {
     vector<string> result(istream_iterator<std::string>{iss},
                                istream_iterator<std::string>());
 
-    if (commandMap->getCommand((result[0])) == nullptr){
+    if (commandMap->getCommandExpression((result[0])) == nullptr){
         throw "Invalid Command!";
     }
 
-    commandMap->getCommand(result[0])->setCommand(str);
+    commandExpression* commandExpression = commandMap->getCommandExpression(result[0]);
+    //initialize command expression.
+    commandExpression->getCommand()->setCommand(str);
 
-    Expression* c = new commandExpression(commandMap->getCommand(result[0]));
-
-    return c;
+    return commandExpression;
 
 
 

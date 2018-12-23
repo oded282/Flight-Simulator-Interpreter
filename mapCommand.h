@@ -17,7 +17,7 @@ public:
     map<string, commandExpression*> &getCommandMap() ;
 
     void addCommand(string symbol,commandExpression* commands);
-    commandExpression* getCommand(string symbol);
+    commandExpression* getCommandExpression(string symbol);
 };
 
 

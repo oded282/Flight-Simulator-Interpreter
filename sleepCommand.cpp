@@ -6,7 +6,7 @@
 void sleepCommand::setCommand(string& str) {
     vector<string> result = getParameters(str);
 
-     time = (int)ShuntingYard::shuntingYard(result[1])->calculate();
+     time = (int)shuntingYard->shuntingYard(result[1])->calculate();
 }
 
 int sleepCommand::execute() {
