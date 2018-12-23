@@ -12,12 +12,12 @@ using namespace std;
 
 class factoryExpressionCommand {
 
-    mapCommand commandMap;
-    symbolTable varMap;
+    mapCommand* commandMap;
+    //symbolTable* varMap;
 
 
 public:
-
+    factoryExpressionCommand(mapCommand*);
     Expression* creatExpressionCommand(string str);
 
 };

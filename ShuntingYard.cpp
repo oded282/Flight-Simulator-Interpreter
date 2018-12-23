@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <algorithm>
 #include "ShuntingYard.h"
 #include "binaryExpression.h"
 #include "Number.h"
@@ -73,7 +74,11 @@ bool ShuntingYard::checkForValidation(string str) {
         // check valid var
        string var;
        while (isCharacter(*itr)){
+            var += *itr;
             itr++;
+       }
+       if (find(varMap->begin() , varMap->end() , var) == varMap->end()){
+           return false;
        }
     }
     return countParenthesis == 0;
@@ -135,17 +140,17 @@ void pointOnOperator(string::iterator &itr, stack<char> &stack , queue<string>& 
 
 //get string of expression and return expression.
 Expression* ShuntingYard::fromStringToExpresion(string s, stack<Expression *> &stack) {
-
+    //send the number expression.
     if (isdigit(s[0])) {
         Expression *e = new Number(stoi(s));
         return e;
     }
 
-    //TODO push the var to the stack.
-//    if (isCharacter(s[0])) {
-//        stack.push((Expression)table->getSymbol(s))
-//        return stack.top();
-//    }
+    //send the var Expression.
+    if (isCharacter(s[0])) {
+        Expression *e = varMap->find(s)->second;
+        return e;
+    }
 
     if (s == "*") {
         Expression *e1 = stack.top();
@@ -244,6 +249,9 @@ Expression* ShuntingYard::shuntingYard(string infx) {
         str = queue.front();
         queue.pop();
         Expression *e = fromStringToExpresion(str, stack);
+        if (e == nullptr){
+            throw "Invalid Var!";
+        }
         stack.push(e);
     }
     return stack.top();

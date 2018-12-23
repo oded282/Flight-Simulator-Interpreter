@@ -77,8 +77,8 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
                     it--;
                     condition = *it;
                     condition += *(it + 1);
-                    left = ShuntingYard::shuntingYard(getFirstParameter(data.begin(), it)); // What to do if it is a var? example in main
-                    right = ShuntingYard::shuntingYard(getFirstParameter(it += 2, data.end()));
+                    left = shuntingYard->shuntingYard(getFirstParameter(data.begin(), it)); // What to do if it is a var? example in main
+                    right = shuntingYard->shuntingYard(getFirstParameter(it += 2, data.end()));
                 } else {
                     throw "Invalid condition";
 
@@ -86,8 +86,8 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
             } else {
                 it--;
                 condition = *it;
-                left = ShuntingYard::shuntingYard(getFirstParameter(data.begin(), it)); // What to do if it is a var? example in main
-                right = ShuntingYard::shuntingYard(getFirstParameter(it += 1, data.end()));
+                left = shuntingYard->shuntingYard(getFirstParameter(data.begin(), it)); // What to do if it is a var? example in main
+                right = shuntingYard->shuntingYard(getFirstParameter(it += 1, data.end()));
             }
         }
     }

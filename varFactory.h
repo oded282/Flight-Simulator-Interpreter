@@ -11,7 +11,7 @@ class varFactory : public Commands {
 
 
 public:
-    varFactory(mapCommand* commandTable, symbolTable* varTable);
+    varFactory(mapCommand* commandTable, symbolTable* varTable , ShuntingYard* shuntingYard);
     virtual int execute();
     virtual void setCommand(string& str) = 0;
     string getName(string::iterator it);

@@ -3,12 +3,17 @@
 #include "dataReaderServer.h"
 #include "ShuntingYard.h"
 
-int openServerCommand::execute(string str){
+void openServerCommand::setCommand(string& str){
     vector<string> par = getParameters(str);
-    dataReaderServer readerServer((int)ShuntingYard::shuntingYard(par[0])->calculate(),
-            (int)ShuntingYard::shuntingYard(par[1])->calculate());
-    readerServer.openServer();
+    this->readerServer = new dataReaderServer((int)shuntingYard->shuntingYard(par[0])->calculate(),
+                                  (int)shuntingYard->shuntingYard(par[1])->calculate());
 }
+int openServerCommand::execute() {
+
+    readerServer->openServer();
+
+}
+
 
 
 

@@ -3,18 +3,23 @@
 
 #include <string>
 #include "Commands.h"
+#include "openClient.h"
 
 using namespace std;
 
 class connectCommand : public Commands {
 
-    int port;
-    char* ip;
+    openClient *client;
 
 public:
-    connectCommand(mapCommand* commandMap , symbolTable* varTable) : Commands(commandMap,varTable) {}
-    connectCommand(int , char*);
-    virtual int execute(string);
+    connectCommand(mapCommand *commandMap, symbolTable *varTable, ShuntingYard* shuntingYard) :
+            Commands(commandMap, varTable, shuntingYard) {
+        connectCommand::client = nullptr;
+    }
+
+    virtual int execute();
+
+    virtual void setCommand(string &);
 
 };
 

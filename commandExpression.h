@@ -3,7 +3,8 @@
 
 
 #include "Expression.h"
-#include "Commands.h"
+
+class Commands;
 
 class commandExpression : public Expression {
 
@@ -11,7 +12,6 @@ class commandExpression : public Expression {
 
 public:
     commandExpression(Commands* command){ this->command = command;}
-
     double calculate();
 
 };

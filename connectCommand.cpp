@@ -23,29 +23,28 @@ char* stringToCharPointer (string str){
 }
 
 
-connectCommand::connectCommand(int port, char* ip) : Commands(commandTable, varTable) {
-    connectCommand::port = port;
-    connectCommand::ip = ip;
-}
-
-int connectCommand::execute(string str) {
+void connectCommand::setCommand(string& str) {
 
     vector<string> result = getParameters(str);
 
     char * ip = stringToCharPointer(result[1]);
-    string expression = ShuntingYard::fromVectorToString(result , 2 , (unsigned)result.size());
-    int port = (int)ShuntingYard::shuntingYard(expression)->calculate();
+    string expression = shuntingYard->fromVectorToString(result , 2 , (unsigned)result.size());
+    int port = (int)shuntingYard->shuntingYard(expression)->calculate();
 
-    openClient client(ip, port);
+    client = new openClient(ip, port);
 
-    client.openSocketClient();
+}
 
+int connectCommand::execute() {
+    client->openSocketClient();
     return 1;
 }
+
+
 
 //int main(){
 //
 //    string str = "connect 10.13.15.9 -50 + 9 * 6 -8/16 ";
 //    connectCommand command(nullptr , nullptr);
-//    command.execute(str);
+//    command.setCommand(str);
 //}

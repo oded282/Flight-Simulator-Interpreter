@@ -16,8 +16,9 @@ protected:
     string condition;
 
 public:
-    ConditionParser() : Commands(nullptr, nullptr) {};
-    ConditionParser(Parser *parser, mapCommand *mapTable, symbolTable *varTable) : Commands(mapTable, varTable) {
+    ConditionParser() : Commands(nullptr, nullptr , nullptr) {};
+    ConditionParser(Parser *parser, mapCommand *mapTable, symbolTable *varTable , ShuntingYard* shuntingYard) :
+    Commands(mapTable, varTable  ,shuntingYard) {
         ConditionParser::parser = parser;
         left = nullptr;
         right = nullptr;

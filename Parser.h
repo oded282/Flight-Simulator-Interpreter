@@ -3,24 +3,26 @@
 
 #include <vector>
 #include <string>
+#include "mapCommand.h"
 
 using namespace std;
 
 class Parser
 {
     vector<string> vectorInfo;
-    int index;
+    double index;
+    mapCommand * commandmap;
 
 public:
     Parser(){};
 
-    Parser(const vector<string> &parser, int index);
+    Parser(const vector<string> &vectorInfo, mapCommand*);
 
-    const vector<string> &getParser() const;
+    const vector<string> &getVector() const;
 
-    int getIndex() const;
+    double getIndex() const;
 
-    void setParser(const vector<string> &parser);
+    void setParser(const vector<string> &vector);
 
     void setIndex(int index);
 

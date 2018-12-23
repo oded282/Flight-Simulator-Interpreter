@@ -10,8 +10,9 @@ void Var::setCommand(string& str){
 
 }
 
-Var::Var(string &name, Expression *value , string &path, mapCommand *commandTable, symbolTable *varTable) : Commands(commandTable,
-                                                                                                 varTable) {
+Var::Var(string &name, Expression *value , string &path, mapCommand *commandTable,
+        symbolTable *varTable, ShuntingYard* shuntingYard) :
+        Commands(commandTable,varTable , shuntingYard) {
     Var::name = name;
     Var::path = path;
     Var::value = value;

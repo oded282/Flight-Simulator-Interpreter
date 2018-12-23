@@ -3,9 +3,7 @@
 
 
 double commandExpression::calculate(){
-
-
-
+    return this->command->execute();
 }
 
 

@@ -11,12 +11,8 @@ class whileCommand : public ConditionParser{
 
 public:
     virtual int execute();
-    whileCommand(Parser* parser, mapCommand* mapTable , symbolTable* varTable) : ConditionParser(nullptr, nullptr,
-                                                                                                 nullptr){
-        this->parser = parser;
-        this->commandTable = mapTable;
-        this->varTable = varTable;
-    }
+    whileCommand(Parser* parser, mapCommand* mapTable , symbolTable* varTable , ShuntingYard* shuntingYard) :
+    ConditionParser(parser, mapTable,varTable , shuntingYard){}
     virtual void setCommand(string& str);
 
 

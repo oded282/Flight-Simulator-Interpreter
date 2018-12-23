@@ -3,13 +3,16 @@
 #include "ShuntingYard.h"
 
 
-int sleepCommand::execute(string str) {
+void sleepCommand::setCommand(string& str) {
     vector<string> result = getParameters(str);
 
-    int s = (int)ShuntingYard::shuntingYard(result[1])->calculate();
-    usleep((__useconds_t)((s*1000)/0.001));
-    return 1;
-
+     time = (int)ShuntingYard::shuntingYard(result[1])->calculate();
 }
+
+int sleepCommand::execute() {
+    sleep((unsigned)time/1000);
+    return 1;
+}
+
 
 

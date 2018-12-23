@@ -5,11 +5,14 @@
 #include "Commands.h"
 
 class sleepCommand : public Commands {
-
+    int time;
 public:
 
-    sleepCommand(mapCommand* commandMap , symbolTable* varTable) : Commands(commandMap,varTable) {}
-    int execute(string);
+    sleepCommand(mapCommand* commandMap , symbolTable* varTable ) : Commands(commandMap,varTable) {
+        sleepCommand::time = 0;
+    }
+    int execute();
+    void setCommand(string&);
 
 };
 

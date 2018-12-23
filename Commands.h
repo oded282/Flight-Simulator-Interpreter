@@ -9,31 +9,22 @@ using namespace std;
 
 class mapCommand;
 class symbolTable;
+class ShuntingYard;
 
 
 class Commands {
 protected:
     mapCommand* commandTable;
     symbolTable* varTable;
+    ShuntingYard* shuntingYard;
 
 public:
-    Commands(mapCommand* commandTable, symbolTable* varTable){
-        Commands::commandTable = commandTable;
-        Commands::varTable = varTable;
-    };
+    Commands(mapCommand* commandTable, symbolTable* varTable , ShuntingYard* shuntingYard);
     vector<string>cleanSpace(string);
-    bool checkForValidation(string);
     virtual int execute() = 0;
     virtual void setCommand(string& str) = 0;
     void cleanWhiteSpaces(string &sentence);
-    Expression* shuntingYard(string);
-    queue<string> putInQueue(string&);
-    Expression* fromStringToExpresion(string,stack<Expression*>&);
-    bool isdigit(char);
-    bool isCharacter(char);
     vector<string> getParameters(string&);
-
-
 
 };
 
