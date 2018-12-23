@@ -10,13 +10,15 @@
 class whileCommand : public ConditionParser{
 
 public:
-    virtual int execute(string);
+    virtual int execute();
     whileCommand(Parser* parser, mapCommand* mapTable , symbolTable* varTable) : ConditionParser(nullptr, nullptr,
                                                                                                  nullptr){
         this->parser = parser;
         this->commandTable = mapTable;
         this->varTable = varTable;
     }
+
+
 };
 
 

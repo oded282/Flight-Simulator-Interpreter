@@ -4,8 +4,7 @@
 #include "ConditionParser.h"
 #include "ShuntingYard.h"
 
-int ConditionParser::execute(string str) {
-    setExpressions(str);
+int ConditionParser::execute() {
     if (condition == ">") {
         return left->calculate() > right->calculate();
     } else if (condition == "<") {
@@ -67,7 +66,7 @@ string ConditionParser::getFirstParameter(string::iterator itBegin, string::iter
 }
 
 // Func initialize the condition parser and check validation of the data.
-void ConditionParser::setExpressions(string &data) { // I treat that string as "__firstExp__Opt__secExp__" for example.
+void ConditionParser::setCommand(string &data) { // I treat that string as "__firstExp__Opt__secExp__" for example.
     data.erase(remove(data.begin(), data.end(), ' '), data.end());
     string::iterator it;
     for (it = data.begin(); it != data.end(); it++) {
@@ -95,13 +94,9 @@ void ConditionParser::setExpressions(string &data) { // I treat that string as "
     if (condition.empty()) { // Case the string doesn't contain any condition.
         throw "Invalid condition";
     }
-
 }
 
 //nt main() {
 //   ConditionParser cond;
 //   string s = "var <= 1000";
 //   cond.setExpressions(s);
-
-
-//

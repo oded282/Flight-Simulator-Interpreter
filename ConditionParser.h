@@ -24,10 +24,10 @@ public:
     }
     bool isSecConditionValid(string str);
     bool isCondition(string::iterator &it);
-    void setExpressions(string& data);
+    virtual void setCommand(string& data);
     string getFirstParameter(string :: iterator itBegin , string :: iterator itEnd );
     string bindString(string ::iterator it1, string ::iterator it2);
-    virtual int execute(string str);
+    virtual int execute();
 
 };
 

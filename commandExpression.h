@@ -7,7 +7,7 @@
 
 class commandExpression : public Expression {
 
-    Commands* comand;
+    Commands* command;
 
 public:
     commandExpression(Commands* command){ this->comand = command;}

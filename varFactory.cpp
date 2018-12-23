@@ -68,6 +68,7 @@ int varFactory::execute(string sentence) {
     Var* var = new Var(vector[0] , vector[1] , commandTable,varTable);
     varTable->addVar(vector[0],0); //TODO initial the var value to zero, need to check if it's fine.
 }
+
 /*
 int main(){
     varFactory factory;

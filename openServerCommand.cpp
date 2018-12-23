@@ -4,12 +4,9 @@
 #include "ShuntingYard.h"
 
 int openServerCommand::execute(string str){
-
     vector<string> par = getParameters(str);
-
     dataReaderServer readerServer((int)ShuntingYard::shuntingYard(par[0])->calculate(),
             (int)ShuntingYard::shuntingYard(par[1])->calculate());
-
     readerServer.openServer();
 }
 
