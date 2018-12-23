@@ -5,12 +5,12 @@
 #include "Var.h"
 
 class symbolTable {
-    map<string,double> symbolMap;
+    map<string,Var*> symbolMap;
 
 public:
-    map<string, double> &getSymbolMap();
-    void addVar(string symbol,double value);
-    double getVarValue(string symbol);
+    map<string, Var*> &getSymbolMap();
+    void addVar(string symbol, Var* value);
+    Var* getVarValue(string symbol);
 };
 
 

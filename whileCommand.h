@@ -17,6 +17,7 @@ public:
         this->commandTable = mapTable;
         this->varTable = varTable;
     }
+    virtual void setCommand(string& str);
 
 
 };

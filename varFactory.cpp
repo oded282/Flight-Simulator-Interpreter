@@ -2,9 +2,10 @@
 
 #include <vector>
 #include "varFactory.h"
+#include "Number.h"
 
 
-varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable) : Commands(commandTable , varTable){}
+varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable) : Commands(commandTable, varTable) {}
 
 string::iterator varFactory::jumpSpace(string::iterator it) {
     while (*it == ' ') {
@@ -28,26 +29,33 @@ string::iterator varFactory::jumpToSentence(string::iterator it) {
     return it;
 }
 
-string varFactory::getName(string::iterator it){
+string::iterator varFactory::jumpToStartOfVar(string::iterator it) {
+    while (*it == ' ' || *it == '=') {
+        it++;
+    }
+    it++;
+    return it;
+}
+
+string varFactory::getName(string::iterator it) {
     string name;
-    while(*it != ' '){
+    while (*it != ' ') {
         name += *it;
         it++;
     }
     return name;
 }
 
-string varFactory::getSentence(string::iterator it){
+string varFactory::getSentence(string::iterator it, string::iterator itEnd) {
     string sentence;
-    while(*it != '\"'){
+    while (*it != '\"' || it != itEnd) {
         sentence += *it;
         it++;
     }
     return sentence;
 }
 
-
-string varFactory::getVariables(string sentence,vector<string>& vector) {
+string varFactory::getVariables(string sentence, vector<string> &vector, bool isBind) {
     string name;
     string varCommand;
     string::iterator it = sentence.begin();
@@ -57,17 +65,33 @@ string varFactory::getVariables(string sentence,vector<string>& vector) {
     it = jumpUponWord(it);
     it = jumpSpace(it);
     vector.push_back(getName(it));
-    it = jumpToSentence(it);
-    vector.push_back(getSentence(it));
-
+    if (isBind) {
+        it = jumpToSentence(it);
+    } else {
+        jumpToStartOfVar(it);
+    }
+    vector.push_back(getSentence(it, sentence.end()));
 }
 
-int varFactory::execute(string sentence) {
+int varFactory::execute() {
+    return 1;
+}
+
+void varFactory::setCommand(string &sentence) {
+    string bind = "bind";
+    string var = "var";
     vector<string> vector;
-    getVariables(sentence,vector);
-    Var* var = new Var(vector[0] , vector[1] , commandTable,varTable);
-    varTable->addVar(vector[0],0); //TODO initial the var value to zero, need to check if it's fine.
+    if (sentence.find(bind)) {
+        getVariables(sentence, vector, true);
+        Var *newVar = new Var(vector[0], new Number(0), vector[1], commandTable, varTable);
+        varTable->addVar(vector[0], newVar);
+    } else if (sentence.find(var) && !sentence.find(bind)) {
+        getVariables(sentence, vector, false);
+        //Var *newVar = new Var(vector[0], commandTable->getCommand(vector[1]), varTable->getVarValue(vector[1])->getSentence(), commandTable,varTable);
+        varTable->addVar(vector[0], varTable->getVarValue(vector[1]));
+    }
 }
+
 
 /*
 int main(){

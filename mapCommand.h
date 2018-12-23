@@ -3,20 +3,21 @@
 
 #include <string>
 #include <map>
+#include "commandExpression.h"
 
 class Commands;
 using namespace std;
 
 class mapCommand {
-    map<string,Commands*> commandMap;
+    map<string,commandExpression*> commandMap;
 
 
 public:
-    mapCommand(){};
-    map<string, Commands*> &getCommandMap() ;
+    mapCommand()= default;
+    map<string, commandExpression*> &getCommandMap() ;
 
-    void addCommand(string symbol,Commands* commands);
-    Commands* getCommand(string symbol) ;
+    void addCommand(string symbol,commandExpression* commands);
+    commandExpression* getCommand(string symbol);
 };
 
 

@@ -9,3 +9,7 @@ int whileCommand:: execute(){
         commands[i].execute();
     }
 }
+
+void whileCommand::setCommand(string& str){
+    ConditionParser::setCommand(str);
+}

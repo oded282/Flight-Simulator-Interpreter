@@ -10,7 +10,7 @@ class commandExpression : public Expression {
     Commands* command;
 
 public:
-    commandExpression(Commands* command){ this->comand = command;}
+    commandExpression(Commands* command){ this->command = command;}
 
     double calculate();
 

@@ -2,14 +2,19 @@
 #include "Var.h"
 
 
-int Var::execute(string  str){
-    return (int)value;
+int Var::execute() {
+    return 1;
 }
 
-Var::Var(string& name , string& path,mapCommand* commandTable, symbolTable* varTable) : Commands(commandTable, varTable){
+void Var::setCommand(string& str){
+
+}
+
+Var::Var(string &name, Expression *value , string &path, mapCommand *commandTable, symbolTable *varTable) : Commands(commandTable,
+                                                                                                 varTable) {
     Var::name = name;
     Var::path = path;
-    Var::value = 0;
+    Var::value = value;
 }
 
 const string &Var::getSentence() const {
@@ -20,10 +25,10 @@ void Var::setSentence(const string &sentence) {
     Var::path = sentence;
 }
 
-void Var::setValue(double value) {
+void Var::setValue(Expression *value) {
     Var::value = value;
 }
 
-double Var::getValue() const {
+Expression *Var::getValue() const {
     return value;
 }

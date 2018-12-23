@@ -8,7 +8,7 @@ using namespace std;
 
 class Parser
 {
-    vector<string> parser;
+    vector<string> vectorInfo;
     int index;
 
 public:

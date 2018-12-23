@@ -12,10 +12,12 @@ class varFactory : public Commands {
 
 public:
     varFactory(mapCommand* commandTable, symbolTable* varTable);
-    virtual int execute(string sentence);
+    virtual int execute();
+    virtual void setCommand(string& str) = 0;
     string getName(string::iterator it);
-    string getSentence(string::iterator it);
-    string getVariables(string sentence,vector<string>& vector);
+    string getSentence(string::iterator it,string::iterator itEnd);
+    string::iterator jumpToStartOfVar(string::iterator it);
+    string getVariables(string sentence,vector<string>& vector, bool isBind);
     string::iterator jumpSpace(string::iterator it);
     string::iterator jumpUponWord(string::iterator it);
     string::iterator jumpToSentence(string::iterator it);

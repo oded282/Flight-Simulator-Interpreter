@@ -17,11 +17,14 @@ protected:
     symbolTable* varTable;
 
 public:
-    Commands(mapCommand* commandTable, symbolTable* varTable){};
+    Commands(mapCommand* commandTable, symbolTable* varTable){
+        Commands::commandTable = commandTable;
+        Commands::varTable = varTable;
+    };
     vector<string>cleanSpace(string);
     bool checkForValidation(string);
     virtual int execute() = 0;
-    virtual int setCommand(string& str) = 0;
+    virtual void setCommand(string& str) = 0;
     void cleanWhiteSpaces(string &sentence);
     Expression* shuntingYard(string);
     queue<string> putInQueue(string&);

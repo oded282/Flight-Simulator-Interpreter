@@ -2,13 +2,13 @@
 
 Parser::Parser(const vector<string> &parser, int index) {
 
-    Parser::parser = parser;
+    Parser::vectorInfo = parser;
     Parser::index = index;
 
 }
 
 const vector<string> &Parser::getParser() const {
-    return parser;
+    return vectorInfo;
 }
 
 int Parser::getIndex() const {
@@ -16,7 +16,7 @@ int Parser::getIndex() const {
 }
 
 void Parser::setParser(const vector<string> &parser) {
-    Parser::parser = parser;
+    Parser::vectorInfo = parser;
 }
 
 

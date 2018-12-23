@@ -5,14 +5,14 @@
 /*
  * This func add command to the map.
  */
-void mapCommand::addCommand(string symbol,Commands* command){
+void mapCommand::addCommand(string symbol,commandExpression* command){
     commandMap[symbol] = command;
 }
 
 /*
  * This func return specific command if exist.
  */
-Commands* mapCommand::getCommand(string symbol){
+commandExpression* mapCommand::getCommand(string symbol){
     map<string,Commands>:: iterator it;
     if(commandMap.find(symbol) != commandMap.end()){
         return commandMap[symbol];
@@ -24,6 +24,6 @@ Commands* mapCommand::getCommand(string symbol){
 /*
  * This func return's the all map.
  */
-map<string, Commands*> &mapCommand::getCommandMap() {
+map<string, commandExpression*> &mapCommand::getCommandMap() {
     return commandMap;
 }
