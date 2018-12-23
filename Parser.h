@@ -23,6 +23,8 @@ public:
     void setParser(const vector<string> &parser);
 
     void setIndex(int index);
+
+    void doParser();
 };
 
 

@@ -21,3 +21,14 @@ void Parser::setParser(const vector<string> &parser) {
 
 
 
+void Parser::doParser() {
+
+
+
+
+
+
+
+
+
+}

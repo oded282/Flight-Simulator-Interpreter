@@ -74,7 +74,7 @@ void dataReaderServer:: openServer(){
             break;
         }
         cout << n <<endl;
-        //sleep(1000/(unsigned)pace);
+        sleep((unsigned)pace/1000);
 
     }
 }
