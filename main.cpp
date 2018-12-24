@@ -26,7 +26,7 @@ void buildMapExpressionCommand(mapCommand mapCommand1, symbolTable varMap, Shunt
     commandExpression c5(new whileCommand(&parser, &mapCommand1, &varMap, &shuntingYard));
     //commandExpression c6(new ifCommand(&parser, &mapCommand1 , &varMap, &shuntingYard));
     commandExpression c7(new varFactory(&mapCommand1, &varMap, &shuntingYard));
-    //commandExpression c8(new PrintCommand(&mapCommand1 , &varMap, &shuntingYard));
+    commandExpression c8(new PrintCommand(&mapCommand1 , &varMap, &shuntingYard));
 
 
 
@@ -37,7 +37,7 @@ void buildMapExpressionCommand(mapCommand mapCommand1, symbolTable varMap, Shunt
     mapCommand1.addCommand("while", &c5);
     //mapCommand1.addCommand("if" , &c6);
     mapCommand1.addCommand("var", &c7);
-    //mapCommand1.addCommand("print" , c8);
+    mapCommand1.addCommand("print" , c8);
 
 }
 

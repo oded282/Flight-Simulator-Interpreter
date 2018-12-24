@@ -27,16 +27,16 @@ void Parser::setMap(mapCommand *map) {
 }
 
 vector<commandExpression*> Parser::doParser(int stopCase) {
-
+    vector<commandExpression*> expressionVector;
     factoryExpressionCommand factoryExpressionCommand(commandmap);
 
     while (index <= stopCase){
 
         commandExpression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);
-
-        index += e->calculate();
-
-
+        expressionVector.push_back(e);
+        e->calculate();
+        index++;
     }
+    return expressionVector;
 
 }
