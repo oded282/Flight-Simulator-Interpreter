@@ -5,7 +5,8 @@
 #include "Number.h"
 
 
-varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable,ShuntingYard* shuntingYard) : Commands(commandTable, varTable,shuntingYard) {}
+varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable, ShuntingYard *shuntingYard) :
+        Commands(commandTable, varTable, shuntingYard) {}
 
 string::iterator varFactory::jumpSpace(string::iterator it) {
     while (*it == ' ') {
@@ -90,7 +91,7 @@ void varFactory::setCommand(string &sentence) {
         Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);
         varTable->addVar(varTable->getVar(vector[1]));
-    }else if(!sentence.find(var)){
+    } else if (!sentence.find(var)) {
 
 
     }

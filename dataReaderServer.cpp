@@ -19,7 +19,7 @@ vector<string> splitByComma(string str){
     vector <string> result;
     string val;
     for (char itr : str){
-        if (itr != ','){
+        if (itr != ',' && itr != '\n'){
             val += itr;
         } else{
             result.push_back(val);
@@ -140,8 +140,8 @@ void dataReaderServer:: openServer(){
         exit(1);
     }
 
-    //thread t1(communication(newsockfd));
-    communication(newsockfd);
+    thread t1(communication(newsockfd));
+    //communication(newsockfd);
 }
 
 

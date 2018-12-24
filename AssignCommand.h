@@ -12,14 +12,15 @@ class connectCommand;
 
 class AssignCommand : public Commands {
 
-
     connectCommand *connect;
     Var *left;
     Expression *right;
 
 public:
-    AssignCommand(mapCommand *commandTable, symbolTable *varTable, ShuntingYard *shuntingYard,
-                  connectCommand *connect);
+    AssignCommand(mapCommand *commandTable, symbolTable *varTable, ShuntingYard *shuntingYard);
+
+    void setConnectCommand(connectCommand* c);
+
 
     virtual int execute();
 

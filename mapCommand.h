@@ -13,7 +13,7 @@ class mapCommand {
 
 
 public:
-    mapCommand()= default;
+    mapCommand(){};
     map<string, commandExpression*> &getCommandMap() ;
 
     void addCommand(string symbol,commandExpression* commands);

@@ -14,6 +14,7 @@ public:
     whileCommand(Parser* parser, mapCommand* mapTable , symbolTable* varTable , ShuntingYard* shuntingYard) :
     ConditionParser(parser, mapTable,varTable , shuntingYard){}
     virtual void setCommand(string& str);
+    void setParser(Parser*);
 
 
 };

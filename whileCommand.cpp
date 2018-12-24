@@ -8,8 +8,13 @@ int whileCommand:: execute(){
     while(ConditionParser::execute()){
         commands[i].execute();
     }
+    return 1;
 }
 
 void whileCommand::setCommand(string& str){
     ConditionParser::setCommand(str);
+}
+
+void whileCommand::setParser(Parser *p) {
+    whileCommand::parser = p;
 }

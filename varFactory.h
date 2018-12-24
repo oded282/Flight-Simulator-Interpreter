@@ -12,9 +12,10 @@ class varFactory : public Commands {
 
 
 public:
+
     varFactory(mapCommand* commandTable, symbolTable* varTable , ShuntingYard* shuntingYard);
     virtual int execute();
-    virtual void setCommand(string& str) = 0;
+    virtual void setCommand(string& str);
     string getName(string::iterator it);
     string getSentence(string::iterator it,string::iterator itEnd);
     string::iterator jumpToStartOfVar(string::iterator it);
