@@ -20,16 +20,16 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
     if (commandMap->getCommandExpression((result[0])) == nullptr) {
         throw "Invalid Command!";
     }
-    commandExpression *commandExpression;
+    commandExpression *commandEx;
     if (result[1] == "=") {
-        commandExpression = commandMap->getCommandExpression("=");
+        commandEx = commandMap->getCommandExpression("=");
     } else {
-        commandExpression = commandMap->getCommandExpression(result[0]);
+        commandEx = commandMap->getCommandExpression(result[0]);
     }
     //initialize command expression.
-    commandExpression->getCommand()->setCommand(str);
+    commandEx->getCommand()->setCommand(str);
 
-    return commandExpression;
+    return commandEx;
 
 
 }

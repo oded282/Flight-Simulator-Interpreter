@@ -18,7 +18,7 @@
 using namespace std;
 
 
-void buildMapExpressionCommand(mapCommand mapCommand1, symbolTable varMap, ShuntingYard shuntingYard, Parser &parser) {
+void buildMapExpressionCommand(mapCommand& mapCommand1, symbolTable varMap, ShuntingYard shuntingYard, Parser &parser) {
 
 
     commandExpression c1(new openServerCommand(&mapCommand1, &varMap, &shuntingYard));

@@ -13,9 +13,8 @@ void mapCommand::addCommand(string symbol,commandExpression* command){
  * This func return specific command if exist.
  */
 commandExpression* mapCommand::getCommandExpression(string symbol){
-    map<string,Commands>:: iterator it;
     if(commandMap.find(symbol) != commandMap.end()){
-        return commandMap[symbol];
+        return commandMap.find(symbol)->second;
     }
     commandMap.erase(symbol);
     return nullptr;
