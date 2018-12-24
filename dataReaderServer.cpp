@@ -11,17 +11,19 @@
 #include <sys/socket.h>
 #include <iostream>
 #include <sstream>
+
+#include <pthread.h>
 #include <thread>
 #include "dataReaderServer.h"
 #include "Number.h"
 
-vector<string> splitByComma(string str){
-    vector <string> result;
+vector<string> splitByComma(string str) {
+    vector<string> result;
     string val;
-    for (char itr : str){
-        if (itr != ',' && itr != '\n'){
+    for (char itr : str) {
+        if (itr != ',' && itr != '\n') {
             val += itr;
-        } else{
+        } else {
             result.push_back(val);
             val.clear();
         }
@@ -29,13 +31,13 @@ vector<string> splitByComma(string str){
     return result;
 }
 
-void dataReaderServer::setDataFlight(char* str){
+void dataReaderServer::setDataFlight(char *str) {
 
     vector<string> values = splitByComma(str);
 
     int i = 0;
-    while (i < values.size()){
-        if (symbolMap->getVarByPath(pathsVector[i]) != nullptr){
+    while (i < values.size()) {
+        if (symbolMap->getVarByPath(pathsVector[i]) != nullptr) {
             //set the value of var.
             symbolMap->getVarByPath(pathsVector[i])->setValue(
                     new Number(strtof((values[i]).c_str(), nullptr)));
@@ -44,11 +46,11 @@ void dataReaderServer::setDataFlight(char* str){
     }
 }
 
-void* dataReaderServer::communication (int newsockfd){
+void dataReaderServer::communication(int newsockfd) {
     char buffer[256];
     ssize_t n;
     /* If connection is established then start communicating */
-    while (true) {
+    while (false) {
         bzero(buffer, 256);
         n = read(newsockfd, buffer, 255);
 
@@ -59,18 +61,13 @@ void* dataReaderServer::communication (int newsockfd){
 
         setDataFlight(buffer);
 
-        sleep((unsigned)this->pace/1000);
+        sleep((unsigned) pace / 1000);
 
     }
-    return nullptr;
 }
 
 
-
-
-
-
-dataReaderServer::dataReaderServer(int port, double pace , symbolTable* symbolMap) {
+dataReaderServer::dataReaderServer(int port, double pace, symbolTable *symbolMap) {
     dataReaderServer::port = port;
     dataReaderServer::pace = pace;
     dataReaderServer::symbolMap = symbolMap;
@@ -91,13 +88,19 @@ dataReaderServer::dataReaderServer(int port, double pace , symbolTable* symbolMa
                                      "/instrumentation/slip-skid-ball/indicated-slip-skid",
                                      "/instrumentation/turn-indicator/indicated-turn-rate",
                                      "/instrumentation/vertical-speed-indicator/indicated-speed-fpm",
-                                     "/controls/flight/aileron","/controls/flight/elevator","/controls/flight/rudder",
-                                     "/controls/flight/flaps","/controls/engines/engine/throttle",
+                                     "/controls/flight/aileron", "/controls/flight/elevator", "/controls/flight/rudder",
+                                     "/controls/flight/flaps", "/controls/engines/engine/throttle",
                                      "/engines/engine/rpm"};
 }
 
 
-void dataReaderServer:: openServer(){
+//void *dataReaderServer::helpFunc(void *dataReader, int newsockfd) {
+
+  //  return ((dataReaderServer *) dataReader)->communication(newsockfd);
+//}
+
+
+void dataReaderServer::openServer() {
 
 
     int sockfd, newsockfd, clilen;
@@ -117,7 +120,7 @@ void dataReaderServer:: openServer(){
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons((uint16_t)port);
+    serv_addr.sin_port = htons((uint16_t) port);
 
     /* Now bind the host address using bind() call.*/
     if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
@@ -129,19 +132,44 @@ void dataReaderServer:: openServer(){
        * go in sleep mode and will wait for the incoming connection
     */
 
-    listen(sockfd,1);
+    listen(sockfd, 1);
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
-    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
 
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
 
-    //thread t1(communication(newsockfd));
     communication(newsockfd);
+
+
+/*
+   // struct MyParams {
+      //  int newsockfd;
+    //};
+
+
+        dataReaderServer d(port, pace, symbolMap);
+
+        std::thread th(&dataReaderServer::communication, &d, newsockfd);
+        th.join();
+
+    //struct MyParams *params = new MyParams();
+    //params->newsockfd = newsockfd;
+
+    //pthread_t trid;
+    //pthread_create(&trid, nullptr, &helpFunc, nullptr);
+    //pthread_join(&trid, &params);
+
+
+    //pthread_t trid;
+    //dataReaderServer d(port , pace , symbolMap);
+
+    // pthread_create(&trid , nullptr ,helpFunc , &d , newsockfd);
+*/
 }
 
 

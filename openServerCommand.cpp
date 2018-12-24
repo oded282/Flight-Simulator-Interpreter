@@ -14,16 +14,3 @@ int openServerCommand::execute() {
     readerServer->openServer();
 
 }
-
-
-
-
-//int main(){
-   // openServerCommand* openDataServer1;
-   // string string1("bined 5 * 3  2");
-   // string string2(" bined 5 * 3, - 2");
-   // string string3("  bined 5 * 3 ,- 2   ");
-   // string string4("bined 5 * (3 -2) , 3 + -1");
-   // string string5("bined (5 + 3) - 2");
-
-//}

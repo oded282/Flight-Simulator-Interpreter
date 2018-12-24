@@ -11,6 +11,8 @@
 #include "sleepCommand.h"
 #include "whileCommand.h"
 #include "Lexer.h"
+#include "PrintCommand.h"
+#include "ifCommand.cpp"
 
 
 using namespace std;
@@ -24,7 +26,7 @@ void buildMapExpressionCommand(mapCommand mapCommand1, symbolTable varMap, Shunt
     commandExpression c3((new AssignCommand(&mapCommand1, &varMap, &shuntingYard)));
     commandExpression c4(new sleepCommand(&mapCommand1, &varMap, &shuntingYard));
     commandExpression c5(new whileCommand(&parser, &mapCommand1, &varMap, &shuntingYard));
-    //commandExpression c6(new ifCommand(&parser, &mapCommand1 , &varMap, &shuntingYard));
+    commandExpression c6(new ifCommand(&parser, &mapCommand1 , &varMap, &shuntingYard));
     commandExpression c7(new varFactory(&mapCommand1, &varMap, &shuntingYard));
     commandExpression c8(new PrintCommand(&mapCommand1 , &varMap, &shuntingYard));
 
@@ -35,9 +37,9 @@ void buildMapExpressionCommand(mapCommand mapCommand1, symbolTable varMap, Shunt
     mapCommand1.addCommand("=", &c3);
     mapCommand1.addCommand("sleep", &c4);
     mapCommand1.addCommand("while", &c5);
-    //mapCommand1.addCommand("if" , &c6);
+    mapCommand1.addCommand("if" , &c6);
     mapCommand1.addCommand("var", &c7);
-    mapCommand1.addCommand("print" , c8);
+    mapCommand1.addCommand("print" , &c8);
 
 }
 
@@ -46,8 +48,8 @@ int main(int argc, char *argv[]) {
     vector<string> lineCod;
     Lexer lexer;
 
-    if (argc == 1) {
-        lineCod = lexer.lexerFromFile(argv[0]);
+    if (argc == 2) {
+        lineCod = lexer.lexerFromFile(argv[1]);
     } else {
         lineCod = lexer.lexerFromConsole();
     }

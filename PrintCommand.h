@@ -9,6 +9,8 @@ class PrintCommand : public Commands {
     string str;
 
 public:
+    PrintCommand(mapCommand* commandMap , symbolTable* varTable, ShuntingYard* shuntingYard) :
+            Commands(commandMap,varTable, shuntingYard){};
     int execute();
     void setCommand(string&);
 
