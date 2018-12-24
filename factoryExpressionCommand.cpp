@@ -10,7 +10,7 @@ factoryExpressionCommand::factoryExpressionCommand(mapCommand * mapCommand) {
 }
 
 
-Expression* factoryExpressionCommand::creatExpressionCommand(string str) {
+commandExpression* factoryExpressionCommand::creatExpressionCommand(string str) {
 
     istringstream iss(str);
     vector<string> result(istream_iterator<std::string>{iss},

@@ -18,7 +18,7 @@ class factoryExpressionCommand {
 
 public:
     factoryExpressionCommand(mapCommand*);
-    Expression* creatExpressionCommand(string str);
+    commandExpression* creatExpressionCommand(string str);
 
 };
 

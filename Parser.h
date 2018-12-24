@@ -14,7 +14,9 @@ class Parser
     mapCommand * commandmap;
 
 public:
-    Parser(){};
+    Parser(){
+        index = 0;
+    };
 
     Parser(const vector<string> &vectorInfo, mapCommand*);
 
@@ -26,7 +28,9 @@ public:
 
     void setIndex(int index);
 
-    void doParser();
+    void setMap(mapCommand*);
+
+    vector<commandExpression*> doParser(int);
 };
 
 

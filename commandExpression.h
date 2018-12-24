@@ -2,6 +2,7 @@
 #define FLIGHT_SIMULATOR_COMMANDEXPRESSION_H
 
 
+#include <cstdlib>
 #include "Expression.h"
 
 class Commands;
@@ -15,6 +16,10 @@ public:
     double calculate();
 
     Commands* getCommand();
+
+    ~commandExpression(){
+        free(command);
+    }
 };
 
 

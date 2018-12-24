@@ -22,14 +22,17 @@ void Parser::setParser(const vector<string> &vector) {
 }
 
 
+void Parser::setMap(mapCommand *map) {
+    Parser::commandmap = map;
+}
 
-void Parser::doParser() {
+vector<commandExpression*> Parser::doParser(int stopCase) {
 
-    factoryExpressionCommand  factoryExpressionCommand(commandmap);
+    factoryExpressionCommand factoryExpressionCommand(commandmap);
 
-    while (index <= vectorInfo.size()){
+    while (index <= stopCase){
 
-        Expression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);
+        commandExpression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);
 
         index += e->calculate();
 

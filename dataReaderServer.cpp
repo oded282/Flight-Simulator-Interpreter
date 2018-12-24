@@ -140,8 +140,8 @@ void dataReaderServer:: openServer(){
         exit(1);
     }
 
-    thread t1(communication(newsockfd));
-    //communication(newsockfd);
+    //thread t1(communication(newsockfd));
+    communication(newsockfd);
 }
 
 

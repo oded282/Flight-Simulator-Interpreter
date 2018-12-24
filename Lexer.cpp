@@ -51,6 +51,8 @@ vector<string> Lexer::lexerFromFile(string file){
             vectorCommands.push_back(sentence);
         }
     }
+
+    myFile.close();
     return vectorCommands;
 
 }
