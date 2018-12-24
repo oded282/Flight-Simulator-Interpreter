@@ -18,28 +18,28 @@
 using namespace std;
 
 
-void buildMapExpressionCommand(mapCommand& mapCommand1, symbolTable varMap, ShuntingYard shuntingYard, Parser &parser) {
+void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable varMap, ShuntingYard shuntingYard, Parser &parser) {
 
 
-    commandExpression c1(new openServerCommand(&mapCommand1, &varMap, &shuntingYard));
-    commandExpression c2(new connectCommand(&mapCommand1, &varMap, &shuntingYard));
-    commandExpression c3((new AssignCommand(&mapCommand1, &varMap, &shuntingYard)));
-    commandExpression c4(new sleepCommand(&mapCommand1, &varMap, &shuntingYard));
-    commandExpression c5(new whileCommand(&parser, &mapCommand1, &varMap, &shuntingYard));
-    commandExpression c6(new ifCommand(&parser, &mapCommand1 , &varMap, &shuntingYard));
-    commandExpression c7(new varFactory(&mapCommand1, &varMap, &shuntingYard));
-    commandExpression c8(new PrintCommand(&mapCommand1 , &varMap, &shuntingYard));
+    commandExpression* c1 = new commandExpression(new openServerCommand(mapCommand1, &varMap, &shuntingYard));
+    commandExpression* c2 = new commandExpression((new connectCommand(mapCommand1, &varMap, &shuntingYard)));
+    commandExpression* c3 = new commandExpression(((new AssignCommand(mapCommand1, &varMap, &shuntingYard))));
+    commandExpression* c4 = new commandExpression((new sleepCommand(mapCommand1, &varMap, &shuntingYard)));
+    commandExpression* c5 = new commandExpression((new whileCommand(&parser, mapCommand1, &varMap, &shuntingYard)));
+    commandExpression* c6 = new commandExpression((new ifCommand(&parser, mapCommand1 , &varMap, &shuntingYard)));
+    commandExpression* c7 = new commandExpression(new varFactory(mapCommand1, &varMap, &shuntingYard));
+    commandExpression* c8 = new commandExpression(new PrintCommand(mapCommand1 , &varMap, &shuntingYard));
 
 
 
-    mapCommand1.addCommand("openDataServer", &c1);
-    mapCommand1.addCommand("connect", &c2);
-    mapCommand1.addCommand("=", &c3);
-    mapCommand1.addCommand("sleep", &c4);
-    mapCommand1.addCommand("while", &c5);
-    mapCommand1.addCommand("if" , &c6);
-    mapCommand1.addCommand("var", &c7);
-    mapCommand1.addCommand("print" , &c8);
+    mapCommand1->addCommand("openDataServer", c1);
+    mapCommand1->addCommand("connect", c2);
+    mapCommand1->addCommand("=", c3);
+    mapCommand1->addCommand("sleep", c4);
+    mapCommand1->addCommand("while", c5);
+    mapCommand1->addCommand("if" , c6);
+    mapCommand1->addCommand("var", c7);
+    mapCommand1->addCommand("print" , c8);
 
 }
 
@@ -55,10 +55,10 @@ int main(int argc, char *argv[]) {
     }
 
 
-    mapCommand mapExpressionCommand;
-    ShuntingYard shuntingYard(&mapExpressionCommand.getCommandMap());
+    mapCommand *mapExpressionCommand = new mapCommand();
+    ShuntingYard shuntingYard(&mapExpressionCommand->getCommandMap());
     symbolTable varMap;
-    Parser parser(lineCod , &mapExpressionCommand);
+    Parser parser(lineCod , mapExpressionCommand);
 
     buildMapExpressionCommand(mapExpressionCommand, varMap, shuntingYard, parser);
 

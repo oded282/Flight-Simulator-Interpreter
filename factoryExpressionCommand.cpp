@@ -4,7 +4,7 @@
 #include "commandExpression.h"
 
 
-factoryExpressionCommand::factoryExpressionCommand(mapCommand *mapCommand) {
+factoryExpressionCommand::factoryExpressionCommand(mapCommand* mapCommand) {
 
     factoryExpressionCommand::commandMap = mapCommand;
 }
