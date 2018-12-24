@@ -14,8 +14,12 @@
 
 using namespace std;
 
+openClient* connectCommand::getClient(){
+    return client;
+}
 
-char* stringToCharPointer (string str){
+
+char* connectCommand::stringToCharPointer (string str){
     char *newStr = new char[str.size() + 1];
     copy(str.begin() , str.end() , newStr);
     newStr[str.size()] = '\0';

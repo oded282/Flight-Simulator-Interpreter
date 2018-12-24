@@ -17,6 +17,10 @@ public:
         connectCommand::client = nullptr;
     }
 
+    openClient* getClient();
+
+    char* stringToCharPointer (string str);
+
     virtual int execute();
 
     virtual void setCommand(string &);

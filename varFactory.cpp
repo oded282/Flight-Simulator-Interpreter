@@ -5,8 +5,7 @@
 #include "Number.h"
 
 
-varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable ,ShuntingYard* shuntingYard) :
-Commands(commandTable, varTable , shuntingYard) {}
+varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable,ShuntingYard* shuntingYard) : Commands(commandTable, varTable,shuntingYard) {}
 
 string::iterator varFactory::jumpSpace(string::iterator it) {
     while (*it == ' ') {
@@ -84,12 +83,16 @@ void varFactory::setCommand(string &sentence) {
     vector<string> vector;
     if (sentence.find(bind)) {
         getVariables(sentence, vector, true);
-        Var *newVar = new Var(vector[0], new Number(0), vector[1], commandTable, varTable , shuntingYard);
+        Var *newVar = new Var(vector[0], new Number(0), vector[1], commandTable, varTable, shuntingYard);
         varTable->addVar(vector[0], newVar);
     } else if (sentence.find(var) && !sentence.find(bind)) {
         getVariables(sentence, vector, false);
-        //Var *newVar = new Var(vector[0], commandTable->getCommandExpression(vector[1]), varTable->getVarValue(vector[1])->getSentence(), commandTable,varTable);
-        varTable->addVar(vector[0], varTable->getVarValue(vector[1]));
+        Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
+                              varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);
+        varTable->addVar(vector[0], varTable->getVar(vector[1]));
+    }else if(!sentence.find(var)){
+
+
     }
 }
 

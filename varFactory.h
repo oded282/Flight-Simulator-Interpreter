@@ -5,6 +5,7 @@
 
 #include "Commands.h"
 #include "symbolTable.h"
+#include "mapCommand.h"
 
 
 class varFactory : public Commands {
