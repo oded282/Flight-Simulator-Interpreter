@@ -9,7 +9,7 @@ class symbolTable {
 
 public:
     map<string, Var*> &getSymbolMap();
-    void addVar(string symbol, Var* value);
+    void addVar(Var* value);
     Var* getVar(string symbol);
     Expression* getVarValue(string symbol);
     string getVarPath(string symbol);

@@ -1,0 +1,16 @@
+#ifndef FLIGHT_SIMULATOR_GETFLIGHTDATA_H
+#define FLIGHT_SIMULATOR_GETFLIGHTDATA_H
+
+
+class getFlightData {
+
+
+
+
+
+
+
+};
+
+
+#endif //FLIGHT_SIMULATOR_GETFLIGHTDATA_H

@@ -17,8 +17,8 @@ commandExpression* mapCommand::getCommandExpression(string symbol){
     if(commandMap.find(symbol) != commandMap.end()){
         return commandMap[symbol];
     }
+    commandMap.erase(symbol);
     return nullptr;
-
 }
 
 /*

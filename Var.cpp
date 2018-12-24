@@ -10,7 +10,7 @@ void Var::setCommand(string& str){
 
 }
 
-Var::Var(string &name, Expression *value , string &path, mapCommand *commandTable,
+Var::Var(string name, Expression *value , string path, mapCommand *commandTable,
         symbolTable *varTable, ShuntingYard* shuntingYard) :
         Commands(commandTable,varTable , shuntingYard) {
     Var::name = name;
@@ -32,4 +32,8 @@ void Var::setValue(Expression *value) {
 
 Expression *Var::getValue() const {
     return value;
+}
+
+string Var::getName() {
+    return name;
 }

@@ -14,7 +14,7 @@ public:
 
     virtual void setCommand(string& str);
 
-    Var(string &name, Expression* value, string &path, mapCommand *commandTable,
+    Var(string name, Expression* value, string path, mapCommand *commandTable,
             symbolTable *varTable  ,ShuntingYard* shuntingYard);
 
     const string &getSentence() const;
@@ -24,6 +24,8 @@ public:
     Expression *getValue() const;
 
     void setValue(Expression *value);
+
+    string getName();
 };
 
 
