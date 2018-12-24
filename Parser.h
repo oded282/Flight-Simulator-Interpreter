@@ -20,7 +20,7 @@ public:
 
     Parser(const vector<string> &vectorInfo, mapCommand*);
 
-    const vector<string> &getVector() const;
+    vector<string> &getVector();
 
     double getIndex() const;
 

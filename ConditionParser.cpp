@@ -15,7 +15,7 @@ int ConditionParser::execute() {
         return left->calculate() == right->calculate();
     } else if (condition == ">=") {
         return left->calculate() >= right->calculate();
-    } else if (condition == "<=") {
+    } else { // יש מצב לבאג
         return left->calculate() <= right->calculate();
     }
 }

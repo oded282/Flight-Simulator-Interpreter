@@ -3,7 +3,7 @@
 
 
 int Var::execute() {
-    return 1;
+    return value->calculate();
 }
 
 void Var::setCommand(string& str){

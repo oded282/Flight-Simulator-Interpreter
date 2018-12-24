@@ -9,7 +9,7 @@
 class ConditionParser : public Commands {
 
 protected:
-    vector<Commands> commands;
+    vector<commandExpression*> commands;
     Parser *parser;
     Expression *left;
     Expression *right;

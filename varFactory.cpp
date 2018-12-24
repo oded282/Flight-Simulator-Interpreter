@@ -3,6 +3,7 @@
 #include <vector>
 #include "varFactory.h"
 #include "Number.h"
+#include "ShuntingYard.h"
 
 
 varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable, ShuntingYard *shuntingYard) :
@@ -100,7 +101,10 @@ void varFactory::setCommand(string &sentence) {
 
 /*
 int main(){
-    varFactory factory;
+    symbolTable* map1;
+    map<string, commandExpression*> map2;
+    ShuntingYard s(map2);
+    varFactory factory(map1,map2,);
     vector<string> vector;
     string s = "var breaks = bind \"/controls/flight/speedbrake\"";
     factory.getVariables(s,vector);

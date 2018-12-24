@@ -9,7 +9,7 @@ Parser::Parser(const vector<string> &vectorInfo, mapCommand* commandMap) {
 
 }
 
-const vector<string> &Parser::getVector() const {
+vector<string> &Parser::getVector()  {
     return vectorInfo;
 }
 
