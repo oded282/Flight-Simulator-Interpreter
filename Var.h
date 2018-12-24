@@ -8,6 +8,7 @@ class Var : public Commands {
     string name;
     string path;
     Expression *value;
+    vector<Var*> friends;
 
 public:
     int execute();
@@ -26,6 +27,10 @@ public:
     void setValue(Expression *value);
 
     string getName();
+
+    void setFriends();
+
+    vector<Var*> getFriends();
 };
 
 

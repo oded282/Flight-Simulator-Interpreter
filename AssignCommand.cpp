@@ -11,6 +11,13 @@ AssignCommand:: AssignCommand(mapCommand* commandTable, symbolTable* varTable ,
     AssignCommand::connect = nullptr;
 }
 
+void AssignCommand::setFriends(Var* var){
+    vector<Var*> ::iterator it;
+    for(it = var->getFriends().begin(); it != var->getFriends().end(); it++){
+        (*it)->setValue(var->getValue());
+    }
+}
+
 
 int AssignCommand:: execute(){
     std::stringstream str;
@@ -21,8 +28,10 @@ int AssignCommand:: execute(){
 
 void AssignCommand::setCommand(string& str) {
     vector<string> vector = getParameters(str);
-    left = varTable->getVar(str);
     right = shuntingYard->shuntingYard(vector[2]);
+    left = varTable->getVar(vector[1]);
+    left->setValue(right);
+    setFriends(left);
 }
 
 void AssignCommand::setConnectCommand(connectCommand *c) {

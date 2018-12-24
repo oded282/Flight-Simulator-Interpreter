@@ -26,6 +26,8 @@ public:
 
     virtual void setCommand(string &str);
 
+    void setFriends(Var* var);
+
 
 };
 

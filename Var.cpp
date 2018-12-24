@@ -1,9 +1,11 @@
 
+#include <map>
 #include "Var.h"
+#include "symbolTable.h"
 
 
 int Var::execute() {
-    return value->calculate();
+    return (int)value->calculate();
 }
 
 void Var::setCommand(string& str){
@@ -36,4 +38,17 @@ Expression *Var::getValue() const {
 
 string Var::getName() {
     return name;
+}
+
+vector<Var*> Var::getFriends(){
+    return friends;
+}
+
+void Var::setFriends(){
+    map<string,Var*> :: iterator it;
+    for(it = varTable->getSymbolMap().begin(); it != varTable->getSymbolMap().end(); it++){
+        if((*it).second->getSentence() == path){
+            friends.push_back((*it).second);
+        }
+    }
 }

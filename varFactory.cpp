@@ -91,10 +91,8 @@ void varFactory::setCommand(string &sentence) {
         getVariables(sentence, vector, false);
         Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);
+        newVar->setFriends();
         varTable->addVar(varTable->getVar(vector[1]));
-    } else if (!sentence.find(var)) {
-
-
     }
 }
 

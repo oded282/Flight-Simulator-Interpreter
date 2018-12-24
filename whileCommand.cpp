@@ -38,8 +38,29 @@ void whileCommand::removeClosingParanthesis(double counter) {
     parser->getVector()[counter].erase(parser->getVector()[counter].begin() + counter);
 }
 
+string:: iterator iterateToCondition(string:: iterator it){
+    while(*it != '('){
+        it++;
+    }
+    return it++;
+}
+
+string getTheCondition(string:: iterator it){
+    string temp;
+    while(*it != ')'){
+        temp += *it;
+    }
+    return temp;
+}
+
+void cleanCommand(string &str){
+    string ::iterator it = str.begin();
+    str.assign(getTheCondition(iterateToCondition(it)));
+}
+
 
 void whileCommand::setCommand(string &str) {
+    cleanCommand(str);
     ConditionParser::setCommand(str);
 }
 
