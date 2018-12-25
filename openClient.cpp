@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <string>
 #include <cstring>
+#include <iostream>
 
 extern bool isStop;
 extern pthread_mutex_t mutex;
@@ -25,7 +26,9 @@ void openClient::communicationClient(string command) {
 
 
         // lock thread.
-       // pthread_mutex_lock(&mutex);
+
+        pthread_mutex_lock(&mutex);
+        cout << "lock open client"<<endl;
         //if (params->isSendCommand) {
             /* Send message to the server */
             ssize_t n = write(sockfd, command.c_str(), strlen(command.c_str()));
@@ -36,20 +39,20 @@ void openClient::communicationClient(string command) {
             }
             //params->isSendCommand = false;
        // }
-        // unlock thread.
-       // pthread_mutex_unlock(&mutex);
+    cout << "unlock open client"<<endl;
+    // unlock thread.
+        pthread_mutex_unlock(&mutex);
    // return nullptr;
 }
 
 openClient::openClient(string ip, int port) {
     openClient::port = port;
     openClient::ip = ip;
-    openClient::isSendCommand = false;
-    openClient::command = "";
+
 }
 
 void openClient::openSocketClient() {
-    int sockfd, portno;
+    int portno;
     struct sockaddr_in serv_addr;
     struct hostent *server;
     portno = this->port;
@@ -72,7 +75,7 @@ void openClient::openSocketClient() {
     serv_addr.sin_port = htons((uint16_t) portno);
 
     /* Now connect to the server */
-    if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+    if (connect(this->sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         throw "ERROR connecting";
     }
 
@@ -88,7 +91,7 @@ void openClient::openSocketClient() {
 
 }
 
-void openClient::setCommand(const string &command) {
-    openClient::command = command;
-    openClient::isSendCommand = true;
-}
+//id openClient::setCommand(const string &command) {
+//  openClient::command = command;
+//  openClient::isSendCommand = true;
+//

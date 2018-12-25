@@ -16,9 +16,8 @@
 #include "dataReaderServer.h"
 #include "Number.h"
 
-extern bool isStop;
 extern pthread_mutex_t mutex;
-
+extern bool isStop;
 struct MyParams {
     int newsockfd;
     double pace;
@@ -45,15 +44,16 @@ vector<string> splitByComma(string str) {
 void* communicationServer(void *args) {
     struct MyParams* params = (MyParams*)args;
 
-    char buffer[256];
+    char buffer[1024];
     ssize_t n;
     /* If connection is established then start communicating */
-    while (false) {
-        // lock thread.
-        pthread_mutex_lock(&mutex);
+    while (isStop) {
+        //lock thread.
+       pthread_mutex_lock(&mutex);
+        cout << "lock open server"<<endl;
 
-        bzero(buffer, 256);
-        n = read(params->newsockfd, buffer, 255);
+        bzero(buffer, 1024);
+        n = read(params->newsockfd, buffer, 1024);
 
         if (n < 0) {
             perror("ERROR reading from socket");
@@ -71,7 +71,8 @@ void* communicationServer(void *args) {
             }
             i++;
         }
-        // unlock thread.
+         //unlock thread.
+        cout << "unlock open server"<<endl;
         pthread_mutex_unlock(&mutex);
 
         sleep((unsigned) params->pace / 1000);
@@ -160,10 +161,12 @@ void dataReaderServer::openServer() {
     params->pace = pace;
     params->pathsVector = pathsVector;
     params->symbolMap = symbolMap;
-
-    //pthread_t serverThread;
-    //pthread_create(&serverThread, nullptr, communicationServer, (void *) params);
-    communicationServer(params);
+    cout<< "go to sleep" <<endl;
+    //sleep(50);
+    cout<< "getup" <<endl;
+    pthread_t serverThread;
+    pthread_create(&serverThread, nullptr, communicationServer, (void *) params);
+    //communicationServer(params);
 }
 
 

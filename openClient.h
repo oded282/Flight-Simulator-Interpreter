@@ -11,8 +11,7 @@ class openClient {
     int port;
     int sockfd;
     string ip;
-    string command;
-    bool isSendCommand;
+
 
 public:
     openClient(string , int);

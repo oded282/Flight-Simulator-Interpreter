@@ -25,6 +25,7 @@ Var* symbolTable::getVar(string symbol){
 }
 
 Expression* symbolTable::getVarValue(string symbol){
+
     if(symbolMap.find(symbol) != symbolMap.end()){
         return symbolMap[symbol]->getValue();
     }

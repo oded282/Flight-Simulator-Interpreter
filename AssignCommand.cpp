@@ -22,7 +22,7 @@ void AssignCommand::setFriends(Var* var){
 int AssignCommand:: execute(){
     string str;
     str = "set " + left->getSentence() + " " + to_string(value->calculate()) + "\r\n" ;
-    //connect->getClient()->communicationClient(connect->stringToCharPointer(str));
+    connect->getClient()->communicationClient(connect->stringToCharPointer(str));
     return 1;
 }
 
