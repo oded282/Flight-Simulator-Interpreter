@@ -9,11 +9,11 @@ using namespace std;
 class openClient {
 
     int port;
-    char* ip;
+    string ip;
     int sockfd;
 
 public:
-    openClient(char* , int);
+    openClient(string , int);
     void openSocketClient();
     void sendCommand(char *);
 
