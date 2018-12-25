@@ -16,8 +16,8 @@
 #include "dataReaderServer.h"
 #include "Number.h"
 
-
-
+extern bool isStop;
+extern pthread_mutex_t mutex;
 
 struct MyParams {
     int newsockfd;
@@ -41,28 +41,17 @@ vector<string> splitByComma(string str) {
     return result;
 }
 
-void dataReaderServer::setDataFlight(char *str ,struct MyParams* params) {
 
-    vector<string> values = splitByComma(str);
-
-    int i = 0;
-    while (i < values.size()) {
-        if (params->symbolMap->getVarByPath(params->pathsVector[i]) != nullptr) {
-            //set the value of var.
-            params->symbolMap->getVarByPath(params->pathsVector[i])->setValue(
-                    new Number(strtof((values[i]).c_str(), nullptr)));
-        }
-        i++;
-    }
-}
-
-void* communication(void* args) {
+void* communicationServer(void *args) {
     struct MyParams* params = (MyParams*)args;
 
     char buffer[256];
     ssize_t n;
     /* If connection is established then start communicating */
     while (false) {
+        // lock thread.
+        pthread_mutex_lock(&mutex);
+
         bzero(buffer, 256);
         n = read(params->newsockfd, buffer, 255);
 
@@ -82,7 +71,8 @@ void* communication(void* args) {
             }
             i++;
         }
-       // setDataFlight(buffer , params);
+        // unlock thread.
+        pthread_mutex_unlock(&mutex);
 
         sleep((unsigned) params->pace / 1000);
 
@@ -171,9 +161,9 @@ void dataReaderServer::openServer() {
     params->pathsVector = pathsVector;
     params->symbolMap = symbolMap;
 
-   // pthread_t serverThread;
- //   pthread_create(&serverThread, nullptr, communication, (void *) params);
-    communication(params);
+    //pthread_t serverThread;
+    //pthread_create(&serverThread, nullptr, communicationServer, (void *) params);
+    communicationServer(params);
 }
 
 

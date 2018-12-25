@@ -9,13 +9,17 @@ using namespace std;
 class openClient {
 
     int port;
-    string ip;
     int sockfd;
+    string ip;
+    string command;
+    bool isSendCommand;
 
 public:
     openClient(string , int);
     void openSocketClient();
     void sendCommand(char *);
+
+    void setCommand(const string &command);
 
 
 };

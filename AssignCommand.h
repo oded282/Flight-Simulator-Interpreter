@@ -15,6 +15,7 @@ class AssignCommand : public Commands {
     connectCommand *connect;
     Var *left;
     Expression *right;
+    Expression* value;
 
 public:
     AssignCommand(connectCommand* ,mapCommand *commandTable, symbolTable *varTable, ShuntingYard *shuntingYard);

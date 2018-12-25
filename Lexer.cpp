@@ -47,8 +47,10 @@ vector<string> Lexer::lexerFromFile(string file){
     ifstream myFile;
     myFile.open(file);
     if(myFile.is_open()){
-        while(getline(myFile, sentence)){
-            vectorCommands.push_back(sentence);
+        while(getline(myFile, sentence)) {
+            if (!sentence.empty()) {
+                vectorCommands.push_back(sentence);
+            }
         }
     }
 

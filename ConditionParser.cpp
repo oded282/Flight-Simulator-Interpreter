@@ -95,37 +95,12 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
         vector.push_back(getExp(++it, data.end()));
 
 
-
-  //      if (isCondition(it)) {// Case the first operator is valid.
-  //          if (isCondition(it += 1)) { // Case the sec operator is valid.
-  //              it--;
-  //              if (isSecConditionValid(bindString(it, it += 1))) { // If two operator combined to one valid operator.
-  //                  it--;
-  //                  condition = *it;
-  //                  condition += *(it + 1);
-  //                  left = shuntingYard->shuntingYard(getFirstParameter(data.begin(), it)); // What to do if it is a var? example in main
-  //                  right = shuntingYard->shuntingYard(getFirstParameter(it += 2, data.end()));
-  //              } else {
-  //                  throw "Invalid condition";
-//
-  //              }
-  //          } else {
-  //              it--;
-  //              condition = *it;
-  //              left = shuntingYard->shuntingYard(getFirstParameter(data.begin(), it)); // What to do if it is a var? example in main
-  //              right = shuntingYard->shuntingYard(getFirstParameter(it += 1, data.end()));
-  //          }
-  //      }
-    }
-    left = shuntingYard->shuntingYard(vector[0]);
-    condition = vector[1];
-    right = right = shuntingYard->shuntingYard(vector[2]);
-    if (condition.empty()) { // Case the string doesn't contain any condition.
-        throw "Invalid condition";
+        left = shuntingYard->shuntingYard(vector[0]);
+        condition = vector[1];
+        right = right = shuntingYard->shuntingYard(vector[2]);
+        if (condition.empty()) { // Case the string doesn't contain any condition.
+            throw "Invalid condition";
+        }
     }
 }
 
-//nt main() {
-//   ConditionParser cond;
-//   string s = "var <= 1000";
-//   cond.setExpressions(s);

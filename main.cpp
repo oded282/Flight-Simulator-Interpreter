@@ -17,6 +17,8 @@
 
 using namespace std;
 
+bool isStop;
+pthread_mutex_t mutex;
 
 void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, ShuntingYard* shuntingYard, Parser &parser) {
 
@@ -32,7 +34,6 @@ void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, Shu
     commandExpression* c8 = new commandExpression(new PrintCommand(mapCommand1 , varMap, shuntingYard));
 
 
-
     mapCommand1->addCommand("openDataServer", c1);
     mapCommand1->addCommand("connect", c2);
     mapCommand1->addCommand("=", c3);
@@ -46,7 +47,7 @@ void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, Shu
 
 
 int main(int argc, char *argv[]) {
-
+    isStop = true;
     vector<string> lineCod;
     Lexer lexer;
 
@@ -68,5 +69,5 @@ int main(int argc, char *argv[]) {
 
 
 
-
+    isStop = false;
 }

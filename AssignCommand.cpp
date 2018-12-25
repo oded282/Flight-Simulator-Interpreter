@@ -21,7 +21,7 @@ void AssignCommand::setFriends(Var* var){
 
 int AssignCommand:: execute(){
     string str;
-    str = "set " + left->getSentence() + " " + to_string(right->calculate()) + "\r\n" ;
+    str = "set " + left->getSentence() + " " + to_string(value->calculate()) + "\r\n" ;
     //connect->getClient()->sendCommand(connect->stringToCharPointer(str));
     return 1;
 }
@@ -30,7 +30,8 @@ void AssignCommand::setCommand(string& str) {
     vector<string> vector = getAssinParam(str);
     right = shuntingYard->shuntingYard(vector[1]);
     left = varTable->getVar(vector[0]);
-    left->setValue(new Number(right->calculate()));
+    value = new Number(right->calculate());
+    left->setValue(value);
     setFriends(left);
 }
 
