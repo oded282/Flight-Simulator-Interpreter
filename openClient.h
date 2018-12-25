@@ -18,7 +18,7 @@ public:
     openClient(string , int);
     void openSocketClient();
     void sendCommand(char *);
-
+    void communicationClient(string );
     void setCommand(const string &command);
 
 

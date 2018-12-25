@@ -11,35 +11,34 @@
 extern bool isStop;
 extern pthread_mutex_t mutex;
 
-
+/*
 struct MyParams {
     int sockfd;
     string &command;
     bool isSendCommand;
     MyParams();
 };
+*/
+void openClient::communicationClient(string command) {
 
-void *communicationClient(void *args) {
+    //struct MyParams *params = (MyParams *) ;
 
-    struct MyParams *params = (MyParams *) args;
 
-    //while (isStop) {
         // lock thread.
        // pthread_mutex_lock(&mutex);
         //if (params->isSendCommand) {
             /* Send message to the server */
-            ssize_t n = write(params->sockfd, params->command.c_str(), strlen(params->command.c_str()));
+            ssize_t n = write(sockfd, command.c_str(), strlen(command.c_str()));
 
             if (n < 0) {
                 perror("ERROR writing to socket");
                 exit(EXIT_FAILURE);
             }
-            params->isSendCommand = false;
+            //params->isSendCommand = false;
        // }
         // unlock thread.
        // pthread_mutex_unlock(&mutex);
- //   }
-    return nullptr;
+   // return nullptr;
 }
 
 openClient::openClient(string ip, int port) {
@@ -77,15 +76,15 @@ void openClient::openSocketClient() {
         throw "ERROR connecting";
     }
 
-    struct MyParams *params = new MyParams();
-    params->sockfd = sockfd;
-    params->isSendCommand = this->isSendCommand;
-    params->command = command;
+   //struct MyParams *params = new MyParams();
+   //params->sockfd = sockfd;
+   //params->isSendCommand = this->isSendCommand;
+    //params->command = command;
 
 
     //pthread_t clientThread;
     //pthread_create(&clientThread, nullptr, communicationClient, (void *) params);
-   communicationClient(params);
+  // communicationClient(sockfd);
 
 }
 
