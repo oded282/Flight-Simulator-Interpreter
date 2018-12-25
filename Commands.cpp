@@ -22,7 +22,7 @@ void Commands::cleanWhiteSpaces(string &sentence) {
 
 
 bool legalExpression1(char c) {
-    return c == ',';
+    return c == ',' ;
 }
 
 bool legalExpression2(vector<string> &v, int i) {
@@ -56,6 +56,15 @@ vector<string> Commands::getParameters(string &str) {
             break;
         }
     }
+    return params;
+}
+
+vector<string> Commands::getAssinParam(string str){
+    string parameter1, parameter2;
+    vector<string> result = cleanSpace(str);
+    vector<string> params;
+    params.push_back(shuntingYard->fromVectorToString(result , 0 , 1 ));
+    params.push_back(shuntingYard->fromVectorToString(result , 2,(unsigned)result.size()));
     return params;
 }
 

@@ -27,9 +27,9 @@ int AssignCommand:: execute(){
 }
 
 void AssignCommand::setCommand(string& str) {
-    vector<string> vector = getParameters(str);
-    right = shuntingYard->shuntingYard(vector[2]);
-    left = varTable->getVar(vector[1]);
+    vector<string> vector = getAssinParam(str);
+    right = shuntingYard->shuntingYard(vector[1]);
+    left = varTable->getVar(vector[0]);
     left->setValue(right);
     setFriends(left);
 }
