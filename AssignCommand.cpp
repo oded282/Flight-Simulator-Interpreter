@@ -21,8 +21,8 @@ void AssignCommand::setFriends(Var* var){
 
 int AssignCommand:: execute(){
     string str;
-    str = "set " + left->getSentence() + " " + to_string(right->calculate()) + "\r\n" ; //TODO need to check how to send the string of the expression(right)
-    connect->getClient()->sendCommand(connect->stringToCharPointer(str));
+    str = "set " + left->getSentence() + " " + to_string(right->calculate()) + "\r\n" ;
+    //connect->getClient()->sendCommand(connect->stringToCharPointer(str));
     return 1;
 }
 
