@@ -71,7 +71,7 @@ bool ShuntingYard::checkForValidation(string str) {
             }
         }
        string var;
-       while (isCharacter(*itr)){
+       while (isCharacter(*itr)){ // var חוזר ריק
             var += *itr;
             itr++;
        }

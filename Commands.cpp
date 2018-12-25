@@ -51,7 +51,7 @@ vector<string> Commands::getParameters(string &str) {
         if (legalExpression1(result[i][0]) || legalExpression2(result, i)) {
             result.clear();
             result.push_back(shuntingYard->fromVectorToString(result , 1 , i ));
-            result.push_back(shuntingYard->fromVectorToString(result , i, );
+            result.push_back(shuntingYard->fromVectorToString(result , i,  i + 1));
             break;
         }
     }

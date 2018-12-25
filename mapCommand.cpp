@@ -14,7 +14,7 @@ void mapCommand::addCommand(string symbol,commandExpression* command){
  */
 commandExpression* mapCommand::getCommandExpression(string symbol){
     if(commandMap.find(symbol) != commandMap.end()){
-        return commandMap[symbol];
+        return commandMap.find(symbol)->second;
     }
     commandMap.erase(symbol);
     return nullptr;
