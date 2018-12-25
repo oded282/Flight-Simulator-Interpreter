@@ -2,20 +2,36 @@
 
 #include "whileCommand.h"
 
-int whileCommand::numberOfWhileCommands() {
-    double counter = parser->getIndex();
-    while (!parser->getVector()[(unsigned) counter].find('}')) {
+double jumpUponCommand(double counter,Parser* parser){
+    while(parser->getVector()[(unsigned) counter].find('}') != string::npos){
         counter++;
     }
-    string temp = parser->getVector()[(unsigned) counter];
+    return ++counter;
+}
+
+int whileCommand::numberOfWhileCommands() {
+    double counter = parser->getIndex() + 1;
+    double num = 1;
+    while (parser->getVector()[(unsigned) counter].find('}') == string::npos) {
+        if(parser->getVector()[(unsigned) counter].find("if") != string::npos){
+            counter = jumpUponCommand(counter,parser);
+
+        }else if(parser->getVector()[(unsigned) counter].find("while") != string::npos){
+            counter = jumpUponCommand(counter,parser);
+        }
+        counter++;
+        num++;
+    }
+    string& temp = parser->getVector()[(unsigned) counter];
     cleanWhiteSpaces(temp);
     if (temp[0] == '}') {
-        counter -= 1;
+        num -= 1;
+
         parser->getVector().erase(parser->getVector().begin() + counter);
 
     }
-    removeClosingParanthesis(counter);
-    return (int)counter;
+    //removeClosingParanthesis(counter);
+    return (int)num;
 }
 
 int whileCommand::execute() {

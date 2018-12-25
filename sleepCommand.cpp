@@ -4,9 +4,9 @@
 
 
 void sleepCommand::setCommand(string& str) {
-    vector<string> result = getParameters(str);
-
-     time = (int)shuntingYard->shuntingYard(result[1])->calculate();
+    str = str.substr(5, str.size());
+    cleanWhiteSpaces(str);
+    time = (int)shuntingYard->shuntingYard(str)->calculate();
 }
 
 int sleepCommand::execute() {

@@ -22,7 +22,7 @@ public:
 
     vector<string> &getVector();
 
-    double getIndex() const;
+    double getIndex();
 
     void setParser(const vector<string> &vector);
 
