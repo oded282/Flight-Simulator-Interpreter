@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <algorithm>
 #include "ShuntingYard.h"
@@ -51,7 +50,7 @@ bool ShuntingYard::checkForValidation(string str) {
             return false;
         }
         // check if the is to operators in a row.
-        if (isOperator(*itr) > OPERATOR && isOperator(*(itr + 1)) > OPERATOR) {
+        if (isOperator(*itr) > OPERATOR1 && isOperator(*(itr + 1)) > OPERATOR2) {
             return false;
         }
         // check if the is "x(..." x is number or var.
@@ -71,9 +70,11 @@ bool ShuntingYard::checkForValidation(string str) {
             }
         }
         string var;
-        while (isCharacter(*itr)) {
-            var += *itr;
-            itr++;
+        if (isCharacter(*itr)) {
+            while (isOperator(*itr) == 0){
+                var += *itr;
+                itr++;
+            };
         }
         if (!var.empty()) {
             map<string, commandExpression *>::iterator it;

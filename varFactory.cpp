@@ -10,7 +10,7 @@
 varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable, ShuntingYard *shuntingYard) :
         Commands(commandTable, varTable, shuntingYard) {}
 
-string::iterator varFactory::jumpSpace(string::iterator it) {
+string::iterator varFactory::jumpSpace(string::iterator& it) {
     while (*it == ' ') {
         it++;
     }
@@ -40,16 +40,16 @@ string::iterator varFactory::jumpToStartOfVar(string::iterator it) {
     return it;
 }
 
-string varFactory::getName(string::iterator it) {
+string varFactory::getName(string::iterator& it,string::iterator itEnd) {
     string name;
-    while (*it != ' ') {
+    while (*it != '=' && it != itEnd) {
         name += *it;
         it++;
     }
     return name;
 }
 
-string varFactory::getSentence(string::iterator it, string::iterator itEnd) {
+string varFactory::getSentence(string::iterator& it, string::iterator itEnd) {
     string sentence;
     while (*it != '\"' && it != itEnd) {
         sentence += *it;
@@ -59,19 +59,16 @@ string varFactory::getSentence(string::iterator it, string::iterator itEnd) {
 }
 
 void varFactory::getVariables(string sentence, vector<string> &vector, bool isBind) {
+    cleanWhiteSpaces(sentence);
+    sentence = sentence.substr(3,sentence.size());
     string name;
     string varCommand;
     string::iterator it = sentence.begin();
-    if (*it == ' ') {
-        jumpSpace(it);
-    }
-    it = jumpUponWord(it);
-    it = jumpSpace(it);
-    vector.push_back(getName(it));
+    vector.push_back(getName(it,sentence.end()));
     if (isBind) {
         it = jumpToSentence(it);
     } else {
-        jumpToStartOfVar(it);
+        it++;
     }
     vector.push_back(getSentence(it, sentence.end()));
 }
@@ -84,12 +81,12 @@ void varFactory::setCommand(string &sentence) {
     string bind = "bind";
     string var = "var";
     vector<string> vector;
-    if (sentence.find(bind)) {
+    if (sentence.find("bind") != string::npos) {
         getVariables(sentence, vector, true);
         Var *newVar = new Var(vector[0], new Number(0), vector[1], commandTable, varTable, shuntingYard);
         varTable->addVar(newVar);
         commandTable->addCommand(vector[0], new commandExpression(newVar));
-    } else if (sentence.find(var) && !sentence.find(bind)) {
+    } else{
         getVariables(sentence, vector, false);
         Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);

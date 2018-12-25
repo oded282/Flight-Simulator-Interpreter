@@ -8,7 +8,8 @@
 
 using namespace std;
 #define MULT_OR_DIV 3
-#define OPERATOR 1
+#define OPERATOR1 1
+#define OPERATOR2 2
 #define NOT_OPERATOR 0
 
 class ShuntingYard {
