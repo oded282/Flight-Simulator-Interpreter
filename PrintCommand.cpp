@@ -9,10 +9,7 @@ int PrintCommand::execute() {
 }
 
 void PrintCommand::setCommand(string& str) {
-    vector<string> result = cleanSpace(str);
-
-    vector<string>::iterator it;
-    for (it = result.begin() ; it != result.end(); ++it) {
-        this->str += *it;
-    }
+    str = str.substr(5, str.size());
+    cleanWhiteSpaces(str);
+    this->str = str;
 }
