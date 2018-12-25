@@ -3,14 +3,14 @@
 #include "whileCommand.h"
 
 double jumpUponCommand(double counter,Parser* parser){
-    while(parser->getVector()[(unsigned) counter].find('}') != string::npos){
+    while(parser->getVector()[(unsigned) counter].find('}') == string::npos){
         counter++;
     }
     return ++counter;
 }
 
 int whileCommand::numberOfWhileCommands() {
-    double counter = parser->getIndex() + 1;
+    double counter = parser->getIndex();
     double num = 1;
     while (parser->getVector()[(unsigned) counter].find('}') == string::npos) {
         if(parser->getVector()[(unsigned) counter].find("if") != string::npos){
