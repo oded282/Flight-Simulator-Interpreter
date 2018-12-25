@@ -1,6 +1,7 @@
 
 
 #include <vector>
+#include <iostream>
 #include "varFactory.h"
 #include "Number.h"
 #include "ShuntingYard.h"
@@ -50,14 +51,14 @@ string varFactory::getName(string::iterator it) {
 
 string varFactory::getSentence(string::iterator it, string::iterator itEnd) {
     string sentence;
-    while (*it != '\"' || it != itEnd) {
+    while (*it != '\"' && it != itEnd) {
         sentence += *it;
         it++;
     }
     return sentence;
 }
 
-string varFactory::getVariables(string sentence, vector<string> &vector, bool isBind) {
+void varFactory::getVariables(string sentence, vector<string> &vector, bool isBind) {
     string name;
     string varCommand;
     string::iterator it = sentence.begin();
@@ -87,12 +88,14 @@ void varFactory::setCommand(string &sentence) {
         getVariables(sentence, vector, true);
         Var *newVar = new Var(vector[0], new Number(0), vector[1], commandTable, varTable, shuntingYard);
         varTable->addVar(newVar);
+        commandTable->addCommand(vector[0] , new commandExpression(newVar));
     } else if (sentence.find(var) && !sentence.find(bind)) {
         getVariables(sentence, vector, false);
         Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);
         newVar->setFriends();
         varTable->addVar(varTable->getVar(vector[1]));
+        commandTable->addCommand(vector[0] , new commandExpression(newVar));
     }
 }
 

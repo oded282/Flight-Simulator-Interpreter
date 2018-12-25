@@ -2,6 +2,7 @@
 #include <sstream>
 #include "factoryExpressionCommand.h"
 #include "commandExpression.h"
+#include "varFactory.h"
 
 
 factoryExpressionCommand::factoryExpressionCommand(mapCommand* mapCommand) {
@@ -23,12 +24,18 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
     commandExpression *commandEx;
     if (result[1] == "=") {
         commandEx = commandMap->getCommandExpression("=");
-    } else {
+        commandEx->getCommand()->setCommand(str);
+    }else if(result[0] == "var"){
+
         commandEx = commandMap->getCommandExpression(result[0]);
+        commandEx->getCommand()->setCommand(str);
+        commandEx = commandMap->getCommandExpression(result[1]);
+    }
+    else {
+        commandEx = commandMap->getCommandExpression(result[0]);
+        commandEx->getCommand()->setCommand(str);
     }
     //initialize command expression.
-    commandEx->getCommand()->setCommand(str);
-
     return commandEx;
 
 

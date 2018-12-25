@@ -19,7 +19,7 @@ public:
     string getName(string::iterator it);
     string getSentence(string::iterator it,string::iterator itEnd);
     string::iterator jumpToStartOfVar(string::iterator it);
-    string getVariables(string sentence,vector<string>& vector, bool isBind);
+    void getVariables(string sentence,vector<string>& vector, bool isBind);
     string::iterator jumpSpace(string::iterator it);
     string::iterator jumpUponWord(string::iterator it);
     string::iterator jumpToSentence(string::iterator it);
