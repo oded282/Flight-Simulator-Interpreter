@@ -91,7 +91,7 @@ void varFactory::setCommand(string &sentence) {
         Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);
         newVar->setFriends();
-        varTable->addVar(varTable->getVar(vector[1]));
+        varTable->addVar(newVar);
         commandTable->addCommand(vector[0], new commandExpression(newVar));
     }
 }

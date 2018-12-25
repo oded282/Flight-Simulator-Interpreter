@@ -18,18 +18,18 @@
 using namespace std;
 
 
-void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable varMap, ShuntingYard shuntingYard, Parser &parser) {
+void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, ShuntingYard* shuntingYard, Parser &parser) {
 
-    connectCommand* c = new connectCommand(mapCommand1, &varMap, &shuntingYard);
+    connectCommand* c = new connectCommand(mapCommand1, varMap, shuntingYard);
 
-    commandExpression* c1 = new commandExpression(new openServerCommand(mapCommand1, &varMap, &shuntingYard));
+    commandExpression* c1 = new commandExpression(new openServerCommand(mapCommand1, varMap, shuntingYard));
     commandExpression* c2 = new commandExpression((c));
-    commandExpression* c3 = new commandExpression(((new AssignCommand(c ,mapCommand1, &varMap, &shuntingYard))));
-    commandExpression* c4 = new commandExpression((new sleepCommand(mapCommand1, &varMap, &shuntingYard)));
-    commandExpression* c5 = new commandExpression((new whileCommand(&parser, mapCommand1, &varMap, &shuntingYard)));
-    commandExpression* c6 = new commandExpression((new ifCommand(&parser, mapCommand1 , &varMap, &shuntingYard)));
-    commandExpression* c7 = new commandExpression(new varFactory(mapCommand1, &varMap, &shuntingYard));
-    commandExpression* c8 = new commandExpression(new PrintCommand(mapCommand1 , &varMap, &shuntingYard));
+    commandExpression* c3 = new commandExpression(((new AssignCommand(c ,mapCommand1, varMap, shuntingYard))));
+    commandExpression* c4 = new commandExpression((new sleepCommand(mapCommand1, varMap, shuntingYard)));
+    commandExpression* c5 = new commandExpression((new whileCommand(&parser, mapCommand1, varMap, shuntingYard)));
+    commandExpression* c6 = new commandExpression((new ifCommand(&parser, mapCommand1 , varMap, shuntingYard)));
+    commandExpression* c7 = new commandExpression(new varFactory(mapCommand1, varMap, shuntingYard));
+    commandExpression* c8 = new commandExpression(new PrintCommand(mapCommand1 , varMap, shuntingYard));
 
 
 
@@ -58,8 +58,8 @@ int main(int argc, char *argv[]) {
 
 
     mapCommand *mapExpressionCommand = new mapCommand();
-    ShuntingYard shuntingYard(&mapExpressionCommand->getCommandMap());
-    symbolTable varMap;
+    symbolTable* varMap =  new symbolTable();
+    ShuntingYard* shuntingYard = new ShuntingYard(varMap);
     Parser parser(lineCod , mapExpressionCommand);
 
     buildMapExpressionCommand(mapExpressionCommand, varMap, shuntingYard, parser);

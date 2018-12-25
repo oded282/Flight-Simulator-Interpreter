@@ -30,7 +30,7 @@ void AssignCommand::setCommand(string& str) {
     vector<string> vector = getAssinParam(str);
     right = shuntingYard->shuntingYard(vector[1]);
     left = varTable->getVar(vector[0]);
-    left->setValue(right);
+    left->setValue(new Number(right->calculate()));
     setFriends(left);
 }
 

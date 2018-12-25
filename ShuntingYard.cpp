@@ -71,15 +71,16 @@ bool ShuntingYard::checkForValidation(string str) {
         }
         string var;
         if (isCharacter(*itr)) {
-            while (isOperator(*itr) == 0){
+            while (isOperator(*itr) == 0 && itr != str.end()){
                 var += *itr;
                 itr++;
             };
+            itr--;
         }
         if (!var.empty()) {
             map<string, commandExpression *>::iterator it;
-            it = varMap->find(var);
-            if (it == varMap->end()) {
+            Var* v = varMap->getVar(var);
+            if (v == nullptr) {
                 return false;
             }
         }
@@ -151,7 +152,7 @@ Expression *ShuntingYard::fromStringToExpresion(string s, stack<Expression *> &s
 
     //send the var Expression.
     if (isCharacter(s[0])) {
-        Expression *e = varMap->find(s)->second;
+        Expression *e = new Number(varMap->getVar(s)->getValue()->calculate());
         return e;
     }
 

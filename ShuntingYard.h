@@ -3,6 +3,7 @@
 
 #include "Commands.h"
 #include "commandExpression.h"
+#include "symbolTable.h"
 #include <string>
 #include <map>
 
@@ -13,9 +14,9 @@ using namespace std;
 #define NOT_OPERATOR 0
 
 class ShuntingYard {
-    map<string , commandExpression*>* varMap;
+    symbolTable* varMap;
 public:
-    ShuntingYard(map <string , commandExpression*> *varMap){
+    ShuntingYard(symbolTable *varMap){
         ShuntingYard::varMap = varMap;
     }
      bool checkForValidation(string);

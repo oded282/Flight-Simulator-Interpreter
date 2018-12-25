@@ -54,12 +54,12 @@ string getTheCondition(string:: iterator it){
 }
 
 void cleanCommand(string &str){
-    string ::iterator it = str.begin();
-    str.assign(getTheCondition(iterateToCondition(it)));
+    str = str.substr(5,str.size());
 }
 
 
 void whileCommand::setCommand(string &str) {
+    cleanWhiteSpaces(str);
     cleanCommand(str);
     ConditionParser::setCommand(str);
 }
