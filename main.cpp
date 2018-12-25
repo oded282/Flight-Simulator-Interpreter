@@ -45,6 +45,7 @@ void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable varMap, Shun
 
 
 int main(int argc, char *argv[]) {
+
     vector<string> lineCod;
     Lexer lexer;
 

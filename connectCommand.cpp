@@ -31,8 +31,8 @@ void connectCommand::setCommand(string& str) {
 
     vector<string> result = getParameters(str);
 
-    char * ip = stringToCharPointer(result[1]);
-    string expression = shuntingYard->fromVectorToString(result , 2 , (unsigned)result.size());
+    char * ip = stringToCharPointer(result[0]);
+    string expression = shuntingYard->fromVectorToString(result , 1 , (unsigned)result.size());
     int port = (int)shuntingYard->shuntingYard(expression)->calculate();
 
     client = new openClient(ip, port);

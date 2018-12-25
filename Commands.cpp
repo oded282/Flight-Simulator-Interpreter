@@ -47,15 +47,16 @@ vector<string> Commands::cleanSpace(string str) {
 vector<string> Commands::getParameters(string &str) {
     string parameter1, parameter2;
     vector<string> result = cleanSpace(str);
+    vector<string> params;
+
     for (int i = 1; i < result.size(); i++) {
         if (legalExpression1(result[i][0]) || legalExpression2(result, i)) {
-            result.clear();
-            result.push_back(shuntingYard->fromVectorToString(result , 1 , i ));
-            result.push_back(shuntingYard->fromVectorToString(result , i, );
+            params.push_back(shuntingYard->fromVectorToString(result , 1 , i ));
+            params.push_back(shuntingYard->fromVectorToString(result , i,(unsigned)result.size()));
             break;
         }
     }
-    return result;
+    return params;
 }
 
 

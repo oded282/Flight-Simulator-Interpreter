@@ -13,9 +13,19 @@
 #include <sstream>
 
 #include <pthread.h>
-#include <thread>
 #include "dataReaderServer.h"
 #include "Number.h"
+
+
+
+
+struct MyParams {
+    int newsockfd;
+    double pace;
+    symbolTable* symbolMap;
+    vector<string> pathsVector;
+
+};
 
 vector<string> splitByComma(string str) {
     vector<string> result;
@@ -31,39 +41,55 @@ vector<string> splitByComma(string str) {
     return result;
 }
 
-void dataReaderServer::setDataFlight(char *str) {
+void dataReaderServer::setDataFlight(char *str ,struct MyParams* params) {
 
     vector<string> values = splitByComma(str);
 
     int i = 0;
     while (i < values.size()) {
-        if (symbolMap->getVarByPath(pathsVector[i]) != nullptr) {
+        if (params->symbolMap->getVarByPath(params->pathsVector[i]) != nullptr) {
             //set the value of var.
-            symbolMap->getVarByPath(pathsVector[i])->setValue(
+            params->symbolMap->getVarByPath(params->pathsVector[i])->setValue(
                     new Number(strtof((values[i]).c_str(), nullptr)));
         }
         i++;
     }
 }
 
-void dataReaderServer::communication(int newsockfd) {
+void* communication(void* args) {
+    struct MyParams* params = (MyParams*)args;
+
     char buffer[256];
     ssize_t n;
     /* If connection is established then start communicating */
     while (false) {
         bzero(buffer, 256);
-        n = read(newsockfd, buffer, 255);
+        n = read(params->newsockfd, buffer, 255);
 
         if (n < 0) {
             perror("ERROR reading from socket");
             break;
         }
 
-        setDataFlight(buffer);
+        vector<string> values = splitByComma(buffer);
 
-        sleep((unsigned) pace / 1000);
+        int i = 0;
+        while (i < values.size()) {
+            if (params->symbolMap->getVarByPath(params->pathsVector[i]) != nullptr) {
+                //set the value of var.
+                params->symbolMap->getVarByPath(params->pathsVector[i])->setValue(
+                        new Number(strtof((values[i]).c_str(), nullptr)));
+            }
+            i++;
+        }
+       // setDataFlight(buffer , params);
+
+        sleep((unsigned) params->pace / 1000);
 
     }
+
+
+
 }
 
 
@@ -89,15 +115,9 @@ dataReaderServer::dataReaderServer(int port, double pace, symbolTable *symbolMap
                                      "/instrumentation/turn-indicator/indicated-turn-rate",
                                      "/instrumentation/vertical-speed-indicator/indicated-speed-fpm",
                                      "/controls/flight/aileron", "/controls/flight/elevator", "/controls/flight/rudder",
-                                     "/controls/flight/flaps", "/controls/engines/engine/throttle",
+                                     "/controls/flight/flaps", "/engines/controls/current-engine/throttle",
                                      "/engines/engine/rpm"};
 }
-
-
-//void *dataReaderServer::helpFunc(void *dataReader, int newsockfd) {
-
-  //  return ((dataReaderServer *) dataReader)->communication(newsockfd);
-//}
 
 
 void dataReaderServer::openServer() {
@@ -143,33 +163,17 @@ void dataReaderServer::openServer() {
         exit(1);
     }
 
-    communication(newsockfd);
 
+    struct MyParams *params = new MyParams();
 
-/*
-   // struct MyParams {
-      //  int newsockfd;
-    //};
+    params->newsockfd = newsockfd;
+    params->pace = pace;
+    params->pathsVector = pathsVector;
+    params->symbolMap = symbolMap;
 
-
-        dataReaderServer d(port, pace, symbolMap);
-
-        std::thread th(&dataReaderServer::communication, &d, newsockfd);
-        th.join();
-
-    //struct MyParams *params = new MyParams();
-    //params->newsockfd = newsockfd;
-
-    //pthread_t trid;
-    //pthread_create(&trid, nullptr, &helpFunc, nullptr);
-    //pthread_join(&trid, &params);
-
-
-    //pthread_t trid;
-    //dataReaderServer d(port , pace , symbolMap);
-
-    // pthread_create(&trid , nullptr ,helpFunc , &d , newsockfd);
-*/
+   // pthread_t serverThread;
+ //   pthread_create(&serverThread, nullptr, communication, (void *) params);
+    communication(params);
 }
 
 

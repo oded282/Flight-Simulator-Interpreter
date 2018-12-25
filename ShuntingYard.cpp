@@ -70,16 +70,18 @@ bool ShuntingYard::checkForValidation(string str) {
                 return false;
             }
         }
-       string var;
-       while (isCharacter(*itr)){
+        string var;
+        while (isCharacter(*itr)) {
             var += *itr;
             itr++;
-       }
-        map<string,commandExpression*>::iterator it;
-        it = varMap->find(var);
-       if (it == varMap->end()){
-           return false;
-       }
+        }
+        if (!var.empty()) {
+            map<string, commandExpression *>::iterator it;
+            it = varMap->find(var);
+            if (it == varMap->end()) {
+                return false;
+            }
+        }
     }
     return countParenthesis == 0;
 }
@@ -114,7 +116,7 @@ void closeParenthesis(string::iterator &itr, stack<char> &stack, queue<string> &
 }
 
 // push operator to the stack.
-void pointOnOperator(string::iterator &itr, stack<char> &stack , queue<string>& queue ) {
+void pointOnOperator(string::iterator &itr, stack<char> &stack, queue<string> &queue) {
     vector<char> temp;
     if (isOperator(*itr) != 0) {
         while (true) {
@@ -139,7 +141,7 @@ void pointOnOperator(string::iterator &itr, stack<char> &stack , queue<string>& 
 }
 
 //get string of expression and return expression.
-Expression* ShuntingYard::fromStringToExpresion(string s, stack<Expression *> &stack) {
+Expression *ShuntingYard::fromStringToExpresion(string s, stack<Expression *> &stack) {
     //send the number expression.
     if (isdigit(s[0])) {
         Expression *e = new Number(stoi(s));
@@ -212,7 +214,7 @@ queue<string> ShuntingYard::putInQueue(string &infx) {
         if (itr == infx.begin() && isOperator(*itr) == 2) {
             queue.push("0");
             itr++;
-            readString(itr , queue , infx);
+            readString(itr, queue, infx);
             queue.push("-");
         }
 
@@ -226,7 +228,7 @@ queue<string> ShuntingYard::putInQueue(string &infx) {
         closeParenthesis(itr, stack, queue);
 
         // if itr point on operator.
-        pointOnOperator(itr, stack , queue);
+        pointOnOperator(itr, stack, queue);
 
     }
     // put all in the queue.
@@ -239,7 +241,7 @@ queue<string> ShuntingYard::putInQueue(string &infx) {
 
 
 // the main func of shunting yard algorithm.
-Expression* ShuntingYard::shuntingYard(string infx) {
+Expression *ShuntingYard::shuntingYard(string infx) {
 
     queue<string> queue = putInQueue(infx);
     stack<Expression *> stack;
@@ -249,7 +251,7 @@ Expression* ShuntingYard::shuntingYard(string infx) {
         str = queue.front();
         queue.pop();
         Expression *e = fromStringToExpresion(str, stack);
-        if (e == nullptr){
+        if (e == nullptr) {
             throw "Invalid Var!";
         }
         stack.push(e);

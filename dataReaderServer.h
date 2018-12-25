@@ -15,12 +15,12 @@ class dataReaderServer {
 
 
 public:
-    void setDataFlight(char*);
-    void communication (int);
+    void setDataFlight(char*,struct MyParams*);
+    //void* communication (void*);
     dataReaderServer(int port, double pace , symbolTable* symbolMap);
     void openServer();
 
-    static void *helpFunc(void *dataReader, int newsockfd);
+    //static void *helpFunc(void *dataReader, int newsockfd);
 };
 
 
