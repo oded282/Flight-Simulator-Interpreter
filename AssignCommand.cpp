@@ -6,9 +6,9 @@
 #include "ShuntingYard.h"
 #include "mapCommand.h"
 
-AssignCommand:: AssignCommand(mapCommand* commandTable, symbolTable* varTable ,
+AssignCommand:: AssignCommand(connectCommand* c ,mapCommand* commandTable, symbolTable* varTable ,
         ShuntingYard* shuntingYard):Commands(commandTable,varTable,shuntingYard){
-    AssignCommand::connect = nullptr;
+    AssignCommand::connect = c;
 }
 
 void AssignCommand::setFriends(Var* var){
@@ -20,9 +20,9 @@ void AssignCommand::setFriends(Var* var){
 
 
 int AssignCommand:: execute(){
-    std::stringstream str;
-    str << "set " << left->getSentence() << " " << to_string(right->calculate()) <<"\r\n" ; //TODO need to check how to send the string of the expression(right)
-    connect->getClient()->sendCommand(connect->stringToCharPointer(str.str()));
+    string str;
+    str = "set " + left->getSentence() + " " + to_string(right->calculate()) + "\r\n" ; //TODO need to check how to send the string of the expression(right)
+    connect->getClient()->sendCommand(connect->stringToCharPointer(str));
     return 1;
 }
 

@@ -88,7 +88,7 @@ void* communication(void* args) {
 
     }
 
-
+    return nullptr;
 
 }
 

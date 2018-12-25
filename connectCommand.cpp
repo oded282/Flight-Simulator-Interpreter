@@ -35,7 +35,7 @@ void connectCommand::setCommand(string& str) {
     string expression = shuntingYard->fromVectorToString(result , 1 , (unsigned)result.size());
     int port = (int)shuntingYard->shuntingYard(expression)->calculate();
 
-    client = new openClient(ip, port);
+    this->client = new openClient(ip, port);
 
 }
 

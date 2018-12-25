@@ -28,7 +28,7 @@ string::iterator varFactory::jumpToSentence(string::iterator it) {
     while (*it != '\"') {
         it++;
     }
-    it++;
+    it += 2;
     return it;
 }
 
@@ -88,14 +88,14 @@ void varFactory::setCommand(string &sentence) {
         getVariables(sentence, vector, true);
         Var *newVar = new Var(vector[0], new Number(0), vector[1], commandTable, varTable, shuntingYard);
         varTable->addVar(newVar);
-        commandTable->addCommand(vector[0] , new commandExpression(newVar));
+        commandTable->addCommand(vector[0], new commandExpression(newVar));
     } else if (sentence.find(var) && !sentence.find(bind)) {
         getVariables(sentence, vector, false);
         Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);
         newVar->setFriends();
         varTable->addVar(varTable->getVar(vector[1]));
-        commandTable->addCommand(vector[0] , new commandExpression(newVar));
+        commandTable->addCommand(vector[0], new commandExpression(newVar));
     }
 }
 
