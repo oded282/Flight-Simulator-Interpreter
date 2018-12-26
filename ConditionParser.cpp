@@ -65,9 +65,9 @@ string ConditionParser::getFirstParameter(string::iterator itBegin, string::iter
     return firstParam;
 }
 
-string ConditionParser::getExp(string ::iterator& it, string ::iterator itEnd){
+string ConditionParser::getExp(string::iterator &it, string::iterator itEnd) {
     string temp;
-    while(!isCondition(it) && it != itEnd && *it != '{'){
+    while (!isCondition(it) && it != itEnd && *it != '{') {
         temp += *it;
         it++;
     }
@@ -87,8 +87,9 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
             temp += *(--it);
             temp += *(++it);
             vector.push_back(temp);
+        } else {
+            it--;
         }
-        it--;
         string temp;
         temp += *(it);
         vector.push_back(temp);
@@ -101,6 +102,7 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
         if (condition.empty()) { // Case the string doesn't contain any condition.
             throw "Invalid condition";
         }
+        break;
     }
 }
 

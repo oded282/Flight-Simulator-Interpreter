@@ -6,18 +6,32 @@ double jumpUponCommand(double counter,Parser* parser){
     while(parser->getVector()[(unsigned) counter].find('}') == string::npos){
         counter++;
     }
-    return ++counter;
+    return counter;
+}
+
+bool whileCommand::checkOpenParanthesis(double counter){
+    if(parser->getVector()[(unsigned) counter].find('{') != string::npos){
+        cleanWhiteSpaces(parser->getVector()[(unsigned) counter]);
+        if(parser->getVector()[(unsigned) counter] == "{"){
+            return true;
+        }
+    }
+    return false;
 }
 
 int whileCommand::numberOfWhileCommands() {
     double counter = parser->getIndex();
     double num = 1;
     while (parser->getVector()[(unsigned) counter].find('}') == string::npos) {
-        if(parser->getVector()[(unsigned) counter].find("if") != string::npos){
+        if(parser->getVector()[(unsigned) counter].find("if") != string::npos){ // jump upon nested 'if'
             counter = jumpUponCommand(counter,parser);
 
-        }else if(parser->getVector()[(unsigned) counter].find("while") != string::npos){
+        }else if(parser->getVector()[(unsigned) counter].find("while") != string::npos){ // jump upon nested loop
             counter = jumpUponCommand(counter,parser);
+        }
+        if(checkOpenParanthesis(counter)){ // check if '}' got of it's own.. doesn't count and erase line.
+            parser->getVector().erase(parser->getVector().begin() + counter);
+            continue;
         }
         counter++;
         num++;
@@ -26,17 +40,14 @@ int whileCommand::numberOfWhileCommands() {
     cleanWhiteSpaces(temp);
     if (temp[0] == '}') {
         num -= 1;
-
         parser->getVector().erase(parser->getVector().begin() + counter);
-
     }
     //removeClosingParanthesis(counter);
     return (int)num;
 }
 
 int whileCommand::execute() {
-    vector<commandExpression*> ::iterator it;
-    it = commands.begin();
+    int count = 0;
     if(ConditionParser::execute()){
         commands = parser->doParser(numberOfWhileCommands());
     }
@@ -73,11 +84,19 @@ void cleanCommand(string &str){
     str = str.substr(5,str.size());
 }
 
-
 void whileCommand::setCommand(string &str) {
+
+    //if(count != 0){
+    //    whileCommand* newWhile = new whileCommand(parser,commandTable,varTable,shuntingYard);
+    //    commandExpression* newCommandWhile = new commandExpression(newWhile);
+    //    commands.push_back(newCommandWhile);
+    //    newWhile->setCommand(str);
+    //    return;
+    //}
     cleanWhiteSpaces(str);
     cleanCommand(str);
     ConditionParser::setCommand(str);
+    count++;
 }
 
 void whileCommand::setParser(Parser *p) {

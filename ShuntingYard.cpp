@@ -152,7 +152,7 @@ Expression *ShuntingYard::fromStringToExpresion(string s, stack<Expression *> &s
 
     //send the var Expression.
     if (isCharacter(s[0])) {
-        Expression *e = new Number(varMap->getVar(s)->getValue()->calculate());
+        Expression *e = new commandExpression(varMap->getVar(s));
         return e;
     }
 

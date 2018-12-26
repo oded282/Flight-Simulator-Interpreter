@@ -30,7 +30,7 @@ vector<commandExpression*> Parser::doParser(int stopCase) {
     vector<commandExpression*> expressionVector;
     factoryExpressionCommand factoryExpressionCommand(commandmap);
     stopCase += index;
-    while (index <= stopCase){
+    while (index < stopCase){
 
         commandExpression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);
         expressionVector.push_back(e);
