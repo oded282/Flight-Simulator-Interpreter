@@ -24,7 +24,7 @@ int AssignCommand:: execute(){
     value = new Number(right->calculate());
     left->setValue(value);
     str = "set " + left->getSentence() + " " + to_string(value->calculate()) + "\r\n" ;
-    //connect->getClient()->communicationClient(connect->stringToCharPointer(str));
+    connect->getClient()->communicationClient(connect->stringToCharPointer(str));
     return 1;
 }
 

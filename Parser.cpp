@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Parser.h"
 #include "factoryExpressionCommand.h"
 
@@ -31,7 +32,7 @@ vector<commandExpression*> Parser::doParser(int stopCase) {
     factoryExpressionCommand factoryExpressionCommand(commandmap);
     stopCase += index;
     while (index < stopCase){
-
+        cout <<"check parser" << index << endl;
         commandExpression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);
         expressionVector.push_back(e);
         index++;

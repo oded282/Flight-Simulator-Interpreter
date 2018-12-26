@@ -20,8 +20,9 @@ extern pthread_mutex_t mutex;
 extern bool isStop;
 struct MyParams {
     int newsockfd;
+    int i;
     double pace;
-    symbolTable* symbolMap;
+    symbolTable *symbolMap;
     vector<string> pathsVector;
 
 };
@@ -41,17 +42,59 @@ vector<string> splitByComma(string str) {
 }
 
 
-void* communicationServer(void *args) {
-    struct MyParams* params = (MyParams*)args;
+dataReaderServer::dataReaderServer(int port, double pace, symbolTable *symbolMap) {
+    dataReaderServer::port = port;
+    dataReaderServer::pace = pace;
+    dataReaderServer::symbolMap = symbolMap;
+    dataReaderServer::pathsVector = {"instrumentation/airspeed-indicator/indicated-speed-kt",
+                                     "instrumentation/altimeter/indicated-altitude-ft",
+                                     "instrumentation/altimeter/pressure-alt-ft",
+                                     "instrumentation/attitude-indicator/indicated-pitch-deg",
+                                     "instrumentation/attitude-indicator/indicated-roll-deg",
+                                     "instrumentation/attitude-indicator/internal-pitch-deg",
+                                     "instrumentation/attitude-indicator/internal-roll-deg",
+                                     "instrumentation/encoder/indicated-altitude-ft",
+                                     "instrumentation/encoder/pressure-alt-ft",
+                                     "instrumentation/gps/indicated-altitude-ft",
+                                     "instrumentation/gps/indicated-ground-speed-kt",
+                                     "instrumentation/gps/indicated-vertical-speed",
+                                     "instrumentation/heading-indicator/indicated-heading-deg",
+                                     "instrumentation/magnetic-compass/indicated-heading-deg",
+                                     "instrumentation/slip-skid-ball/indicated-slip-skid",
+                                     "instrumentation/turn-indicator/indicated-turn-rate",
+                                     "instrumentation/vertical-speed-indicator/indicated-speed-fpm",
+                                     "controls/flight/aileron", "controls/flight/elevator", "/controls/flight/rudder",
+                                     "controls/flight/flaps", "engines/controls/current-engine/throttle",
+                                     "engines/engine/rpm"};
+}
 
+int setTheReceivedData(char buffer[1024], symbolTable *symbolMap, vector<string> pathsVector ,int i) {
+    vector<string> values = splitByComma(buffer);
+    while (i < (values.size()-1)) {
+        if (i == pathsVector.size()){
+            i = 0;
+        }
+        if (symbolMap->getVarByPath(pathsVector[i]) != nullptr) {
+            //set the value of var.
+            Expression* e = new Number(strtof((values[i]).c_str(), nullptr));
+            Var *v = symbolMap->getVarByPath(pathsVector[i]);
+            v->setValue(e);
+        }
+        i++;
+    }
+    return i;
+}
+
+
+void *communicationServer(void *args) {
+    struct MyParams *params = (MyParams *) args;
     char buffer[1024];
     ssize_t n;
-    /* If connection is established then start communicating */
+    cout <<"check 4 communicationServer"<<endl;
+
     while (isStop) {
         //lock thread.
-       pthread_mutex_lock(&mutex);
-        cout << "lock open server"<<endl;
-
+        cout <<"check 5 communicationServer 1"<<endl;
         bzero(buffer, 1024);
         n = read(params->newsockfd, buffer, 1024);
 
@@ -59,55 +102,11 @@ void* communicationServer(void *args) {
             perror("ERROR reading from socket");
             break;
         }
-
-        vector<string> values = splitByComma(buffer);
-
-        int i = 0;
-        while (i < values.size()) {
-            if (params->symbolMap->getVarByPath(params->pathsVector[i]) != nullptr) {
-                //set the value of var.
-                params->symbolMap->getVarByPath(params->pathsVector[i])->setValue(
-                        new Number(strtof((values[i]).c_str(), nullptr)));
-            }
-            i++;
-        }
-         //unlock thread.
-        cout << "unlock open server"<<endl;
-        pthread_mutex_unlock(&mutex);
+        params->i = setTheReceivedData(buffer, params->symbolMap, params->pathsVector , params->i);
 
         sleep((unsigned) params->pace / 1000);
-
     }
-
     return nullptr;
-
-}
-
-
-dataReaderServer::dataReaderServer(int port, double pace, symbolTable *symbolMap) {
-    dataReaderServer::port = port;
-    dataReaderServer::pace = pace;
-    dataReaderServer::symbolMap = symbolMap;
-    dataReaderServer::pathsVector = {"/instrumentation/airspeed-indicator/indicated-speed-kt",
-                                     "/instrumentation/altimeter/indicated-altitude-ft",
-                                     "/instrumentation/altimeter/pressure-alt-ft",
-                                     "/instrumentation/attitude-indicator/indicated-pitch-deg",
-                                     "/instrumentation/attitude-indicator/indicated-roll-deg",
-                                     "/instrumentation/attitude-indicator/internal-pitch-deg",
-                                     "/instrumentation/attitude-indicator/internal-roll-deg",
-                                     "/instrumentation/encoder/indicated-altitude-ft",
-                                     "/instrumentation/encoder/pressure-alt-ft",
-                                     "/instrumentation/gps/indicated-altitude-ft",
-                                     "/instrumentation/gps/indicated-ground-speed-kt",
-                                     "/instrumentation/gps/indicated-vertical-speed",
-                                     "/instrumentation/heading-indicator/indicated-heading-deg",
-                                     "/instrumentation/magnetic-compass/indicated-heading-deg",
-                                     "/instrumentation/slip-skid-ball/indicated-slip-skid",
-                                     "/instrumentation/turn-indicator/indicated-turn-rate",
-                                     "/instrumentation/vertical-speed-indicator/indicated-speed-fpm",
-                                     "/controls/flight/aileron", "/controls/flight/elevator", "/controls/flight/rudder",
-                                     "/controls/flight/flaps", "/engines/controls/current-engine/throttle",
-                                     "/engines/engine/rpm"};
 }
 
 
@@ -142,7 +141,7 @@ void dataReaderServer::openServer() {
     /* Now start listening for the clients, here process will
        * go in sleep mode and will wait for the incoming connection
     */
-
+    cout <<"check 1"<<endl;
     listen(sockfd, 1);
     clilen = sizeof(cli_addr);
 
@@ -153,17 +152,24 @@ void dataReaderServer::openServer() {
         perror("ERROR on accept");
         exit(1);
     }
+    char buffer[1024] = {};
+    /* If connection is established then start communicating */
+    //bzero(buffer, 1024);
+    cout <<"check 2"<<endl;
 
+    while (strlen(buffer) == 0) {
+        read(newsockfd, buffer, 1024);
+    }
+
+    setTheReceivedData(buffer , symbolMap , pathsVector , 0);
 
     struct MyParams *params = new MyParams();
-
     params->newsockfd = newsockfd;
     params->pace = pace;
     params->pathsVector = pathsVector;
     params->symbolMap = symbolMap;
-    cout<< "go to sleep" <<endl;
-    //sleep(50);
-    cout<< "getup" <<endl;
+    params->i = 0;
+    cout <<"check 3"<<endl;
     pthread_t serverThread;
     pthread_create(&serverThread, nullptr, communicationServer, (void *) params);
     //communicationServer(params);

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "PrintCommand.h"
-
+#include "symbolTable.h"
 
 
 int PrintCommand::execute() {
@@ -9,7 +9,32 @@ int PrintCommand::execute() {
 }
 
 void PrintCommand::setCommand(string& str) {
-    str = str.substr(5, str.size());
-    cleanWhiteSpaces(str);
-    this->str = str;
+    str = str.substr(6, str.size());
+    string result;
+    string::iterator itr = str.begin();
+    while (itr != str.end()){
+        if (*itr == '\"'){
+            itr++;
+            string temp;
+            while (*itr != '\"'){
+                temp += *itr;
+                itr++;
+            }
+            result += temp;
+            itr++;
+        }else {
+            string temp;
+            while (*itr != '\"' && itr != str.end()){
+                temp += *itr;
+                itr++;
+            }
+            cleanSpace(temp);
+            if (this->varTable->getVar(temp) == nullptr){
+                throw "Invalid Input!";
+            }
+            temp = to_string(this->varTable->getVarValue(temp)->calculate());
+            result += temp;
+        }
+    }
+    this->str = result;
 }

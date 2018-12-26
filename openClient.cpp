@@ -26,20 +26,19 @@ void openClient::communicationClient(string command) {
 
 
         // lock thread.
-
         pthread_mutex_lock(&mutex);
-        cout << "lock open client"<<endl;
+        cout << "lock open client======================"<<endl;
         //if (params->isSendCommand) {
             /* Send message to the server */
             ssize_t n = write(sockfd, command.c_str(), strlen(command.c_str()));
-
+            cout << "client data!!!!!!!!!!!!!!!!!!!!"<< endl;
             if (n < 0) {
                 perror("ERROR writing to socket");
                 exit(EXIT_FAILURE);
             }
             //params->isSendCommand = false;
        // }
-    cout << "unlock open client"<<endl;
+    cout << "unlock open client===================="<<endl;
     // unlock thread.
         pthread_mutex_unlock(&mutex);
    // return nullptr;

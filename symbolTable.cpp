@@ -7,6 +7,7 @@
  * This func add new command to the map.
  */
 void symbolTable::addVar(Var* value){
+
     string name = value->getName();
     symbolMap[name] = value;
 }
