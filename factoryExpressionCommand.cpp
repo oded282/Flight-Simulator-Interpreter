@@ -25,7 +25,7 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
     if (result[1] == "=") {
         commandEx = commandMap->getCommandExpression("=");
         commandEx->getCommand()->setCommand(str);
-    }else if(result[0] == "var"){
+    }else if(result[0] == "var" || result[0] == "while" || result[0] == "if"){
 
         commandEx = commandMap->getCommandExpression(result[0]);
         commandEx->getCommand()->setCommand(str);

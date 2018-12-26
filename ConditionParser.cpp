@@ -106,3 +106,49 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
     }
 }
 
+void ConditionParser::cleanCommand(string &str, int size){
+    str = str.substr(size,str.size());
+}
+
+double jumpUponCommand(double counter,Parser* parser){
+    while(parser->getVector()[(unsigned) counter].find('}') == string::npos){
+        counter++;
+    }
+    return counter;
+}
+
+bool ConditionParser::checkOpenParanthesis(double counter){
+    if(parser->getVector()[(unsigned) counter].find('{') != string::npos){
+        cleanWhiteSpaces(parser->getVector()[(unsigned) counter]);
+        if(parser->getVector()[(unsigned) counter] == "{"){
+            return true;
+        }
+    }
+    return false;
+}
+
+int ConditionParser::numberOfWhileCommands() {
+    double counter = parser->getIndex();
+    double num = 1;
+    while (parser->getVector()[(unsigned) counter].find('}') == string::npos) {
+        if(parser->getVector()[(unsigned) counter].find("if") != string::npos){ // jump upon nested 'if'
+            counter = jumpUponCommand(counter,parser);
+
+        }else if(parser->getVector()[(unsigned) counter].find("while") != string::npos){ // jump upon nested loop
+            counter = jumpUponCommand(counter,parser);
+        }
+        if(checkOpenParanthesis(counter)){ // check if '}' got of it's own.. doesn't count and erase line.
+            parser->getVector().erase(parser->getVector().begin() + counter);
+            continue;
+        }
+        counter++;
+        num++;
+    }
+    string& temp = parser->getVector()[(unsigned) counter];
+    cleanWhiteSpaces(temp);
+    if (temp[0] == '}') {
+        num -= 1;
+        parser->getVector().erase(parser->getVector().begin() + counter);
+    }
+    return (int)num;
+}
