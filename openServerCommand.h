@@ -22,7 +22,9 @@ public:
 
     virtual int execute();
 
-
+    ~openServerCommand(){
+        delete readerServer;
+    }
 };
 
 

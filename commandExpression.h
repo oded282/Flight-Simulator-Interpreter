@@ -18,15 +18,8 @@ public:
     Commands* getCommand();
 
     ~commandExpression(){
-        free(command);
+        delete command;
     }
 };
-
-
-
-
-
-
-
 
 #endif //FLIGHT_SIMULATOR_COMMANDEXPRESSION_H

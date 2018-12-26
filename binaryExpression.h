@@ -16,6 +16,10 @@ protected:
 public:
     binaryExpression(Expression *left, Expression *right);
     virtual double calculate();
+    ~binaryExpression(){
+        delete left;
+        delete right;
+    }
 
 };
 

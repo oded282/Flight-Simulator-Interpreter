@@ -1,7 +1,3 @@
-//
-// Created by oded on 12/16/18.
-//
-
 #ifndef FLIGHT_SIMULATOR_NUMBER_H
 #define FLIGHT_SIMULATOR_NUMBER_H
 
@@ -15,6 +11,7 @@ class Number: public Expression{
 public:
     Number(double number);
     virtual double calculate();
+     ~Number(){}
 };
 
 

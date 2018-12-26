@@ -13,13 +13,11 @@ using namespace std;
 class factoryExpressionCommand {
 
     mapCommand* commandMap;
-    //symbolTable* varMap;
-
 
 public:
     factoryExpressionCommand(mapCommand*);
     commandExpression* creatExpressionCommand(string str);
-
+    ~factoryExpressionCommand(){}
 };
 
 

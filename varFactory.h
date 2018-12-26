@@ -23,6 +23,7 @@ public:
     string::iterator jumpSpace(string::iterator& it);
     string::iterator jumpUponWord(string::iterator it);
     string::iterator jumpToSentence(string::iterator it);
+    ~varFactory(){}
 };
 
 

@@ -106,6 +106,8 @@ void *communicationServer(void *args) {
 
         sleep((unsigned) params->pace / 1000);
     }
+
+
     return nullptr;
 }
 
@@ -169,10 +171,13 @@ void dataReaderServer::openServer() {
     params->pathsVector = pathsVector;
     params->symbolMap = symbolMap;
     params->i = 0;
+
     cout <<"check 3"<<endl;
     pthread_t serverThread;
     pthread_create(&serverThread, nullptr, communicationServer, (void *) params);
     //communicationServer(params);
+
+    close(newsockfd);
 }
 
 

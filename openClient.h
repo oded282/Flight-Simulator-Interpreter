@@ -2,6 +2,7 @@
 #define FLIGHT_SIMULATOR_OPENCLIENT_H
 
 #include <string>
+#include <unistd.h>
 
 using namespace std;
 
@@ -12,15 +13,15 @@ class openClient {
     int sockfd;
     string ip;
 
-
 public:
     openClient(string , int);
     void openSocketClient();
     void sendCommand(char *);
     void communicationClient(string );
     void setCommand(const string &command);
-
-
+    ~openClient(){
+        close(sockfd);
+    }
 };
 
 

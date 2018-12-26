@@ -16,6 +16,7 @@ public:
     ConditionParser(parser, mapTable,varTable , shuntingYard){}
     virtual int execute();
     virtual void setCommand(string& str);
+    ~ifCommand(){}
 };
 
 

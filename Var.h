@@ -31,6 +31,10 @@ public:
     void setFriends();
 
     vector<Var*> getFriends();
+
+    ~Var(){
+        delete value;
+    }
 };
 
 

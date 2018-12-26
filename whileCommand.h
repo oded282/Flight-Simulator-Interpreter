@@ -20,7 +20,7 @@ public:
     bool checkOpenParanthesis(double counter);
     void removeClosingParanthesis(double counter);
     void setParser(Parser*);
-
+    ~whileCommand(){}
 
 };
 

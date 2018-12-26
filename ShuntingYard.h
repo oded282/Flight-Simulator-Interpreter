@@ -27,6 +27,7 @@ public:
      bool isCharacter(char);
      string fromVectorToString(vector<string> &result, int i, int k);
 
+     ~ShuntingYard(){};
 };
 
 

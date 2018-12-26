@@ -14,7 +14,7 @@ class AssignCommand : public Commands {
 
     connectCommand *connect;
     Var *left;
-    Expression *right;
+    Expression* right;
     Expression* value;
 
 public:
@@ -29,6 +29,7 @@ public:
 
     void setFriends(Var* var);
 
+    ~AssignCommand(){}
 
 };
 

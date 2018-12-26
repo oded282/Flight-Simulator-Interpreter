@@ -19,6 +19,7 @@ public:
     //void* communication (void*);
     dataReaderServer(int port, double pace , symbolTable* symbolMap);
     void openServer();
+    ~dataReaderServer(){}
 
     //static void *helpFunc(void *dataReader, int newsockfd);
 };

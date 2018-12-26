@@ -12,6 +12,7 @@ class Lexer {
 public:
     vector<string> lexerFromConsole();
     vector<string> lexerFromFile(string file);
+    ~Lexer(){}
 };
 
 

@@ -26,6 +26,7 @@ public:
     void cleanWhiteSpaces(string &sentence);
     vector<string> getParameters(string&);
     vector<string> getAssinParam(string);
+    virtual ~Commands() = default;
 
 };
 

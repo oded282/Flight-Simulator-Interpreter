@@ -21,27 +21,16 @@ struct MyParams {
 };
 */
 void openClient::communicationClient(string command) {
-
-    //struct MyParams *params = (MyParams *) ;
-
-
         // lock thread.
         pthread_mutex_lock(&mutex);
-        cout << "lock open client======================"<<endl;
-        //if (params->isSendCommand) {
             /* Send message to the server */
             ssize_t n = write(sockfd, command.c_str(), strlen(command.c_str()));
-            cout << "client data!!!!!!!!!!!!!!!!!!!!"<< endl;
             if (n < 0) {
                 perror("ERROR writing to socket");
                 exit(EXIT_FAILURE);
             }
-            //params->isSendCommand = false;
-       // }
-    cout << "unlock open client===================="<<endl;
-    // unlock thread.
+         // unlock thread.
         pthread_mutex_unlock(&mutex);
-   // return nullptr;
 }
 
 openClient::openClient(string ip, int port) {
@@ -78,19 +67,4 @@ void openClient::openSocketClient() {
         throw "ERROR connecting";
     }
 
-   //struct MyParams *params = new MyParams();
-   //params->sockfd = sockfd;
-   //params->isSendCommand = this->isSendCommand;
-    //params->command = command;
-
-
-    //pthread_t clientThread;
-    //pthread_create(&clientThread, nullptr, communicationClient, (void *) params);
-  // communicationClient(sockfd);
-
 }
-
-//id openClient::setCommand(const string &command) {
-//  openClient::command = command;
-//  openClient::isSendCommand = true;
-//

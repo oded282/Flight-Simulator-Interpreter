@@ -14,6 +14,7 @@ public:
     }
     int execute();
     void setCommand(string&);
+    ~sleepCommand(){}
 
 };
 

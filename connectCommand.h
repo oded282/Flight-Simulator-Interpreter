@@ -24,6 +24,9 @@ public:
     virtual int execute();
 
     virtual void setCommand(string &);
+    ~connectCommand(){
+        delete client;
+    }
 
 };
 

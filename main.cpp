@@ -1,4 +1,3 @@
-
 #include <sstream>
 #include <stack>
 #include "dataReaderServer.h"
@@ -13,7 +12,6 @@
 #include "Lexer.h"
 #include "PrintCommand.h"
 #include "ifCommand.cpp"
-
 
 using namespace std;
 
@@ -32,7 +30,6 @@ void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, Shu
     commandExpression* c6 = new commandExpression((new ifCommand(&parser, mapCommand1 , varMap, shuntingYard)));
     commandExpression* c7 = new commandExpression(new varFactory(mapCommand1, varMap, shuntingYard));
     commandExpression* c8 = new commandExpression(new PrintCommand(mapCommand1 , varMap, shuntingYard));
-
 
     mapCommand1->addCommand("openDataServer", c1);
     mapCommand1->addCommand("connect", c2);
@@ -57,17 +54,19 @@ int main(int argc, char *argv[]) {
         lineCod = lexer.lexerFromConsole();
     }
 
-
     mapCommand *mapExpressionCommand = new mapCommand();
     symbolTable* varMap =  new symbolTable();
     ShuntingYard* shuntingYard = new ShuntingYard(varMap);
     Parser parser(lineCod , mapExpressionCommand);
 
     buildMapExpressionCommand(mapExpressionCommand, varMap, shuntingYard, parser);
-
     parser.doParser((int)lineCod.size());
 
-
-
     isStop = false;
+    delete mapExpressionCommand;
+    delete(varMap);
+    delete(shuntingYard);
+
+
+
 }

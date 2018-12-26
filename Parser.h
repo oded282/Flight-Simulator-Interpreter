@@ -31,6 +31,8 @@ public:
     void setMap(mapCommand*);
 
     vector<commandExpression*> doParser(int);
+
+    ~Parser(){}
 };
 
 
