@@ -32,7 +32,7 @@ public:
 
      ~ShuntingYard(){
          for (Expression* itr : collectorDelet){
-             delete itr;
+             //delete itr;
          }
      }
 

@@ -23,7 +23,7 @@ int AssignCommand::execute() {
     colector.push_back(value);
     left->setValue(value);
     str = "set " + left->getSentence() + " " + to_string(value->calculate()) + "\r\n";
-    connect->getClient()->communicationClient(str);
+    //connect->getClient()->communicationClient(str);
     return 1;
 }
 

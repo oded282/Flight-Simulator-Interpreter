@@ -12,14 +12,18 @@
 
 class ConditionFactory : public Commands {
     Parser* parser;
-
+    ConditionCounter* counter;
 
 public:
-    ConditionFactory(Parser* parser,mapCommand* commandTable, symbolTable* varTable, ShuntingYard* shuntingYard)
+    ConditionFactory(ConditionCounter* counter,Parser* parser,mapCommand* commandTable, symbolTable* varTable, ShuntingYard* shuntingYard)
     : Commands (commandTable,varTable,shuntingYard){
         this->parser = parser;
+        this->counter = counter;
     }
     commandExpression* creatCondition(string str);
+    virtual void setCommand(string& str);
+    virtual int execute();
+    ConditionCounter* getCounter();
 };
 
 

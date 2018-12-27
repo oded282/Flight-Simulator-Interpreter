@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "../data/mapCommand.h"
+#include "../ConditionCounter.h"
 
 using namespace std;
 
@@ -12,13 +13,14 @@ class Parser
     vector<string> vectorInfo;
     double index;
     mapCommand * commandmap;
+    ConditionCounter* counter;
 
 public:
     Parser(){
         index = 0;
     };
 
-    Parser(const vector<string> &vectorInfo, mapCommand*);
+    Parser(ConditionCounter* counter,const vector<string> &vectorInfo, mapCommand*);
 
     vector<string> &getVector();
 

@@ -89,10 +89,10 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
             vector.push_back(temp);
         } else {
             it--;
+            string temp;
+            temp += *(it);
+            vector.push_back(temp);
         }
-        string temp;
-        temp += *(it);
-        vector.push_back(temp);
         vector.push_back(getExp(++it, data.end()));
 
 

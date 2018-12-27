@@ -30,7 +30,7 @@ int PrintCommand::execute() {
             result += temp;
         }
     }
-    cout << str << endl;
+    cout << result << endl;
     return 1;
 }
 

@@ -4,6 +4,7 @@
 
 #include <string>
 #include "../expressions/commandExpression.h"
+#include "../ConditionCounter.h"
 
 using namespace std;
 
@@ -11,9 +12,9 @@ using namespace std;
 class factoryExpressionCommand {
 
     mapCommand* commandMap;
-
+    ConditionCounter* counter;
 public:
-    factoryExpressionCommand(mapCommand*);
+    factoryExpressionCommand(ConditionCounter*,mapCommand*);
     commandExpression* creatExpressionCommand(string str);
     ~factoryExpressionCommand(){}
 };

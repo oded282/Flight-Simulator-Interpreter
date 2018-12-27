@@ -2,8 +2,8 @@
 #include "Parser.h"
 #include "../commands/factoryExpressionCommand.h"
 
-Parser::Parser(const vector<string> &vectorInfo, mapCommand* commandMap) {
-
+Parser::Parser(ConditionCounter* counter,const vector<string> &vectorInfo, mapCommand* commandMap) {
+    Parser::counter = counter;
     Parser::vectorInfo = vectorInfo;
     Parser::index = 0;
     Parser::commandmap = commandMap;
@@ -29,10 +29,13 @@ void Parser::setMap(mapCommand *map) {
 
 vector<commandExpression*> Parser::doParser(int stopCase) {
     vector<commandExpression*> expressionVector;
-    factoryExpressionCommand factoryExpressionCommand(commandmap);
+    factoryExpressionCommand factoryExpressionCommand(counter,commandmap);
     stopCase += index;
     while (index < stopCase){
-        cout <<"check parser" << index << endl;
+        if(stopCase > vectorInfo.size()){
+            stopCase = (int)vectorInfo.size();
+        }
+        //cout <<"check parser" << index << endl;
         commandExpression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);
         expressionVector.push_back(e);
         index++;

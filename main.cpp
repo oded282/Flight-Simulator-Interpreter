@@ -12,13 +12,14 @@
 #include "utils/Lexer.h"
 #include "commands/PrintCommand.h"
 #include "commands/ifCommand.cpp"
+#include "commands/ConditionFactory.h"
 
 using namespace std;
 
 bool isStop;
 pthread_mutex_t mutex;
 
-void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, ShuntingYard* shuntingYard, Parser &parser) {
+void buildMapExpressionCommand(ConditionCounter* counter,mapCommand* mapCommand1, symbolTable* varMap, ShuntingYard* shuntingYard, Parser &parser) {
 
     connectCommand* c = new connectCommand(mapCommand1, varMap, shuntingYard);
 
@@ -30,6 +31,7 @@ void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, Shu
     commandExpression* c6 = new commandExpression((new ifCommand(&parser, mapCommand1 , varMap, shuntingYard)));
     commandExpression* c7 = new commandExpression(new varFactory(mapCommand1, varMap, shuntingYard));
     commandExpression* c8 = new commandExpression(new PrintCommand(mapCommand1 , varMap, shuntingYard));
+    commandExpression* c9 = new commandExpression((new ConditionFactory(counter,&parser,mapCommand1, varMap, shuntingYard)));
 
     mapCommand1->addCommand("openDataServer", c1);
     mapCommand1->addCommand("connect", c2);
@@ -39,6 +41,7 @@ void buildMapExpressionCommand(mapCommand* mapCommand1, symbolTable* varMap, Shu
     mapCommand1->addCommand("if" , c6);
     mapCommand1->addCommand("var", c7);
     mapCommand1->addCommand("print" , c8);
+    mapCommand1->addCommand("ConditionFactory", c9);
 
 }
 
@@ -53,13 +56,13 @@ int main(int argc, char *argv[]) {
     } else {
         lineCod = lexer.lexerFromConsole();
     }
-
+    ConditionCounter* counter = new ConditionCounter(1);
     mapCommand *mapExpressionCommand = new mapCommand();
     symbolTable* varMap =  new symbolTable();
     ShuntingYard* shuntingYard = new ShuntingYard(varMap , mapExpressionCommand);
-    Parser parser(lineCod , mapExpressionCommand);
+    Parser parser(counter,lineCod , mapExpressionCommand);
 
-    buildMapExpressionCommand(mapExpressionCommand, varMap, shuntingYard, parser);
+    buildMapExpressionCommand(counter,mapExpressionCommand, varMap, shuntingYard, parser);
     parser.doParser((int)lineCod.size());
 
     isStop = false;

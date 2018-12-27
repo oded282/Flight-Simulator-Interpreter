@@ -3,10 +3,11 @@
 #include "factoryExpressionCommand.h"
 #include "../expressions/commandExpression.h"
 #include "varFactory.h"
+#include "../ConditionCounter.h"
 
 
-factoryExpressionCommand::factoryExpressionCommand(mapCommand* mapCommand) {
-
+factoryExpressionCommand::factoryExpressionCommand(ConditionCounter* counter,mapCommand* mapCommand) {
+    factoryExpressionCommand::counter = counter;
     factoryExpressionCommand::commandMap = mapCommand;
 }
 
@@ -25,11 +26,16 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
     if (result[1] == "=") {
         commandEx = commandMap->getCommandExpression("=");
         commandEx->getCommand()->setCommand(str);
-    }else if(result[0] == "var" || result[0] == "while" || result[0] == "if"){
+    }else if(result[0] == "var"){
 
         commandEx = commandMap->getCommandExpression(result[0]);
         commandEx->getCommand()->setCommand(str);
         commandEx = commandMap->getCommandExpression(result[1]);
+    }else if(result[0] == "while" || result[0] == "if"){
+        commandEx = commandMap->getCommandExpression("ConditionFactory");
+        commandEx->getCommand()->setCommand(str);
+        commandEx = commandMap->getCommandExpression(result[0] + to_string(counter->getCount()));
+        counter->addCounter(1);
     }
     else {
         commandEx = commandMap->getCommandExpression(result[0]);
