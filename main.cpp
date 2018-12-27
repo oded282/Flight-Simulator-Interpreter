@@ -60,9 +60,14 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
 void fixLineCod(vector<string> &lineCod) {
     int index = 0;
     while (index < lineCod.size()) {
+        if(lineCod[index] == "}"){
+            index++;
+            continue;
+        }
         if (lineCod[index].find('}') != string::npos) {
             lineCod[index].erase(std::remove(lineCod[index].begin(), lineCod[index].end(), '}'), lineCod[index].end());
             lineCod.insert(lineCod.begin() + (index + 1), "}");
+            index++;
         }
         index++;
     }
