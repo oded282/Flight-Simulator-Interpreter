@@ -9,6 +9,7 @@
 
 class whileCommand : public ConditionParser{
     int count = 0;
+    bool isParsedNeeded = true;
 
 public:
 
@@ -20,6 +21,7 @@ public:
     bool checkOpenParanthesis(double counter);
     void removeClosingParanthesis(double counter);
     void setParser(Parser*);
+    double setIndex();
     ~whileCommand(){}
 
 };

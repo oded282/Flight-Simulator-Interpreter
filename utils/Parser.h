@@ -28,11 +28,11 @@ public:
 
     void setParser(const vector<string> &vector);
 
-    void setIndex(int index);
+    void setIndex(int newIndex);
 
     void setMap(mapCommand*);
 
-    vector<commandExpression*> doParser(int);
+    vector<commandExpression*> doParser(int,bool);
 
     ~Parser(){}
 };

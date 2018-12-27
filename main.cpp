@@ -15,6 +15,7 @@
 #include "commands/ConditionFactory.h"
 #include "PrintFactory.h"
 #include "AssignFactory.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -56,15 +57,29 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
 }
 
 
+void fixLineCod(vector<string> &lineCod) {
+    int index = 0;
+    while (index < lineCod.size()) {
+        if (lineCod[index].find('}') != string::npos) {
+            lineCod[index].erase(std::remove(lineCod[index].begin(), lineCod[index].end(), '}'), lineCod[index].end());
+            lineCod.insert(lineCod.begin() + (index + 1), "}");
+        }
+        index++;
+    }
+}
+
+
 int main(int argc, char *argv[]) {
     isStop = true;
     vector<string> lineCod;
     Lexer lexer;
+
     if (argc == 2) {
         lineCod = lexer.lexerFromFile(argv[1]);
     } else {
         lineCod = lexer.lexerFromConsole();
     }
+    fixLineCod(lineCod);
     ConditionCounter *counter = new ConditionCounter(1);
     mapCommand *mapExpressionCommand = new mapCommand();
     symbolTable *varMap = new symbolTable();
@@ -72,7 +87,7 @@ int main(int argc, char *argv[]) {
     Parser parser(counter, lineCod, mapExpressionCommand);
 
     buildMapExpressionCommand(counter, mapExpressionCommand, varMap, shuntingYard, parser);
-    parser.doParser((int) lineCod.size());
+    parser.doParser((int) lineCod.size(), true);
 
     isStop = false;
     sleep(10);
