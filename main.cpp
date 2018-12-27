@@ -1,17 +1,17 @@
 #include <sstream>
 #include <stack>
-#include "dataReaderServer.h"
-#include "Number.h"
-#include "mapCommand.h"
-#include "ShuntingYard.h"
-#include "varFactory.h"
-#include "openServerCommand.h"
-#include "AssignCommand.h"
-#include "sleepCommand.h"
-#include "whileCommand.h"
-#include "Lexer.h"
-#include "PrintCommand.h"
-#include "ifCommand.cpp"
+#include "connection/dataReaderServer.h"
+#include "expressions/Number.h"
+#include "data/mapCommand.h"
+#include "utils/ShuntingYard.h"
+#include "commands/varFactory.h"
+#include "commands/openServerCommand.h"
+#include "commands/AssignCommand.h"
+#include "commands/sleepCommand.h"
+#include "commands/whileCommand.h"
+#include "utils/Lexer.h"
+#include "commands/PrintCommand.h"
+#include "commands/ifCommand.cpp"
 
 using namespace std;
 
@@ -56,17 +56,16 @@ int main(int argc, char *argv[]) {
 
     mapCommand *mapExpressionCommand = new mapCommand();
     symbolTable* varMap =  new symbolTable();
-    ShuntingYard* shuntingYard = new ShuntingYard(varMap);
+    ShuntingYard* shuntingYard = new ShuntingYard(varMap , mapExpressionCommand);
     Parser parser(lineCod , mapExpressionCommand);
 
     buildMapExpressionCommand(mapExpressionCommand, varMap, shuntingYard, parser);
     parser.doParser((int)lineCod.size());
 
     isStop = false;
+   // sleep(10);
+    delete shuntingYard;
     delete mapExpressionCommand;
-    delete(varMap);
-    delete(shuntingYard);
-
-
+    delete varMap;
 
 }

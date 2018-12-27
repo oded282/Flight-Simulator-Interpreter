@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <regex>
 #include "ConditionParser.h"
-#include "ShuntingYard.h"
+#include "utils/ShuntingYard.h"
 
 int ConditionParser::execute() {
     if (condition == ">") {
