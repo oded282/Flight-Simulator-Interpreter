@@ -73,8 +73,8 @@ int setTheReceivedData(char buffer[1024], symbolTable *symbolMap,
             //set the value of var.
             Expression* e = new Number(strtof((values[i]).data(), nullptr));
             VarCommand *v = symbolMap->getVarByPath(pathsVector[i]);
-            Expression* eOld = v->getValue();
-            delete eOld;
+            //Expression* eOld = v->getValue();
+            //delete eOld;
             v->setValue(e);
         }
         i++;

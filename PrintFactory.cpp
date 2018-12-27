@@ -4,7 +4,9 @@
 #include "commands/PrintCommand.h"
 
 
-PrintFactory:: PrintFactory(ConditionCounter* counter,Parser* parser,mapCommand* commandTable, symbolTable* varTable, ShuntingYard* shuntingYard) : Commands( commandTable, varTable,shuntingYard){
+PrintFactory:: PrintFactory(ConditionCounter* counter,Parser* parser,
+        mapCommand* commandTable, symbolTable* varTable, ShuntingYard* shuntingYard) :
+        Commands( commandTable, varTable,shuntingYard){
    PrintFactory::counter = counter;
    PrintFactory::parser = parser;
 }
