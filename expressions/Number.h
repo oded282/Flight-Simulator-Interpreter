@@ -6,11 +6,11 @@
 
 class Number: public Expression{
 
-    double number;
+    float number;
 
 public:
-    Number(double number);
-    virtual double calculate();
+    Number(float number);
+    virtual float calculate();
      ~Number(){}
 };
 

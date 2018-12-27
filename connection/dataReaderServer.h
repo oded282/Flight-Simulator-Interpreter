@@ -14,6 +14,7 @@ struct MyParams {
     double pace;
     symbolTable *symbolMap;
     vector<string> pathsVector;
+    vector <Expression*>* collector;
 };
 
 
@@ -25,16 +26,19 @@ class dataReaderServer {
     struct MyParams *params;
     symbolTable* symbolMap;
     vector<string> pathsVector;
+    vector<Expression*>* collector;
 
 public:
     dataReaderServer(int port, double pace , symbolTable* symbolMap);
     void openServer();
     ~dataReaderServer(){
+        for (Expression* it :(*collector) ){
+            delete it;
+        }
         close(newsockfd);
         delete params;
+        delete collector;
     }
-
-    //static void *helpFunc(void *dataReader, int newsockfd);
 };
 
 

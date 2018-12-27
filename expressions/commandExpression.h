@@ -13,7 +13,7 @@ class commandExpression : public Expression {
 
 public:
     commandExpression(Commands* command);
-    double calculate();
+    float calculate();
 
     Commands* getCommand();
 

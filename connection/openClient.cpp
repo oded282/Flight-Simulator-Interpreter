@@ -49,12 +49,13 @@ void openClient::openSocketClient() {
     serv_addr.sin_family = AF_INET;
     bcopy(server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons((uint16_t) portno);
-
+    cout<< " conect000000000000000000000000000000000000000000000000000000"<< endl;
     /* Now connect to the server */
     if (connect(this->sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         cout << "ERROR CONNECTING"<< endl;
         close(sockfd);
         throw "ERROR connecting";
     }
+    cout<<"ggoooodddddddddddddddddddddddddddddddddddddddddddddddddddddd"<<endl;
 
 }

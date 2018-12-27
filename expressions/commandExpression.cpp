@@ -6,7 +6,7 @@ commandExpression::commandExpression(Commands *command) {
     commandExpression::command = command;
 }
 
-double commandExpression::calculate(){
+float commandExpression::calculate(){
     return this->command->execute();
 }
 

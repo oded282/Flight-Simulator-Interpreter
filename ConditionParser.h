@@ -23,12 +23,9 @@ public:
         left = nullptr;
         right = nullptr;
     }
-    bool isSecConditionValid(string str);
     bool isCondition(string::iterator &it);
     string getExp(string ::iterator& it, string ::iterator itEnd);
     virtual void setCommand(string& data);
-    string getFirstParameter(string :: iterator itBegin , string :: iterator itEnd );
-    string bindString(string ::iterator it1, string ::iterator it2);
     virtual int execute();
     void cleanCommand(string &str, int size);
     bool checkOpenParanthesis(double counter);

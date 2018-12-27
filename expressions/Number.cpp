@@ -1,11 +1,11 @@
 #include "Number.h"
 
 
-Number:: Number(double number){
+Number:: Number(float number){
     Number::number = number;
 }
 
-double Number:: calculate(){
+float Number:: calculate(){
     return number;
 }
 

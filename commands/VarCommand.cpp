@@ -33,10 +33,8 @@ void VarCommand::setSentence(const string &sentence) {
 void VarCommand::setValue(Expression *value) {
     // lock thread.
     pthread_mutex_lock(&mutex);
-    cout << "lock set var"<<endl;
-    //delete this->value;
+   // delete this->value;
     VarCommand::value = value;
-    cout << "unlock get var by path" << endl;
     // unlock thread.
     pthread_mutex_unlock(&mutex);
 }

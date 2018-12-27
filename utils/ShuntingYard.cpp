@@ -151,8 +151,8 @@ void pointOnOperator(string::iterator &itr, stack<char> &stack, queue<string> &q
 Expression* ShuntingYard::fromStringToExpresion(string s,stack<Expression*>& stack) {
     //send the number expression.
     if (isdigit(s[0])) {
-        Expression *e = new Number(stoi(s));
-        collectorDelet.push_back(e);
+        Expression *e = new Number(strtof(s.data() , nullptr));
+        collector.push_back(e);
         return e;
     }
 
@@ -168,7 +168,7 @@ Expression* ShuntingYard::fromStringToExpresion(string s,stack<Expression*>& sta
         Expression *e2 = stack.top();
         stack.pop();
         Expression *e = new Mult(e2, e1);
-        collectorDelet.push_back(e);
+        collector.push_back(e);
         return e;
     }
     if (s == "/") {
@@ -177,7 +177,7 @@ Expression* ShuntingYard::fromStringToExpresion(string s,stack<Expression*>& sta
         Expression *e2 = stack.top();
         stack.pop();
         Expression *e = new Div(e2, e1);
-        collectorDelet.push_back(e);
+        collector.push_back(e);
         return e;
     }
     if (s == "+") {
@@ -186,7 +186,7 @@ Expression* ShuntingYard::fromStringToExpresion(string s,stack<Expression*>& sta
         Expression *e2 = stack.top();
         stack.pop();
         Expression *e = new Plus(e2, e1);
-        collectorDelet.push_back(e);
+        collector.push_back(e);
         return e;
     }
     if (s == "-") {
@@ -195,7 +195,7 @@ Expression* ShuntingYard::fromStringToExpresion(string s,stack<Expression*>& sta
         Expression *e2 = stack.top();
         stack.pop();
         Expression *e = new Minus(e2, e1);
-        collectorDelet.push_back(e);
+        collector.push_back(e);
         return e;
     }
 
@@ -279,5 +279,4 @@ string ShuntingYard::fromVectorToString(vector<string> &result, int i, int k) {
         i++;
     }
     return parameter;
-
 }

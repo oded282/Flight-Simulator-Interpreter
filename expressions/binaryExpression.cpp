@@ -5,20 +5,20 @@ binaryExpression::binaryExpression(Expression *left, Expression *right) {
     binaryExpression::right = right;
 }
 
-double binaryExpression:: calculate(){}
+float binaryExpression:: calculate(){}
 
-double Mult::calculate() {
+float Mult::calculate() {
     return left->calculate() * right->calculate();
 }
 
-double Div::calculate() {
+float Div::calculate() {
     return left->calculate() / right->calculate();
 }
 
-double Plus::calculate() {
+float Plus::calculate() {
     return left->calculate() + right->calculate();
 }
 
-double Minus:: calculate(){
+float Minus:: calculate(){
     return left->calculate() - right->calculate();
 }

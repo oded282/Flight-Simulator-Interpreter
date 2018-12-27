@@ -16,7 +16,7 @@ using namespace std;
 class ShuntingYard {
     symbolTable* varMap;
     mapCommand* commandTable;
-    vector<Expression*> collectorDelet;
+    vector<Expression*> collector;
 public:
     ShuntingYard(symbolTable *varMap ,mapCommand*  map) {
         ShuntingYard::varMap = varMap;
@@ -31,7 +31,7 @@ public:
      string fromVectorToString(vector<string> &result, int i, int k);
 
      ~ShuntingYard(){
-         for (Expression* itr : collectorDelet){
+         for (Expression* itr : collector){
              //delete itr;
          }
      }

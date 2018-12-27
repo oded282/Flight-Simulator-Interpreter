@@ -15,7 +15,7 @@ protected:
 
 public:
     binaryExpression(Expression *left, Expression *right);
-    virtual double calculate();
+    virtual float calculate();
     ~binaryExpression(){}
 
 };
@@ -26,7 +26,7 @@ class Mult : public binaryExpression
 
 public:
     Mult(Expression* left, Expression* right) : binaryExpression(left , right){};
-    virtual double calculate();
+    virtual float calculate();
 };
 
 
@@ -34,7 +34,7 @@ class Div : public binaryExpression{
 
 
 public:
-    virtual double calculate();
+    virtual float calculate();
     Div(Expression* left, Expression* right) : binaryExpression(left , right){};
 
 };
@@ -43,7 +43,7 @@ class Plus : public binaryExpression
 {
 public:
     Plus(Expression* left, Expression* right) : binaryExpression(left , right){};
-    virtual double calculate();
+    virtual float calculate();
 
 };
 
@@ -53,7 +53,7 @@ class Minus : public binaryExpression{
 
 public:
     Minus(Expression* left, Expression* right) : binaryExpression(left , right){};
-    virtual double calculate();
+    virtual float calculate();
 };
 
 
