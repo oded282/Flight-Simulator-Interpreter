@@ -43,6 +43,11 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
         commandEx->getCommand()->setCommand(str);
         commandEx = commandMap->getCommandExpression(result[0] + to_string(counter->getCount()));
         counter->addCounter(1);
+    }else if(result[0] == "sleep"){
+        commandEx = commandMap->getCommandExpression("SleepFactory");
+        commandEx->getCommand()->setCommand(str);
+        commandEx = commandMap->getCommandExpression(result[0] + to_string(counter->getCount()));
+        counter->addCounter(1);
     }
     else {
         commandEx = commandMap->getCommandExpression(result[0]);

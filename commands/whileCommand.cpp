@@ -5,6 +5,7 @@
 int whileCommand::execute() {
     if(ConditionParser::execute()){
         commands = parser->doParser(ConditionParser::numberOfWhileCommands(),true);
+        isParsedNeeded = false;
     }else{
         if(isParsedNeeded) {
             parser->setIndex((int) parser->getIndex() + ConditionParser::numberOfWhileCommands());

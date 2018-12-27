@@ -15,6 +15,7 @@
 #include "commands/ConditionFactory.h"
 #include "PrintFactory.h"
 #include "AssignFactory.h"
+#include "SleepFactory.h"
 #include <algorithm>
 
 using namespace std;
@@ -41,6 +42,8 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
             (new PrintFactory(counter, &parser, mapCommand1, varMap, shuntingYard)));
     commandExpression *c11 = new commandExpression(
             (new AssignFactory(counter, &parser, c, mapCommand1, varMap, shuntingYard)));
+    commandExpression *c12 = new commandExpression(
+            (new SleepFactory(counter, &parser, mapCommand1, varMap, shuntingYard)));
 
     mapCommand1->addCommand("openDataServer", c1);
     mapCommand1->addCommand("connect", c2);
@@ -53,6 +56,7 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
     mapCommand1->addCommand("ConditionFactory", c9);
     mapCommand1->addCommand("PrintFactory", c10);
     mapCommand1->addCommand("AssignFactory", c11);
+    mapCommand1->addCommand("SleepFactory", c12);
 
 }
 
