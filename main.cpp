@@ -60,11 +60,20 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
 
 }
 
+void cleanWhitSpaces(string& str) {
+    unsigned int i = 0;
+    while (str[i] == ' ') {
+        i++;
+    }
+    str = str.substr(i,str.size());
+}
+
 
 void fixLineCod(vector<string> &lineCod) {
     int index = 0;
     while (index < lineCod.size()) {
-        if(lineCod[index] == "}"){
+        cleanWhitSpaces(lineCod[index]);
+        if (lineCod[index] == "}") {
             index++;
             continue;
         }
