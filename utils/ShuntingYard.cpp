@@ -1,8 +1,13 @@
 #include <iostream>
 #include <algorithm>
-#include "ShuntingYard.h"
+#include "../utils/ShuntingYard.h"
 #include "../expressions/binaryExpression.h"
 #include "../expressions/Number.h"
+#include "../expressions/commandExpression.h"
+#include "../commands/VarCommand.h"
+#include "../data/mapCommand.h"
+#include "../data/symbolTable.h"
+#include "../expressions/Expression.h"
 
 
 string charToString(char c) {
@@ -79,7 +84,7 @@ bool ShuntingYard::checkForValidation(string str) {
         }
         if (!var.empty()) {
             map<string, commandExpression *>::iterator it;
-            Var* v = varMap->getVar(var);
+            VarCommand* v = varMap->getVar(var);
             if (v == nullptr) {
                 return false;
             }
@@ -143,7 +148,7 @@ void pointOnOperator(string::iterator &itr, stack<char> &stack, queue<string> &q
 }
 
 //get string of expression and return expression.
-Expression *ShuntingYard::fromStringToExpresion(string s, stack<Expression *> &stack) {
+Expression* ShuntingYard::fromStringToExpresion(string s,stack<Expression*>& stack) {
     //send the number expression.
     if (isdigit(s[0])) {
         Expression *e = new Number(stoi(s));

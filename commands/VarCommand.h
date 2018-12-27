@@ -32,9 +32,7 @@ public:
 
     vector<VarCommand*> getFriends();
 
-    ~VarCommand(){
-       // delete value;
-    }
+    ~VarCommand(){}
 };
 
 

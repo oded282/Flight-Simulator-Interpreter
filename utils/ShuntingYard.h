@@ -1,13 +1,12 @@
 #ifndef FLIGHT_SIMULATOR_SHUNTINGYARD_H
 #define FLIGHT_SIMULATOR_SHUNTINGYARD_H
-
-#include "commands/Commands.h"
-#include "expressions/commandExpression.h"
-#include "symbolTable.h"
-#include "data/mapCommand.h"
 #include <string>
 #include <map>
-
+#include <queue>
+#include <stack>
+class mapCommand;
+class Expression;
+class symbolTable;
 using namespace std;
 #define MULT_OR_DIV 3
 #define OPERATOR1 1
@@ -35,7 +34,8 @@ public:
          for (Expression* itr : collectorDelet){
              delete itr;
          }
-     };
+     }
+
 };
 
 

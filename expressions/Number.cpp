@@ -1,7 +1,3 @@
-//
-// Created by oded on 12/16/18.
-//
-
 #include "Number.h"
 
 

@@ -5,6 +5,7 @@
 #include "varFactory.h"
 #include "../expressions/Number.h"
 #include "../utils/ShuntingYard.h"
+#include "VarCommand.h"
 
 
 varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable, ShuntingYard *shuntingYard) :
@@ -85,12 +86,12 @@ void varFactory::setCommand(string &sentence) {
     vector<string> vector;
     if (sentence.find("bind") != string::npos) {
         getVariables(sentence, vector, true);
-        Var *newVar = new Var(vector[0], numZero, vector[1], commandTable, varTable, shuntingYard);
+        VarCommand *newVar = new VarCommand(vector[0], numZero, vector[1], commandTable, varTable, shuntingYard);
         varTable->addVar(newVar);
         commandTable->addCommand(vector[0], new commandExpression(newVar));
     } else{
         getVariables(sentence, vector, false);
-        Var *newVar = new Var(vector[0], varTable->getVarValue(vector[1]),
+        VarCommand *newVar = new VarCommand(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);
         newVar->setFriends();
         varTable->addVar(newVar);

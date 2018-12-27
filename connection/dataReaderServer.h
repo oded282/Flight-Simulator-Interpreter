@@ -4,7 +4,9 @@
 
 
 #include <unistd.h>
+#include <vector>
 #include "../data/symbolTable.h"
+using namespace std;
 
 struct MyParams {
     int newsockfd;

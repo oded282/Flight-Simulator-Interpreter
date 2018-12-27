@@ -2,18 +2,18 @@
 #define FLIGHT_SIMULATOR_SYMBOLTABLE_H
 
 #include <map>
-#include "Var.h"
+#include "../commands/VarCommand.h"
 
 class symbolTable {
-    map<string,Var*> symbolMap;
+    map<string,VarCommand*> symbolMap;
 
 public:
-    map<string, Var*> &getSymbolMap();
-    void addVar(Var* value);
-    Var* getVar(string symbol);
+    map<string, VarCommand*> &getSymbolMap();
+    void addVar(VarCommand* value);
+    VarCommand* getVar(string symbol);
     Expression* getVarValue(string symbol);
     string getVarPath(string symbol);
-    Var* getVarByPath(string);
+    VarCommand* getVarByPath(string);
 };
 
 

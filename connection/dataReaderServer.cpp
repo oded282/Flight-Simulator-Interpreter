@@ -15,6 +15,7 @@
 #include <pthread.h>
 #include "dataReaderServer.h"
 #include "../expressions/Number.h"
+#include "../commands/VarCommand.h"
 
 extern bool isStop;
 
@@ -70,7 +71,7 @@ int setTheReceivedData(char buffer[1024], symbolTable *symbolMap, vector<string>
         if (symbolMap->getVarByPath(pathsVector[i]) != nullptr) {
             //set the value of var.
             Expression* e = new Number(strtof((values[i]).c_str(), nullptr));
-            Var *v = symbolMap->getVarByPath(pathsVector[i]);
+            VarCommand *v = symbolMap->getVarByPath(pathsVector[i]);
             v->setValue(e);
         }
         i++;
@@ -86,7 +87,6 @@ void *communicationServer(void *args) {
     cout <<"check 4 communicationServer"<<endl;
 
     while (isStop) {
-        //lock thread.
         cout <<"check 5 communicationServer 1"<<endl;
         bzero(buffer, 1024);
 

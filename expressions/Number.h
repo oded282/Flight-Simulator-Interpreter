@@ -15,5 +15,4 @@ public:
 };
 
 
-
 #endif //FLIGHT_SIMULATOR_NUMBER_H

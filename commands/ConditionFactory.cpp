@@ -16,5 +16,4 @@ commandExpression* ConditionFactory::creatCondition(string str){
         return whileCom;
     }
 
-
 }

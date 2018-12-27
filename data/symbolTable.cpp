@@ -3,12 +3,14 @@
 #include <iostream>
 #include "../commands/Commands.h"
 #include "symbolTable.h"
+#include "../commands/VarCommand.h"
+
 extern pthread_mutex_t mutex;
 
 /*
  * This func add new command to the map.
  */
-void symbolTable::addVar(Var* value){
+void symbolTable::addVar(VarCommand* value){
     // lock thread.
    // pthread_mutex_lock(&mutex);
   //  cout << "lock add var"<<endl;
@@ -24,7 +26,7 @@ void symbolTable::addVar(Var* value){
 /*
  * This func return the command if exist
  */
-Var* symbolTable::getVar(string symbol){
+VarCommand* symbolTable::getVar(string symbol){
     if(symbolMap.find(symbol) != symbolMap.end()){
         return symbolMap[symbol];
     }
@@ -56,7 +58,7 @@ string symbolTable::getVarPath(string symbol){
 /*
  * This func returns the all map.
  */
-map<string, Var*>& symbolTable::getSymbolMap() {
+map<string, VarCommand*>& symbolTable::getSymbolMap() {
     // lock thread.
     //pthread_mutex_lock(&mutex);
     cout << "lock add var"<<endl;
@@ -68,11 +70,11 @@ map<string, Var*>& symbolTable::getSymbolMap() {
 /*
  * return the var by the path.
  */
-Var* symbolTable::getVarByPath(string path) {
+VarCommand* symbolTable::getVarByPath(string path) {
     // lock thread.
     //pthread_mutex_lock(&mutex);
     //cout << "lock add var"<<endl;
-    map<string , Var*>::iterator it;
+    map<string , VarCommand*>::iterator it;
     for (it = symbolMap.begin() ; it != symbolMap.end(); it++){
         if (it->second->getSentence() == path){
             return it->second;

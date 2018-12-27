@@ -3,9 +3,7 @@
 
 
 #include <string>
-#include "Expression.h"
-#include "symbolTable.h"
-#include "mapCommand.h"
+#include "../expressions/commandExpression.h"
 
 using namespace std;
 

@@ -67,17 +67,3 @@ vector<string> Commands::getAssinParam(string str){
     params.push_back(shuntingYard->fromVectorToString(result , 2,(unsigned)result.size()));
     return params;
 }
-
-
-///test.
-//nt main() {
-//   string string1 = "-5*(10+3)/4";
-//   string string2 = "(5-6)*(10+3)/4";
-//   Commands *c;
-//   Expression* e = c->shuntingYard(string1);
-//   double d = e->calculate();
-//   e = c->shuntingYard(string2);
-//   d = e->calculate();
-
-//   cout << " " << endl ;
-//
