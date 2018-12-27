@@ -14,7 +14,6 @@ struct MyParams {
     double pace;
     symbolTable *symbolMap;
     vector<string> pathsVector;
-
 };
 
 
@@ -26,7 +25,6 @@ class dataReaderServer {
     struct MyParams *params;
     symbolTable* symbolMap;
     vector<string> pathsVector;
-
 
 public:
     dataReaderServer(int port, double pace , symbolTable* symbolMap);

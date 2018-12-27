@@ -1,23 +1,22 @@
 
-#include "../commands/openServerCommand.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <netdb.h>
 #include <unistd.h>
 #include <netinet/in.h>
-
 #include <string.h>
-
 #include <sys/socket.h>
 #include <iostream>
 #include <sstream>
-
 #include <pthread.h>
+#include <thread>
+#include "../commands/openServerCommand.h"
 #include "dataReaderServer.h"
 #include "../expressions/Number.h"
 #include "../commands/VarCommand.h"
 
 extern bool isStop;
+extern pthread_mutex_t mutex;
 
 
 vector<string> splitByComma(string str) {
@@ -61,17 +60,21 @@ dataReaderServer::dataReaderServer(int port, double pace, symbolTable *symbolMap
                                      "engines/engine/rpm"};
 }
 
-int setTheReceivedData(char buffer[1024], symbolTable *symbolMap, vector<string> pathsVector ,int i , int pace) {
+int setTheReceivedData(char buffer[1024], symbolTable *symbolMap,
+        vector<string> pathsVector ,int i , int pace)  {
     vector<string> values = splitByComma(buffer);
-    while (i < (values.size()-1)) {
+    while (i < (values.size()-1) && isStop) {
         if (i == pathsVector.size()){
             i = 0;
             sleep((unsigned) pace / 1000);
         }
+
         if (symbolMap->getVarByPath(pathsVector[i]) != nullptr) {
             //set the value of var.
-            Expression* e = new Number(strtof((values[i]).c_str(), nullptr));
+            Expression* e = new Number(strtof((values[i]).data(), nullptr));
             VarCommand *v = symbolMap->getVarByPath(pathsVector[i]);
+            Expression* eOld = v->getValue();
+            delete eOld;
             v->setValue(e);
         }
         i++;
@@ -81,13 +84,13 @@ int setTheReceivedData(char buffer[1024], symbolTable *symbolMap, vector<string>
 
 
 void *communicationServer(void *args) {
-    struct MyParams *params = (MyParams *) args;
+    struct MyParams* params = (MyParams *) args;
     char buffer[1024];
     ssize_t n;
     cout <<"check 4 communicationServer"<<endl;
 
     while (isStop) {
-        cout <<"check 5 communicationServer 1"<<endl;
+        cout << "check 5 communicationServer 1" << endl;
         bzero(buffer, 1024);
 
 
@@ -98,9 +101,9 @@ void *communicationServer(void *args) {
             break;
         }
 
-        params->i = setTheReceivedData(buffer, params->symbolMap, params->pathsVector , params->i ,(int)params->pace);
+        params->i = setTheReceivedData(buffer, params->symbolMap, params->pathsVector,
+                                       params->i, (int) params->pace);
     }
-
 
     return nullptr;
 }
@@ -156,9 +159,8 @@ void dataReaderServer::openServer() {
     while (strlen(buffer) == 0) {
         read(newsockfd, buffer, 1024);
     }
-
+    pthread_t pthreadS;
     setTheReceivedData(buffer , symbolMap , pathsVector , 0 ,(int)pace);
-
     params = new MyParams();
     params->newsockfd = newsockfd;
     params->pace = pace;
@@ -167,8 +169,7 @@ void dataReaderServer::openServer() {
     params->i = 0;
 
     cout <<"check 3"<<endl;
-    pthread_t serverThread;
-    pthread_create(&serverThread, nullptr, communicationServer, (void *) params);
+    pthread_create(&pthreadS, nullptr, communicationServer, (void *) params);
     //communicationServer(params);
 }
 
