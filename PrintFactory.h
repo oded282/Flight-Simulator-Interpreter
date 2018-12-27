@@ -1,0 +1,23 @@
+
+
+#ifndef FLIGHT_SIMULATOR_PRINTFACTORY_H
+#define FLIGHT_SIMULATOR_PRINTFACTORY_H
+
+
+#include "commands/Commands.h"
+#include "ConditionCounter.h"
+#include "utils/Parser.h"
+
+class PrintFactory : public Commands {
+    ConditionCounter* counter;
+    Parser* parser;
+
+public:
+    PrintFactory(ConditionCounter* counter,Parser* parser,mapCommand* commandTable, symbolTable* varTable, ShuntingYard* shuntingYard);
+    void setCommand(string& str);
+    int execute();
+    ConditionCounter* getCounter();
+};
+
+
+#endif //FLIGHT_SIMULATOR_PRINTFACTORY_H

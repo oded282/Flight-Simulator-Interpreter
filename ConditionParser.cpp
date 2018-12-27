@@ -20,23 +20,6 @@ int ConditionParser::execute() {
     }
 }
 
-bool ConditionParser::isSecConditionValid(string str) {
-    if (str == ">") {
-        return true;
-    } else if (str == "<") {
-        return true;
-    } else if (str == "==") {
-        return true;
-    } else if (str == "<=") {
-        return true;
-    } else if (str == ">=") {
-        return true;
-    } else if (str == "!=") { // have to be first
-        return true;
-    }
-    return false;
-}
-
 bool ConditionParser::isCondition(string::iterator &it) {
     if (*it == '=') {
         return true;
@@ -49,21 +32,6 @@ bool ConditionParser::isCondition(string::iterator &it) {
     }
 }
 
-string ConditionParser::bindString(string::iterator it1, string::iterator it2) {
-    string s;
-    s = *it1;
-    s += *it2;
-    return s;
-}
-
-string ConditionParser::getFirstParameter(string::iterator itBegin, string::iterator itEnd) {
-    string firstParam;
-    while (itBegin != itEnd) {
-        firstParam += *itBegin;
-        itBegin++;
-    }
-    return firstParam;
-}
 
 string ConditionParser::getExp(string::iterator &it, string::iterator itEnd) {
     string temp;
@@ -106,21 +74,21 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
     }
 }
 
-void ConditionParser::cleanCommand(string &str, int size){
-    str = str.substr(size,str.size());
+void ConditionParser::cleanCommand(string &str, int size) {
+    str = str.substr(size, str.size());
 }
 
-double jumpUponCommand(double counter,Parser* parser){
-    while(parser->getVector()[(unsigned) counter].find('}') == string::npos){
+double jumpUponCommand(double counter, Parser *parser) {
+    while (parser->getVector()[(unsigned) counter].find('}') == string::npos) {
         counter++;
     }
     return counter;
 }
 
-bool ConditionParser::checkOpenParanthesis(double counter){
-    if(parser->getVector()[(unsigned) counter].find('{') != string::npos){
+bool ConditionParser::checkOpenParanthesis(double counter) {
+    if (parser->getVector()[(unsigned) counter].find('{') != string::npos) {
         cleanWhiteSpaces(parser->getVector()[(unsigned) counter]);
-        if(parser->getVector()[(unsigned) counter] == "{"){
+        if (parser->getVector()[(unsigned) counter] == "{") {
             return true;
         }
     }
@@ -131,24 +99,39 @@ int ConditionParser::numberOfWhileCommands() {
     double counter = parser->getIndex();
     double num = 1;
     while (parser->getVector()[(unsigned) counter].find('}') == string::npos) {
-        if(parser->getVector()[(unsigned) counter].find("if") != string::npos){ // jump upon nested 'if'
-            counter = jumpUponCommand(counter,parser);
+        if (parser->getVector()[(unsigned) counter].find("if") != string::npos) { // jump upon nested 'if'
+            counter = jumpUponCommand(counter, parser);
 
-        }else if(parser->getVector()[(unsigned) counter].find("while") != string::npos){ // jump upon nested loop
-            counter = jumpUponCommand(counter,parser);
+        } else if (parser->getVector()[(unsigned) counter].find("while") != string::npos) { // jump upon nested loop
+            counter = jumpUponCommand(counter, parser);
         }
-        if(checkOpenParanthesis(counter)){ // check if '}' got of it's own.. doesn't count and erase line.
+        if (checkOpenParanthesis(counter)) { // check if '}' got of it's own.. doesn't count and erase line.
             parser->getVector().erase(parser->getVector().begin() + counter);
             continue;
         }
         counter++;
         num++;
     }
-    string& temp = parser->getVector()[(unsigned) counter];
+    string &temp = parser->getVector()[(unsigned) counter];
     cleanWhiteSpaces(temp);
     if (temp[0] == '}') {
         num -= 1;
         parser->getVector().erase(parser->getVector().begin() + counter);
     }
-    return (int)num;
+    return (int) num;
 }
+
+//void ConditionParser::jumpUpoenCondition() {
+//    int counter = 1;
+//    if (parser->getVector()[parser->getIndex()].find("{") != string::npos) { // if there is '{ alone in line
+//        while (counter != 0) {
+//            if(parser->getVector()[parser->getIndex()] == "{"){
+//                counter++;
+//            }else if(parser->getVector()[parser->getIndex()] == "{"){
+//
+//            }
+//        }
+//    }
+//
+//
+//}

@@ -5,11 +5,11 @@ int ifCommand::execute() {
     if(ConditionParser::execute()){
         commands = parser->doParser(numberOfWhileCommands());
     }
-    if (ConditionParser::execute()) {
-        for(commandExpression* val: commands){
-            val->calculate();
-        }
-    }
+    //if (ConditionParser::execute()) {
+    //    for(commandExpression* val: commands){
+    //        val->calculate();
+    //    }
+    //}
     return 1;
 }
 

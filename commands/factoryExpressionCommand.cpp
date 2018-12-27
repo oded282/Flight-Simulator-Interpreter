@@ -24,8 +24,10 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
     }
     commandExpression *commandEx;
     if (result[1] == "=") {
-        commandEx = commandMap->getCommandExpression("=");
+        commandEx = commandMap->getCommandExpression("AssignFactory");
         commandEx->getCommand()->setCommand(str);
+        commandEx = commandMap->getCommandExpression(result[1] + to_string(counter->getCount()));
+        counter->addCounter(1);
     }else if(result[0] == "var"){
 
         commandEx = commandMap->getCommandExpression(result[0]);
@@ -36,6 +38,11 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
         commandEx->getCommand()->setCommand(str);
         commandEx = commandMap->getCommandExpression(result[0] + to_string(counter->getCount()));
         counter->addCounter(1);
+    }else if(result[0] == "print"){
+        commandEx = commandMap->getCommandExpression("PrintFactory");
+        commandEx->getCommand()->setCommand(str);
+        commandEx = commandMap->getCommandExpression(result[0] + to_string(counter->getCount()));
+        counter->addCounter(1);
     }
     else {
         commandEx = commandMap->getCommandExpression(result[0]);
@@ -43,6 +50,4 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
     }
     //initialize command expression.
     return commandEx;
-
-
 }

@@ -7,7 +7,7 @@
 
 void ConditionFactory::setCommand(string& str){
     if(str.find("if") != string::npos){
-        commandExpression* ifCom = new commandExpression(new whileCommand(parser,commandTable,varTable,shuntingYard));
+        commandExpression* ifCom = new commandExpression(new ifCommand(parser,commandTable,varTable,shuntingYard));
         commandTable->addCommand("if" + to_string(getCounter()->getCount()),ifCom);
         ifCom->getCommand()->setCommand(str);
     }else {
