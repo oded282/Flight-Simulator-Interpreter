@@ -8,7 +8,7 @@
 
 #include "Commands.h"
 #include "../utils/Parser.h"
-#include "../ConditionParser.h"
+#include "ConditionParser.h"
 
 /*
  * This class is a factory to all commands who uses conditions.

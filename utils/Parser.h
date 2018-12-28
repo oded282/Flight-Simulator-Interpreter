@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "../data/mapCommand.h"
-#include "../ConditionCounter.h"
+#include "ConditionCounter.h"
 
 using namespace std;
 

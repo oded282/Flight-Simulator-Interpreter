@@ -3,10 +3,10 @@
 #define FLIGHT_SIMULATOR_ASSIGNFACTORY_H
 
 
-#include "commands/Commands.h"
-#include "ConditionCounter.h"
-#include "commands/connectCommand.h"
-#include "utils/Parser.h"
+#include "../commands/Commands.h"
+#include "../utils/ConditionCounter.h"
+#include "../commands/connectCommand.h"
+#include "../utils/Parser.h"
 
 class AssignFactory : public Commands {
 

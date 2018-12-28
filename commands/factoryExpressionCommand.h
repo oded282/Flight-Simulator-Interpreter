@@ -4,7 +4,7 @@
 
 #include <string>
 #include "../expressions/commandExpression.h"
-#include "../ConditionCounter.h"
+#include "../utils/ConditionCounter.h"
 
 using namespace std;
 

@@ -13,9 +13,9 @@
 #include "commands/PrintCommand.h"
 #include "commands/ifCommand.cpp"
 #include "commands/ConditionFactory.h"
-#include "PrintFactory.h"
-#include "AssignFactory.h"
-#include "SleepFactory.h"
+#include "commandsFactory/PrintFactory.h"
+#include "commandsFactory/AssignFactory.h"
+#include "commandsFactory/SleepFactory.h"
 #include <algorithm>
 
 using namespace std;

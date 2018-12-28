@@ -5,7 +5,7 @@
 
 #include "Commands.h"
 #include "../data/mapCommand.h"
-#include "../ConditionParser.h"
+#include "ConditionParser.h"
 
 /*
  *This command used to execute while loops that sent as command by the user/file.

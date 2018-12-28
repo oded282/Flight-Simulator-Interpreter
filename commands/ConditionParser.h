@@ -3,8 +3,8 @@
 #define FLIGHT_SIMULATOR_CONDITIONPARSER_H
 
 
-#include "commands/Commands.h"
-#include "utils/Parser.h"
+#include "Commands.h"
+#include "../utils/Parser.h"
 
 class ConditionParser : public Commands {
 

@@ -16,9 +16,13 @@
 
 extern bool isStop;
 extern pthread_mutex_t mutex;
+#define SIZE_OF_READ_DATA 256
 
-vector <string> splitByComma(string str) {
-    vector <string> result;
+/*
+ * get the data from the simulator and return vector of the data
+ */
+vector<string> splitByComma(string str) {
+    vector<string> result;
     string val;
     for (char itr : str) {
         if (itr != ',' && itr != '\n') {
@@ -31,7 +35,9 @@ vector <string> splitByComma(string str) {
     return result;
 }
 
-
+/*
+ * constructor.
+ */
 dataReaderServer::dataReaderServer(int port, double pace, symbolTable *symbolMap) {
     dataReaderServer::port = port;
     dataReaderServer::pace = pace;
@@ -59,25 +65,27 @@ dataReaderServer::dataReaderServer(int port, double pace, symbolTable *symbolMap
                                      "engines/engine/rpm"};
 }
 
-int setTheReceivedData(char buffer[256], symbolTable *symbolMap,
-                       vector <string> pathsVector, int i, int pace, vector<Expression *> *collector) {
-    vector <string> values = splitByComma(buffer);
+
+/*
+ * get the data from the simulator, and put in that in the data of the program.
+ */
+int setTheReceivedData(char buffer[SIZE_OF_READ_DATA], symbolTable *symbolMap,
+                       vector<string> pathsVector, int i, int pace, vector<Expression *> *collector) {
+    vector<string> values = splitByComma(buffer);
     unsigned long int endWhile = 0;
     while (endWhile < (values.size() - 1) && isStop) {
         if (i == pathsVector.size()) {
             i = 0;
             sleep((unsigned) pace / 1000);
         }
-
+        // check if there is var command of that data.
         if (symbolMap->getVarByPath(pathsVector[i]) != nullptr) {
-
-                       //set the value of var.
+            //set the value of var.
             Expression *e = new Number(strtof((values[i]).data(), nullptr));
-            collector->push_back(e);
             VarCommand *v = symbolMap->getVarByPath(pathsVector[i]);
-            //Expression* eOld = v->getValue();
-            //delete eOld;
             v->setValue(e);
+            //save the expression for free the pointer in the end of the program.
+            collector->push_back(e);
         }
         i++;
         endWhile++;
@@ -85,36 +93,35 @@ int setTheReceivedData(char buffer[256], symbolTable *symbolMap,
     return i;
 }
 
-
+/*
+ * func that read the data from the simulator.
+ */
 void *communicationServer(void *args) {
     struct MyParams *params = (MyParams *) args;
-    char buffer[256];
+    char buffer[SIZE_OF_READ_DATA];
     ssize_t n;
 
     while (isStop) {
-        bzero(buffer, 256);
+        bzero(buffer, SIZE_OF_READ_DATA);
 
-
-        n = read(params->newsockfd, buffer, 256);
+        n = read(params->newsockfd, buffer, SIZE_OF_READ_DATA);
 
         if (n < 0) {
             perror("ERROR reading from socket");
             break;
         }
-
+        // save the i index of the getting xml data.
         params->i = setTheReceivedData(buffer, params->symbolMap, params->pathsVector,
                                        params->i, (int) params->pace, params->collector);
     }
-
     return nullptr;
 }
 
-
+/*
+ * open server for connecting whit the simulator.
+ */
 void dataReaderServer::openServer() {
-
-
     int sockfd, clilen;
-
     struct sockaddr_in serv_addr, cli_addr;
 
     /* First call to socket() function */
@@ -141,29 +148,26 @@ void dataReaderServer::openServer() {
     /* Now start listening for the clients, here process will
        * go in sleep mode and will wait for the incoming connection
     */
-    cout << "check 1" << endl;
     listen(sockfd, 1);
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t * ) & clilen);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
 
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
-    char buffer[1024] = {};
+    char buffer[SIZE_OF_READ_DATA] = {};
+
     /* If connection is established then start communicating */
-    //bzero(buffer, 1024);
-    cout << "check 2" << endl;
-
     while (strlen(buffer) == 0) {
-        read(newsockfd, buffer, 1024);
+        read(newsockfd, buffer, SIZE_OF_READ_DATA);
     }
-
-
+    // set the first data.
     setTheReceivedData(buffer, symbolMap, pathsVector, 0, (int) pace, collector);
 
+    // set the struct for the thread.
     params = new MyParams();
     params->newsockfd = newsockfd;
     params->pace = pace;
@@ -171,10 +175,9 @@ void dataReaderServer::openServer() {
     params->symbolMap = symbolMap;
     params->i = 0;
     params->collector = collector;
+    //open thread.
     pthread_t pthreadS;
-    cout << "check 3" << endl;
     pthread_create(&pthreadS, nullptr, communicationServer, (void *) params);
-    //communicationServer(params);
 }
 
 

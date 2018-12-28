@@ -1,7 +1,7 @@
 
 #include "PrintFactory.h"
-#include "expressions/commandExpression.h"
-#include "commands/PrintCommand.h"
+#include "../expressions/commandExpression.h"
+#include "../commands/PrintCommand.h"
 
 
 PrintFactory:: PrintFactory(ConditionCounter* counter,Parser* parser,

@@ -1,4 +1,3 @@
-
 #ifndef FLIGHT_SIMULATOR_DATAREADERSERVER_H
 #define FLIGHT_SIMULATOR_DATAREADERSERVER_H
 
@@ -8,18 +7,18 @@
 #include "../data/symbolTable.h"
 using namespace std;
 
+//struct for the thread.
 struct MyParams {
+    vector <Expression*>* collector;
     int newsockfd;
     int i;
-    double pace;
     symbolTable *symbolMap;
+    double pace;
     vector<string> pathsVector;
-    vector <Expression*>* collector;
 };
 
 
 class dataReaderServer {
-
     int port;
     int newsockfd;
     double pace;
@@ -29,8 +28,11 @@ class dataReaderServer {
     vector<Expression*>* collector;
 
 public:
+    //constructor.
     dataReaderServer(int port, double pace , symbolTable* symbolMap);
+    //open server.
     void openServer();
+    //destructor.
     ~dataReaderServer(){
         for (Expression* it :(*collector) ){
             delete it;

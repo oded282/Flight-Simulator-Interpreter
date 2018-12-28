@@ -4,7 +4,7 @@
 
 
 #include "Commands.h"
-#include "../ConditionParser.h"
+#include "ConditionParser.h"
 
 /*
  * This func responsible to execute if statements writen in the file/user

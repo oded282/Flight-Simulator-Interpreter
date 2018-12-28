@@ -3,7 +3,7 @@
 #include "factoryExpressionCommand.h"
 #include "../expressions/commandExpression.h"
 #include "varFactory.h"
-#include "../ConditionCounter.h"
+#include "../utils/ConditionCounter.h"
 
 
 factoryExpressionCommand::factoryExpressionCommand(ConditionCounter* counter,mapCommand* mapCommand) {

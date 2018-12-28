@@ -11,6 +11,13 @@
 
 extern bool isStop;
 
+//constructor.
+openClient::openClient(string ip, int port) {
+    openClient::port = port;
+    openClient::ip = ip;
+}
+
+// get string command and send her to the simulator.
 void openClient::communicationClient(string command) {
             /* Send message to the server */
             ssize_t n = write(sockfd, command.c_str(), strlen(command.c_str()));
@@ -20,11 +27,7 @@ void openClient::communicationClient(string command) {
             }
 }
 
-openClient::openClient(string ip, int port) {
-    openClient::port = port;
-    openClient::ip = ip;
-}
-
+//open client for connect to the server.
 void openClient::openSocketClient() {
 
     int portno;
@@ -42,20 +45,16 @@ void openClient::openSocketClient() {
     if (server == NULL) {
         close(sockfd);
         fprintf(stderr, "ERROR, no such host\n");
-        exit(0);
     }
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy(server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
+    bcopy(server->h_addr, (char *) &serv_addr.sin_addr.s_addr, (size_t)server->h_length);
     serv_addr.sin_port = htons((uint16_t) portno);
-    cout<< " conect000000000000000000000000000000000000000000000000000000"<< endl;
     /* Now connect to the server */
     if (connect(this->sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         cout << "ERROR CONNECTING"<< endl;
         close(sockfd);
         throw "ERROR connecting";
     }
-    cout<<"ggoooodddddddddddddddddddddddddddddddddddddddddddddddddddddd"<<endl;
-
 }

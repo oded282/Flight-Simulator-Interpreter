@@ -1,6 +1,6 @@
 
 #include "SleepFactory.h"
-#include "commands/sleepCommand.h"
+#include "../commands/sleepCommand.h"
 
 
 SleepFactory:: SleepFactory(ConditionCounter* counter,Parser* parser,mapCommand* commandTable, symbolTable* varTable, ShuntingYard* shuntingYard) : Commands( commandTable, varTable,shuntingYard){

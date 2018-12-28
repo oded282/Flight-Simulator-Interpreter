@@ -1,8 +1,8 @@
 
 #include <sys/socket.h>
 #include "AssignFactory.h"
-#include "expressions/commandExpression.h"
-#include "commands/AssignCommand.h"
+#include "../expressions/commandExpression.h"
+#include "../commands/AssignCommand.h"
 
 
 AssignFactory::AssignFactory(ConditionCounter *counter, Parser *parser, connectCommand *connect,

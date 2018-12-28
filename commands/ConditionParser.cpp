@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <regex>
 #include "ConditionParser.h"
-#include "utils/ShuntingYard.h"
+#include "../utils/ShuntingYard.h"
 
 /*
  * This func checks the conditions.

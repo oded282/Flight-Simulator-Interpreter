@@ -11,22 +11,20 @@ class openServerCommand : public Commands {
 
     dataReaderServer *readerServer;
 public:
+    //constructor.
     openServerCommand(mapCommand *commandMap, symbolTable *varTable, ShuntingYard *shuntingYard) :
             Commands(commandMap, varTable, shuntingYard) {
         this->readerServer = nullptr;
     }
-
-    bool checkLegality(string);
-
+    // set the command
     void setCommand(string &);
-
+    // open server.
     virtual int execute();
-
+    //destructor.
     ~openServerCommand(){
         delete readerServer;
     }
 };
-
 
 #endif //FLIGHT_SIMULATOR_OPENDATASERVER_H
 
