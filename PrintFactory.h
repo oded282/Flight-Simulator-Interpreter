@@ -8,6 +8,10 @@
 #include "ConditionCounter.h"
 #include "utils/Parser.h"
 
+
+/**
+ * This class creates new print commands
+ */
 class PrintFactory : public Commands {
     ConditionCounter* counter;
     Parser* parser;

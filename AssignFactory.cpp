@@ -13,7 +13,9 @@ AssignFactory::AssignFactory(ConditionCounter *counter, Parser *parser, connectC
     AssignFactory::connect = connect;
     AssignFactory::parser = parser;
 }
-
+/*
+ * This func creats new assign command and add it to the map.
+ */
 void AssignFactory::setCommand(string &str) {
     commandExpression *newAssign = new commandExpression(
             new AssignCommand(connect, commandTable, varTable, shuntingYard));

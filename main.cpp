@@ -23,6 +23,16 @@ using namespace std;
 bool isStop;
 pthread_mutex_t mutex;
 
+
+/**
+ * This func creates all the classes "blueprint", that the program runs
+ * and add them to the map.
+ * @param counter count number of commands.
+ * @param mapCommand1 map of all the command.
+ * @param varMap map of all variables.
+ * @param shuntingYard the calculation algortihem.
+ * @param parser the class who parse all data.
+ */
 void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand1, symbolTable *varMap,
                                ShuntingYard *shuntingYard, Parser &parser) {
 
@@ -60,6 +70,10 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
 
 }
 
+/**
+ * This func clean whitspaces from the string.
+ * @param str the string who needs to be clean.
+ */
 void cleanWhitSpaces(string& str) {
     unsigned int i = 0;
     while (str[i] == ' ') {
@@ -68,7 +82,10 @@ void cleanWhitSpaces(string& str) {
     str = str.substr(i,str.size());
 }
 
-
+/**
+ * This func check the paranthesis validation.
+ * @param lineCod all data string vector.
+ */
 void fixLineCod(vector<string> &lineCod) {
     int index = 0;
     while (index < lineCod.size()) {
@@ -86,6 +103,13 @@ void fixLineCod(vector<string> &lineCod) {
     }
 }
 
+/**
+ * This func reads the data from the string and start's to parse
+ * all data.
+ * @param argc number of arguments.
+ * @param argv the list of all arguments (the file).
+ * @return zero
+ */
 
 int main(int argc, char *argv[]) {
     isStop = true;

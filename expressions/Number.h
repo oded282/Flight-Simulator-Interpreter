@@ -4,6 +4,9 @@
 
 #include "Expression.h"
 
+/*
+ * This class in the number expression.
+ */
 class Number: public Expression{
 
     float number;

@@ -6,7 +6,11 @@
 #include "Expression.h"
 #include "../commands/Commands.h"
 
-
+/**
+ * This class used as and adapter command.
+ * the class holds a command as a member and rap the command so
+ * we earn hard polymorphism to work with.
+ */
 class commandExpression : public Expression {
 
     Commands* command;

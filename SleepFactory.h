@@ -9,6 +9,9 @@
 #include "commands/Commands.h"
 #include "utils/Parser.h"
 
+/**
+ * This class creates new sleep commands
+ */
 class SleepFactory : public Commands {
     ConditionCounter* counter;
     Parser* parser;

@@ -4,6 +4,9 @@
 #include <map>
 #include "../commands/VarCommand.h"
 
+/*
+ *This class holds a map of all vars.
+ */
 class symbolTable {
     map<string,VarCommand*> symbolMap;
 

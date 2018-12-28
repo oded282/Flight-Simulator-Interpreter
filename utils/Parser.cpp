@@ -31,19 +31,21 @@ void Parser::setMap(mapCommand *map) {
     Parser::commandmap = map;
 }
 
+/*
+ * This func parse all the information from the file/user.
+ */
 vector<commandExpression*> Parser::doParser(int stopCase, bool isCalcNeeded) {
     vector<commandExpression*> expressionVector;
     factoryExpressionCommand factoryExpressionCommand(counter,commandmap);
     stopCase += index;
-    while (index < stopCase){
-        if(stopCase > vectorInfo.size()){
+    while (index < stopCase){ // number of lines needed to be execute
+        if(stopCase > vectorInfo.size()){ // case there is line deleted.
             stopCase = (int)vectorInfo.size();
         }
-        //cout <<"check parser" << index << endl;
         commandExpression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);
         expressionVector.push_back(e);
         index++;
-        if(isCalcNeeded) {
+        if(isCalcNeeded) { // case parsing only needed.
             e->calculate();
         }
     }

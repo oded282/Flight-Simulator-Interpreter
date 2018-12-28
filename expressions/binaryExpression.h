@@ -6,6 +6,12 @@
 
 #include "Expression.h"
 
+/**
+ * This class used as an abstract class to all expressions.
+ * it hold two expressions as members to all binary expressions.
+ * the calculation of two expressions works as an recursions, due to
+ * expression can be one big complex expression made up of couple expressions.
+ */
 class binaryExpression : public Expression {
 
 protected:
@@ -20,7 +26,9 @@ public:
 
 };
 
-
+/*
+ * This class use to calculate the multiplication of two expressions.
+ */
 class Mult : public binaryExpression
 {
 
@@ -29,7 +37,9 @@ public:
     virtual float calculate();
 };
 
-
+/*
+ * This class use to calculate the deviation of two expressions.
+ */
 class Div : public binaryExpression{
 
 
@@ -39,6 +49,9 @@ public:
 
 };
 
+/*
+ * This class use to calculate the sum of two expressions.
+ */
 class Plus : public binaryExpression
 {
 public:
@@ -47,7 +60,9 @@ public:
 
 };
 
-
+/*
+ * This class use to calculate the subtraction of one expressionfrom the other.
+ */
 class Minus : public binaryExpression{
 
 

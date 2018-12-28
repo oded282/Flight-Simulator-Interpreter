@@ -7,7 +7,9 @@
 #include <sstream>
 using namespace std;
 
-
+/*
+ * This func reads the data from the file.
+ */
 vector<string> Lexer::lexerFromFile(string file){
     string sentence;
     vector<string> vectorCommands;
@@ -26,6 +28,9 @@ vector<string> Lexer::lexerFromFile(string file){
 
 }
 
+/*
+ * This func reads the data from the user.
+ */
 vector<string> Lexer::lexerFromConsole(){
     string command;
     vector<string> vectorCommands;

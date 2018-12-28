@@ -4,6 +4,9 @@
 #include "ConditionParser.h"
 #include "utils/ShuntingYard.h"
 
+/*
+ * This func checks the conditions.
+ */
 int ConditionParser::execute() {
     if (condition == ">") {
         return left->calculate() > right->calculate();
@@ -15,7 +18,7 @@ int ConditionParser::execute() {
         return left->calculate() == right->calculate();
     } else if (condition == ">=") {
         return left->calculate() >= right->calculate();
-    } else { // יש מצב לבאג
+    } else {
         return left->calculate() <= right->calculate();
     }
 }
@@ -32,7 +35,9 @@ bool ConditionParser::isCondition(string::iterator &it) {
     }
 }
 
-
+/*
+ * Gets the expression it self.
+ */
 string ConditionParser::getExp(string::iterator &it, string::iterator itEnd) {
     string temp;
     while (!isCondition(it) && it != itEnd && *it != '{') {
@@ -50,7 +55,7 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
     string::iterator it;
     for (it = data.begin(); it != data.end(); it++) {
         vector.push_back(getExp(it, data.end()));
-        if (isCondition(it += 1)) {
+        if (isCondition(it += 1)) { // Case we got two characters condition.
             string temp;
             temp += *(--it);
             temp += *(++it);
@@ -61,9 +66,9 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
             temp += *(it);
             vector.push_back(temp);
         }
-        vector.push_back(getExp(++it, data.end()));
+        vector.push_back(getExp(++it, data.end())); // three condition elements pushed to vector.
 
-
+        //calculate all data with shunting yard algorithm.
         left = shuntingYard->shuntingYard(vector[0]);
         condition = vector[1];
         right = right = shuntingYard->shuntingYard(vector[2]);
@@ -74,10 +79,14 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
     }
 }
 
+/*
+ * Clean un unnecessary data from the string.
+ */
 void ConditionParser::cleanCommand(string &str, int size) {
     str = str.substr(size, str.size());
 }
 
+// This func above the command.
 double jumpUponCommand(double counter, Parser *parser) {
     while (parser->getVector()[(unsigned) counter].find('}') == string::npos) {
         counter++;
@@ -85,6 +94,9 @@ double jumpUponCommand(double counter, Parser *parser) {
     return counter;
 }
 
+/*
+ * This fun count number of open paranthesis.
+ */
 bool ConditionParser::checkOpenParanthesis(double counter) {
     if (parser->getVector()[(unsigned) counter].find('{') != string::npos) {
         cleanWhiteSpaces(parser->getVector()[(unsigned) counter]);
@@ -95,6 +107,11 @@ bool ConditionParser::checkOpenParanthesis(double counter) {
     return false;
 }
 
+/*
+ * This func counts the number of commands
+ * the while suppose to execute.
+ *
+ */
 int ConditionParser::numberOfWhileCommands() {
     double counter = parser->getIndex();
     double num = 1;
@@ -116,22 +133,7 @@ int ConditionParser::numberOfWhileCommands() {
     cleanWhiteSpaces(temp);
     if (temp[0] == '}') {
         num -= 1;
-        parser->getVector().erase(parser->getVector().begin() + counter);
+        parser->getVector().erase(parser->getVector().begin() + counter); // erase the un needed line.
     }
     return (int) num;
 }
-
-//void ConditionParser::jumpUpoenCondition() {
-//    int counter = 1;
-//    if (parser->getVector()[parser->getIndex()].find("{") != string::npos) { // if there is '{ alone in line
-//        while (counter != 0) {
-//            if(parser->getVector()[parser->getIndex()] == "{"){
-//                counter++;
-//            }else if(parser->getVector()[parser->getIndex()] == "{"){
-//
-//            }
-//        }
-//    }
-//
-//
-//}

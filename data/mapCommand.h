@@ -9,6 +9,9 @@ class Commands;
 
 using namespace std;
 
+/*
+ * This class holds the map of all commands.
+ */
 class mapCommand {
     map<string, commandExpression *> commandMap;
 
