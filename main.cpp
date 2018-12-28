@@ -16,6 +16,7 @@
 #include "commandsFactory/PrintFactory.h"
 #include "commandsFactory/AssignFactory.h"
 #include "commandsFactory/SleepFactory.h"
+#include "commands/exitCommand.h"
 #include <algorithm>
 
 using namespace std;
@@ -54,6 +55,8 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
             (new AssignFactory(counter, &parser, c, mapCommand1, varMap, shuntingYard)));
     commandExpression *c12 = new commandExpression(
             (new SleepFactory(counter, &parser, mapCommand1, varMap, shuntingYard)));
+    commandExpression *c13 = new commandExpression(
+            (new exitCommand(mapCommand1, varMap, shuntingYard)));
 
     mapCommand1->addCommand("openDataServer", c1);
     mapCommand1->addCommand("connect", c2);
@@ -67,6 +70,7 @@ void buildMapExpressionCommand(ConditionCounter *counter, mapCommand *mapCommand
     mapCommand1->addCommand("PrintFactory", c10);
     mapCommand1->addCommand("AssignFactory", c11);
     mapCommand1->addCommand("SleepFactory", c12);
+    mapCommand1->addCommand("exit", c13);
 
 }
 
@@ -112,28 +116,35 @@ void fixLineCod(vector<string> &lineCod) {
  */
 
 int main(int argc, char *argv[]) {
-    isStop = true;
-    vector<string> lineCod;
-    Lexer lexer;
 
-    if (argc == 2) {
-        lineCod = lexer.lexerFromFile(argv[1]);
-    } else {
-        lineCod = lexer.lexerFromConsole();
+        isStop = true;
+        vector<string> lineCod;
+        Lexer lexer;
+
+        if (argc == 2) {
+            lineCod = lexer.lexerFromFile(argv[1]);
+        } else {
+            lineCod = lexer.lexerFromConsole();
+        }
+        fixLineCod(lineCod);
+        ConditionCounter *counter = new ConditionCounter(1);
+        mapCommand *mapExpressionCommand = new mapCommand();
+        symbolTable *varMap = new symbolTable();
+        ShuntingYard *shuntingYard = new ShuntingYard(varMap, mapExpressionCommand);
+        Parser parser(counter, lineCod, mapExpressionCommand);
+
+        buildMapExpressionCommand(counter, mapExpressionCommand, varMap, shuntingYard, parser);
+        try {
+            parser.doParser((int) lineCod.size(), true);
+            delete shuntingYard;
+            delete mapExpressionCommand;
+            delete varMap;
+
+    }catch(...) {
+        mapExpressionCommand->getCommandExpression("exit")->calculate();
+        delete shuntingYard;
+        delete mapExpressionCommand;
+        delete varMap;
     }
-    fixLineCod(lineCod);
-    ConditionCounter *counter = new ConditionCounter(1);
-    mapCommand *mapExpressionCommand = new mapCommand();
-    symbolTable *varMap = new symbolTable();
-    ShuntingYard *shuntingYard = new ShuntingYard(varMap, mapExpressionCommand);
-    Parser parser(counter, lineCod, mapExpressionCommand);
-
-    buildMapExpressionCommand(counter, mapExpressionCommand, varMap, shuntingYard, parser);
-    parser.doParser((int) lineCod.size(), true);
-
-    isStop = false;
-    sleep(10);
-    delete shuntingYard;
-    delete mapExpressionCommand;
-    delete varMap;
+    return 1;
 }

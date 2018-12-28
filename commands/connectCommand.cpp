@@ -11,7 +11,7 @@
 #include <cstring>
 
 #define EXIT_FAILURE 1
-#define IP 1
+#define IP 0
 
 using namespace std;
 // get the socket client.

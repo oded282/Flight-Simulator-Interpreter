@@ -22,8 +22,9 @@ commandExpression *factoryExpressionCommand::creatExpressionCommand(string str) 
     if (commandMap->getCommandExpression((result[0])) == nullptr) {
         throw "Invalid Command!";
     }
+
     commandExpression *commandEx;
-    if (result[1] == "=") { // case need to create assign command.
+    if (result.size() > 1 && result[1] == "=") { // case need to create assign command.
         commandEx = commandMap->getCommandExpression("AssignFactory");
         commandEx->getCommand()->setCommand(str);
         commandEx = commandMap->getCommandExpression(result[1] + to_string(counter->getCount()));
