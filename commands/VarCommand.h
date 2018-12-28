@@ -3,7 +3,10 @@
 
 #include "Commands.h"
 
-
+/*
+ * This class implement's commands interface and got responsibility
+ * to create new vars.
+ */
 class VarCommand : public Commands {
     string name;
     string path;

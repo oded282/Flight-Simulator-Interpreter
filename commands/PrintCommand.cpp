@@ -2,11 +2,13 @@
 #include "PrintCommand.h"
 #include "../data/symbolTable.h"
 
-
+/*
+ * This func check the string initialized and print it.
+ */
 int PrintCommand::execute() {
     string result;
     string::iterator itr = str.begin();
-    while (itr != str.end()){
+    while (itr != str.end()){ // check all the string and copy it to temp.
         if (*itr == '\"'){
             itr++;
             string temp;
@@ -23,7 +25,7 @@ int PrintCommand::execute() {
                 itr++;
             }
             cleanSpace(temp);
-            if (this->varTable->getVar(temp) == nullptr){
+            if (this->varTable->getVar(temp) == nullptr){ // invalid string.
                 throw "Invalid Input!";
             }
             temp = to_string(this->varTable->getVarValue(temp)->calculate());
@@ -34,6 +36,10 @@ int PrintCommand::execute() {
     return 1;
 }
 
+/*
+ * This func cleans the string from unnecessary info
+ * and initial the string needs to be print.
+ */
 void PrintCommand::setCommand(string& str) {
     str = str.substr(6, str.size());
     this->str = str;

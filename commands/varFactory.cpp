@@ -13,20 +13,9 @@ varFactory::varFactory(mapCommand *commandTable, symbolTable *varTable, Shunting
     numZero = new Number(0);
 }
 
-string::iterator varFactory::jumpSpace(string::iterator& it) {
-    while (*it == ' ') {
-        it++;
-    }
-    return it;
-}
-
-string::iterator varFactory::jumpUponWord(string::iterator it) {
-    while (*it != ' ') {
-        it++;
-    }
-    return it;
-}
-
+/*
+ * This func iterate until it see's the info relevant to create the variable.
+ */
 string::iterator varFactory::jumpToSentence(string::iterator it) {
     while (*it != '\"') {
         it++;
@@ -35,14 +24,9 @@ string::iterator varFactory::jumpToSentence(string::iterator it) {
     return it;
 }
 
-string::iterator varFactory::jumpToStartOfVar(string::iterator it) {
-    while (*it == ' ' || *it == '=') {
-        it++;
-    }
-    it++;
-    return it;
-}
-
+/*
+ * This func copies the name of the variable.
+ */
 string varFactory::getName(string::iterator& it,string::iterator itEnd) {
     string name;
     while (*it != '=' && it != itEnd) {
@@ -52,6 +36,9 @@ string varFactory::getName(string::iterator& it,string::iterator itEnd) {
     return name;
 }
 
+/*
+ * This func copies path of the variable.
+ */
 string varFactory::getSentence(string::iterator& it, string::iterator itEnd) {
     string sentence;
     while (*it != '\"' && it != itEnd) {
@@ -61,6 +48,10 @@ string varFactory::getSentence(string::iterator& it, string::iterator itEnd) {
     return sentence;
 }
 
+/*
+ * This func cleans whitespaces and insert the relevant inforamtion
+ * to vector.
+ */
 void varFactory::getVariables(string sentence, vector<string> &vector, bool isBind) {
     cleanWhiteSpaces(sentence);
     sentence = sentence.substr(3,sentence.size());
@@ -80,16 +71,20 @@ int varFactory::execute() {
     return 1;
 }
 
+/*
+ * This func create new variables and add them to the map.
+ *
+ */
 void varFactory::setCommand(string &sentence) {
     string bind = "bind";
     string var = "var";
     vector<string> vector;
-    if (sentence.find("bind") != string::npos) {
+    if (sentence.find("bind") != string::npos) { // case the variable contains bind.
         getVariables(sentence, vector, true);
         VarCommand *newVar = new VarCommand(vector[0], numZero, vector[1], commandTable, varTable, shuntingYard);
         varTable->addVar(newVar);
         commandTable->addCommand(vector[0], new commandExpression(newVar));
-    } else{
+    } else{ // case the variable doesn't contains bind.
         getVariables(sentence, vector, false);
         VarCommand *newVar = new VarCommand(vector[0], varTable->getVarValue(vector[1]),
                               varTable->getVarPath(vector[1]), commandTable, varTable, shuntingYard);

@@ -7,7 +7,9 @@
 #include "../data/symbolTable.h"
 #include "../data/mapCommand.h"
 
-
+/*
+ * Tihs class is a factory who creates variables.
+ */
 class varFactory : public Commands {
     Expression* numZero;
 

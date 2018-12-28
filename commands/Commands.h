@@ -11,7 +11,9 @@ class mapCommand;
 class symbolTable;
 class ShuntingYard;
 
-
+/*
+ * This class used as abstract class to all commands.
+ */
 class Commands {
 protected:
     mapCommand* commandTable;

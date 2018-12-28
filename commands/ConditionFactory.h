@@ -10,6 +10,10 @@
 #include "../utils/Parser.h"
 #include "../ConditionParser.h"
 
+/*
+ * This class is a factory to all commands who uses conditions.
+ * while and if commands for example.
+ */
 class ConditionFactory : public Commands {
     Parser* parser;
     ConditionCounter* counter;

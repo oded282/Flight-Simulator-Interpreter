@@ -6,10 +6,10 @@
 #include "Commands.h"
 #include "../ConditionParser.h"
 
+/*
+ * This func responsible to execute if statements writen in the file/user
+ */
 class ifCommand : public ConditionParser {
-
-
-
 
 public:
     ifCommand(Parser* parser, mapCommand* mapTable , symbolTable* varTable , ShuntingYard* shuntingYard) :

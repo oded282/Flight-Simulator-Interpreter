@@ -3,7 +3,11 @@
 #include "ifCommand.h"
 #include "whileCommand.h"
 
-
+/*
+ * This command creates new condition command.
+ * there are two cases create if command or while command int our prog
+ * so far, rap them with the command adapter and add them to the map.
+ */
 
 void ConditionFactory::setCommand(string& str){
     if(str.find("if") != string::npos){
@@ -20,7 +24,9 @@ void ConditionFactory::setCommand(string& str){
 int ConditionFactory::execute(){
 
 }
-
+/*
+ * Return the counter of all commands.
+ */
 ConditionCounter* ConditionFactory::getCounter()  {
     return counter;
 }

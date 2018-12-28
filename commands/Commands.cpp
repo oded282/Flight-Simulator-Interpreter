@@ -20,11 +20,16 @@ void Commands::cleanWhiteSpaces(string &sentence) {
     sentence.erase(remove(sentence.begin(), sentence.end(), ' '), sentence.end());
 }
 
-
+/*
+ * Check for validation.
+ */
 bool legalExpression1(char c) {
     return c == ',' ;
 }
 
+/*
+ * Check for validation.
+ */
 bool legalExpression2(vector<string> &v, int i) {
     // check if there is digit after digit (x x).
     return isdigit(v[i - 1][v[i - 1].size() - 1]) && isdigit(v[i][0]);
@@ -37,6 +42,9 @@ Commands::Commands(mapCommand *commandTable, symbolTable *varTable, ShuntingYard
     Commands::shuntingYard = shuntingYard;
 }
 
+/*
+ * Remove whitespaces.
+ */
 vector<string> Commands::cleanSpace(string str) {
     istringstream iss(str);
     vector<std::string> result(istream_iterator<std::string>{iss},
@@ -44,6 +52,10 @@ vector<string> Commands::cleanSpace(string str) {
     return result;
 }
 
+/*
+ * This func takes the string and creates two expressions from him
+ * with shunting yard algorithm help.
+ */
 vector<string> Commands::getParameters(string &str) {
     string parameter1, parameter2;
     vector<string> result = cleanSpace(str);
@@ -59,6 +71,9 @@ vector<string> Commands::getParameters(string &str) {
     return params;
 }
 
+/*
+ * calculate the expression and return them inside vector.
+ */
 vector<string> Commands::getAssinParam(string str){
     string parameter1, parameter2;
     vector<string> result = cleanSpace(str);

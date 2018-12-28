@@ -26,10 +26,9 @@ const string &VarCommand::getSentence() const {
     return path;
 }
 
-void VarCommand::setSentence(const string &sentence) {
-    VarCommand::path = sentence;
-}
-
+/*
+ * This func sets the var's value.
+ */
 void VarCommand::setValue(Expression *value) {
     // lock thread.
     pthread_mutex_lock(&mutex);
@@ -51,6 +50,10 @@ vector<VarCommand*> VarCommand::getFriends(){
     return friends;
 }
 
+/*
+ * This func updates all "firends" with the new information.
+ * ("friends" are two variables that got the same path).
+ */
 void VarCommand::setFriends(){
     map<string,VarCommand*> :: iterator it;
     for(it = varTable->getSymbolMap().begin(); it != varTable->getSymbolMap().end(); it++){

@@ -10,6 +10,9 @@ AssignCommand::AssignCommand(connectCommand *c, mapCommand *commandTable, symbol
     AssignCommand::connect = c;
 }
 
+/*
+ * This func updates all "friends" (vars with same path) values.
+ */
 void AssignCommand::setFriends(VarCommand *var) {
     vector<VarCommand *>::iterator it;
     for (it = var->getFriends().begin(); it != var->getFriends().end(); it++) {
@@ -17,6 +20,9 @@ void AssignCommand::setFriends(VarCommand *var) {
     }
 }
 
+/*
+ * Thus func send the command to the server by the initialized params.
+ */
 int AssignCommand::execute() {
     string str;
     value = new Number(right->calculate());
@@ -27,6 +33,10 @@ int AssignCommand::execute() {
     return 1;
 }
 
+/*
+ * This func takes the string and cleans it.
+ * than calculate with the help of shunting yard to set all members.
+ */
 void AssignCommand::setCommand(string &str) {
     vector<string> vector = getAssinParam(str);
     right = shuntingYard->shuntingYard(vector[1]);

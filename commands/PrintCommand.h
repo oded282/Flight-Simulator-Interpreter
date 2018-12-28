@@ -4,6 +4,9 @@
 
 #include "Commands.h"
 
+/*
+ * This command responsible to print the expression value.
+ */
 class PrintCommand : public Commands {
 
     string str;

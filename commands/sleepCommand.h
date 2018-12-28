@@ -4,6 +4,11 @@
 
 #include "Commands.h"
 
+/*
+ * This command responsible of sleep function.
+ * it means the program waits for how long the command have been
+ * initial at the constructor.
+ */
 class sleepCommand : public Commands {
     int time;
 public:

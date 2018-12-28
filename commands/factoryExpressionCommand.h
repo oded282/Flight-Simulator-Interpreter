@@ -8,7 +8,11 @@
 
 using namespace std;
 
-
+/*
+ * This class is the factory of all factories.
+ * it checks which expression need to create and call the right factory to execute
+ * the creation of the exp.
+ */
 class factoryExpressionCommand {
 
     mapCommand* commandMap;

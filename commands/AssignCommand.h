@@ -7,7 +7,11 @@
 #include "connectCommand.h"
 
 class connectCommand;
-
+/*
+ * This class used to assign values to some variable.
+ * Every assign command have the expression left to the equal sign and
+ * the expression right to the equal sign, and the evaluated parameter.
+ */
 class AssignCommand : public Commands {
 
     connectCommand *connect;
