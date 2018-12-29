@@ -31,9 +31,9 @@ public:
      string fromVectorToString(vector<string> &result, int i, int k);
 
      ~ShuntingYard(){
-         for (Expression* itr : collector){
-             //delete itr;
-         }
+        //for (Expression* itr : collector){
+        //    //delete *itr;
+        //}
      }
 
 };

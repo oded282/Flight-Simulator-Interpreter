@@ -61,7 +61,7 @@ vector<string> Commands::getParameters(string &str) {
     vector<string> result = cleanSpace(str);
     vector<string> params;
 
-    for (int i = 1; i < result.size(); i++) {
+    for (int i = 1; i < (int)result.size(); i++) {
         if (legalExpression1(result[i][0]) || legalExpression2(result, i)) {
             params.push_back(shuntingYard->fromVectorToString(result , 1 , i ));
             params.push_back(shuntingYard->fromVectorToString(result , i,(unsigned)result.size()));

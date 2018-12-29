@@ -11,12 +11,12 @@
 #include "commands/whileCommand.h"
 #include "utils/Lexer.h"
 #include "commands/PrintCommand.h"
-#include "commands/ifCommand.cpp"
 #include "commands/ConditionFactory.h"
 #include "commandsFactory/PrintFactory.h"
 #include "commandsFactory/AssignFactory.h"
 #include "commandsFactory/SleepFactory.h"
 #include "commands/exitCommand.h"
+#include "commands/ifCommand.h"
 #include <algorithm>
 
 using namespace std;
@@ -92,7 +92,7 @@ void cleanWhitSpaces(string& str) {
  */
 void fixLineCod(vector<string> &lineCod) {
     int index = 0;
-    while (index < lineCod.size()) {
+    while (index < (int)lineCod.size()) {
         cleanWhitSpaces(lineCod[index]);
         if (lineCod[index] == "}") {
             index++;

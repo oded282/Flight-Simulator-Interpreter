@@ -33,6 +33,7 @@ bool ConditionParser::isCondition(string::iterator &it) {
     } else if (*it == '>') {
         return true;
     }
+    return false;
 }
 
 /*
@@ -71,7 +72,7 @@ void ConditionParser::setCommand(string &data) { // I treat that string as "__fi
         //calculate all data with shunting yard algorithm.
         left = shuntingYard->shuntingYard(vector[0]);
         condition = vector[1];
-        right = right = shuntingYard->shuntingYard(vector[2]);
+        right = shuntingYard->shuntingYard(vector[2]);
         if (condition.empty()) { // Case the string doesn't contain any condition.
             throw "Invalid condition";
         }

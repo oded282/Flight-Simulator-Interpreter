@@ -18,7 +18,7 @@ void SleepFactory::setCommand(string& str){
 }
 
 int SleepFactory::execute(){
-
+    return 1;
 }
 
 ConditionCounter* SleepFactory::getCounter()  {

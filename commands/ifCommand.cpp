@@ -1,15 +1,16 @@
 
 #include "ifCommand.h"
 
+
 /*
  * This func check if the condition of the if statement
  * is valid and if so it parse all the info inside the statement.
  */
 int ifCommand::execute() {
-    if(ConditionParser::execute()){ // case the condition is true;
-        commands = parser->doParser(numberOfWhileCommands(),true);
-    }else{ // case the condition is false just iterate the parser without execution.
-        commands = parser->doParser(numberOfWhileCommands(),false);
+    if (ConditionParser::execute()) { // case the condition is true;
+        commands = parser->doParser(numberOfWhileCommands(), true);
+    } else { // case the condition is false just iterate the parser without execution.
+        commands = parser->doParser(numberOfWhileCommands(), false);
     }
     return 1;
 }

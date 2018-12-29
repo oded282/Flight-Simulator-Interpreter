@@ -23,7 +23,6 @@ public:
 
     const string &getSentence() const;
 
-    void setSentence(const string &sentence);
 
     Expression *getValue() const;
 

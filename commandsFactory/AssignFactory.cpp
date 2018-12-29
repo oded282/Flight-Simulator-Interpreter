@@ -24,7 +24,7 @@ void AssignFactory::setCommand(string &str) {
 }
 
 int AssignFactory::execute() {
-
+    return 1;
 }
 
 ConditionCounter *AssignFactory::getCounter() {

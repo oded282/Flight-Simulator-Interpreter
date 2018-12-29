@@ -13,4 +13,5 @@ void openServerCommand::setCommand(string& str){
 //open server.
 int openServerCommand::execute() {
     readerServer->openServer();
+    return 1;
 }

@@ -12,8 +12,8 @@
 class ifCommand : public ConditionParser {
 
 public:
-    ifCommand(Parser* parser, mapCommand* mapTable , symbolTable* varTable , ShuntingYard* shuntingYard) :
-    ConditionParser(parser, mapTable,varTable , shuntingYard){}
+    ifCommand(Parser *parser, mapCommand *mapTable, symbolTable *varTable, ShuntingYard *shuntingYard) :
+            ConditionParser(parser, mapTable, varTable, shuntingYard) {};
     virtual int execute();
     virtual void setCommand(string& str);
     ~ifCommand(){}

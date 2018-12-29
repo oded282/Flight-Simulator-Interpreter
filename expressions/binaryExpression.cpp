@@ -5,7 +5,7 @@ binaryExpression::binaryExpression(Expression *left, Expression *right) {
     binaryExpression::right = right;
 }
 
-float binaryExpression:: calculate(){}
+float binaryExpression:: calculate(){return 1;}
 
 /*
  * This func calc the multiply of two expressions.

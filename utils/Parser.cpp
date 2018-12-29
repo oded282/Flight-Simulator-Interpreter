@@ -37,9 +37,9 @@ void Parser::setMap(mapCommand *map) {
 vector<commandExpression*> Parser::doParser(int stopCase, bool isCalcNeeded) {
     vector<commandExpression*> expressionVector;
     factoryExpressionCommand factoryExpressionCommand(counter,commandmap);
-    stopCase += index;
+    stopCase += (int)index;
     while (index < stopCase){ // number of lines needed to be execute
-        if(stopCase > vectorInfo.size()){ // case there is line deleted.
+        if(stopCase > (int)vectorInfo.size()){ // case there is line deleted.
             stopCase = (int)vectorInfo.size();
         }
         commandExpression* e = factoryExpressionCommand.creatExpressionCommand(vectorInfo[(int)index]);

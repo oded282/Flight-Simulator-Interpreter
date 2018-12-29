@@ -74,7 +74,7 @@ int setTheReceivedData(char buffer[SIZE_OF_READ_DATA], symbolTable *symbolMap,
     vector<string> values = splitByComma(buffer);
     unsigned long int endWhile = 0;
     while (endWhile < (values.size() - 1) && isStop) {
-        if (i == pathsVector.size()) {
+        if (i == (int)pathsVector.size()) {
             i = 0;
             sleep((unsigned) pace / 1000);
         }

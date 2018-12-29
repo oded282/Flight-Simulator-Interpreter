@@ -22,7 +22,7 @@ void ConditionFactory::setCommand(string& str){
 }
 
 int ConditionFactory::execute(){
-
+    return 1;
 }
 /*
  * Return the counter of all commands.

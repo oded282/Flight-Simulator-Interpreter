@@ -34,7 +34,6 @@ vector<string> Lexer::lexerFromFile(string file){
 vector<string> Lexer::lexerFromConsole(){
     string command;
     vector<string> vectorCommands;
-    //TODO check what the end key.
     while(command != "exit"){
         getline(cin, command);
         istringstream iss(command);

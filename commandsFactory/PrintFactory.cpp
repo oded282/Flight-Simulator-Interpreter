@@ -21,7 +21,7 @@ void PrintFactory::setCommand(string& str){
 }
 
 int PrintFactory::execute(){
-
+   return 1;
 }
 
 ConditionCounter* PrintFactory::getCounter()  {
