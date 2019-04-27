@@ -1,3 +1,5 @@
+Interpreter for "flightGear" simulator. 
+
 Implement Two arguments in the Settings -> Additional Settings box:
 --generic=socket,out,10,XXX.XXX.XXX.XXX,5400,tcp,generic_small -
 the i.p. of computer running interpreter
