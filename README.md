@@ -13,8 +13,7 @@ The interpreter will run until "exit" command sent.
 
 Each argument sent via running the exexcutable file is read and executed command by command.
 
-The interpreter lexes the input, than parses it. In case
-the command is valid and paramaters is valid as well, it will be executed immediately.
+The interpreter lexes the input, than parses it. In case the command and paramaters is valid, it will be executed immediately.
 Each command is represented by a Command object that implements the Command abstract class.
 while interpreter running time, another thread runs in the background updating the symbol table, with current values read from FlightGear.
 
@@ -22,3 +21,4 @@ NOTE:
 - The interpreter gets "flightGear" valid arguments only
 - Make sure you run our Interpreter before running FlightGear
 - Sleep command is implemented by sleeping the amount inputed in milliseconds!
+- test.txt contains valid script for flying the plane.
